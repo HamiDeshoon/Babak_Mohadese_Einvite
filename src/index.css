@@ -47,6 +47,30 @@
 }
 
 @layer components {
+  /* Persian Wedding Typography */
+  .font-nastaliq {
+    font-family: 'Noto Nastaliq Urdu', 'Katibeh', 'Amiri', serif;
+    line-height: 1.8;
+  }
+
+  .font-katibeh {
+    font-family: 'Katibeh', 'Amiri', serif;
+    letter-spacing: 0;
+  }
+
+  .font-ruqaa {
+    font-family: 'Aref Ruqaa', 'Katibeh', 'Amiri', serif;
+  }
+
+  .font-amiri {
+    font-family: 'Amiri', serif;
+  }
+
+  .font-lateef {
+    font-family: 'Lateef', 'Amiri', serif;
+    line-height: 1.6;
+  }
+
   /* Glass Card */
   .glass-card {
     background: rgba(254, 253, 251, 0.75);

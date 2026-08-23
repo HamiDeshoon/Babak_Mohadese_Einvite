@@ -54,13 +54,13 @@ export default function OurStory() {
             <span className="h-px w-6 bg-rose-gold/60" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-mahogany mb-6">
+          <h2 className={`${isPersian ? 'font-katibeh text-4xl sm:text-5xl md:text-6xl' : 'font-serif text-3xl sm:text-4xl md:text-5xl'} font-light text-mahogany mb-6`}>
             {t('story_title')}
           </h2>
 
           {/* Romantic Quote */}
-          <blockquote className="max-w-2xl mx-auto p-6 rounded-3xl bg-champagne/40 border border-rose-blush/40 backdrop-blur-sm text-center">
-            <p className="font-serif italic text-base sm:text-lg text-warm-gray leading-relaxed">
+          <blockquote className="max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl bg-champagne/40 border border-rose-blush/40 backdrop-blur-sm text-center">
+            <p className={`${isPersian ? 'font-nastaliq text-lg sm:text-2xl leading-loose text-mahogany' : 'font-serif italic text-base sm:text-lg text-warm-gray leading-relaxed'}`}>
               {isPersian ? invitationConfig.story.quoteFa : invitationConfig.story.quoteEn}
             </p>
           </blockquote>
@@ -98,7 +98,7 @@ export default function OurStory() {
                   <div className="text-xs uppercase tracking-[0.2em] font-serif text-rose-gold mb-2">
                     ✦ {isPersian ? chapter.yearFa : chapter.year} ✦
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-medium text-mahogany mb-4">
+                  <h3 className={`${isPersian ? 'font-katibeh text-3xl sm:text-4xl' : 'font-serif text-2xl sm:text-3xl'} font-medium text-mahogany mb-3`}>
                     {isPersian ? chapter.titleFa : chapter.titleEn}
                   </h3>
                   <p className="font-sans text-sm sm:text-base text-warm-gray font-light leading-relaxed">

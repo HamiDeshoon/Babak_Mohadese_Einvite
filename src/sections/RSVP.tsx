@@ -106,13 +106,13 @@ export default function RSVP() {
             <span className="h-px w-6 bg-rose-gold/60" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-mahogany mb-4">
+          <h2 className={`${isPersian ? 'font-katibeh text-4xl sm:text-5xl md:text-6xl' : 'font-serif text-3xl sm:text-4xl md:text-5xl'} font-light text-mahogany mb-4`}>
             {t('rsvp_title')}
           </h2>
 
           <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto">
             {t('rsvp_desc')}{' '}
-            <span className="font-serif font-medium text-rose-deep">
+            <span className={`${isPersian ? 'font-katibeh text-lg' : 'font-serif font-medium'} text-rose-deep`}>
               {isPersian ? invitationConfig.rsvp.deadlineFa : invitationConfig.rsvp.deadlineEn}
             </span>{' '}
             {t('rsvp_desc_suffix')}
@@ -129,7 +129,7 @@ export default function RSVP() {
             {/* Wax Seal Header */}
             <div className="flex justify-center mb-8">
               <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-deep via-rose-gold to-gold p-[2px] shadow-gold-glow flex items-center justify-center">
-                <div className="w-full h-full rounded-full bg-mahogany flex items-center justify-center text-gold font-serif text-lg font-bold border border-gold/40">
+                <div className={`w-full h-full rounded-full bg-mahogany flex items-center justify-center text-gold ${isPersian ? 'font-nastaliq text-xl pt-1' : 'font-serif text-lg font-bold'} border border-gold/40`}>
                   {isPersian ? 'ب&م' : 'B&M'}
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function RSVP() {
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
                 {/* Attendance Decision Buttons */}
                 <div className="space-y-3">
-                  <label className="block text-center text-xs uppercase tracking-widest font-serif text-warm-gray">
+                  <label className={`block text-center ${isPersian ? 'font-katibeh text-base' : 'text-xs uppercase tracking-widest font-serif'} text-warm-gray`}>
                     {t('rsvp_eyebrow')}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -149,7 +149,7 @@ export default function RSVP() {
                         setAttending('accept');
                         setError('');
                       }}
-                      className={`py-4 px-6 rounded-2xl font-serif text-sm sm:text-base transition-all duration-300 border flex items-center justify-center gap-2 ${
+                      className={`py-4 px-6 rounded-2xl ${isPersian ? 'font-katibeh text-lg sm:text-xl font-medium' : 'font-serif text-sm sm:text-base'} transition-all duration-300 border flex items-center justify-center gap-2 ${
                         attending === 'accept'
                           ? 'bg-gradient-to-r from-rose-deep via-rose-gold to-gold text-ivory border-transparent shadow-gold-glow scale-[1.02]'
                           : 'bg-champagne-50/70 hover:bg-champagne text-mahogany border-rose-gold/25'
@@ -164,7 +164,7 @@ export default function RSVP() {
                         setAttending('decline');
                         setError('');
                       }}
-                      className={`py-4 px-6 rounded-2xl font-serif text-sm sm:text-base transition-all duration-300 border flex items-center justify-center gap-2 ${
+                      className={`py-4 px-6 rounded-2xl ${isPersian ? 'font-katibeh text-lg sm:text-xl font-medium' : 'font-serif text-sm sm:text-base'} transition-all duration-300 border flex items-center justify-center gap-2 ${
                         attending === 'decline'
                           ? 'bg-mahogany text-ivory border-transparent shadow-md scale-[1.02]'
                           : 'bg-champagne-50/70 hover:bg-champagne text-warm-gray border-rose-gold/25'

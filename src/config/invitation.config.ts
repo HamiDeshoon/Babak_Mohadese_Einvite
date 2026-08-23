@@ -137,7 +137,7 @@ export const invitationConfig: InvitationConfig = {
     heroVideo: '',
     featuredVideo: '',
     featuredVideoPoster: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=85',
-    audioTrack: '', // Optional ambient music file or generated ambient audio
+    audioTrack: '/music.mp3', // La Maritza (Piano) wedding music track
     gallery: [
       {
         id: '1',

@@ -86,7 +86,7 @@ export default function TheWedding() {
             <span className="h-px w-6 bg-rose-gold/60" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-mahogany mb-4">
+          <h2 className={`${isPersian ? 'font-katibeh text-4xl sm:text-5xl md:text-6xl' : 'font-serif text-3xl sm:text-4xl md:text-5xl'} font-light text-mahogany mb-4`}>
             {t('wedding_title')}
           </h2>
 
@@ -104,7 +104,7 @@ export default function TheWedding() {
             >
               <div className="rounded-[calc(1.5rem-4px)] p-6 bg-ivory/90 backdrop-blur-xl h-full flex flex-col items-center text-center justify-center border border-white/60">
                 <span className="text-3xl mb-3">{card.icon}</span>
-                <h3 className="font-serif text-lg font-medium text-mahogany mb-1.5">
+                <h3 className={`${isPersian ? 'font-katibeh text-2xl font-semibold' : 'font-serif text-lg font-medium'} text-mahogany mb-1.5`}>
                   {isPersian ? card.titleFa : card.titleEn}
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-warm-gray leading-relaxed font-light">
@@ -119,7 +119,7 @@ export default function TheWedding() {
         <div className="rounded-[2.5rem] p-2 bg-gradient-to-b from-rose-blush/30 via-champagne-200/40 to-white/60 shadow-luxury max-w-3xl mx-auto">
           <div className="rounded-[calc(2.5rem-8px)] p-6 sm:p-10 bg-ivory/90 backdrop-blur-2xl border border-white/80">
             <div className="flex items-center justify-between pb-6 border-b border-rose-gold/20 mb-8">
-              <h3 className="font-serif text-xl sm:text-2xl text-mahogany font-medium">
+              <h3 className={`${isPersian ? 'font-katibeh text-2xl sm:text-3xl' : 'font-serif text-xl sm:text-2xl'} text-mahogany font-medium`}>
                 {isPersian ? 'جدول زمان‌بندی مراسم' : 'Celebration Schedule'}
               </h3>
               <button
@@ -141,7 +141,7 @@ export default function TheWedding() {
                       <span className="font-serif text-sm font-semibold text-rose-deep min-w-[75px]">
                         {isPersian ? item.timeFa : item.time}
                       </span>
-                      <h4 className="font-serif text-base sm:text-lg font-medium text-mahogany">
+                      <h4 className={`${isPersian ? 'font-katibeh text-xl sm:text-2xl' : 'font-serif text-base sm:text-lg'} font-medium text-mahogany`}>
                         {isPersian ? item.titleFa : item.titleEn}
                       </h4>
                     </div>

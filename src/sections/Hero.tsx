@@ -98,7 +98,7 @@ export default function Hero() {
           <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[2px] bg-gradient-to-tr from-gold via-rose-gold to-champagne-300 shadow-gold-glow flex items-center justify-center">
             <div className="w-full h-full rounded-full bg-ivory/90 backdrop-blur-md flex flex-col items-center justify-center border border-white/80">
               <span className="text-xs text-gold">✦</span>
-              <span className="font-serif text-lg sm:text-xl text-mahogany font-medium tracking-widest">
+              <span className={`${isPersian ? 'font-nastaliq text-xl pt-1' : 'font-serif text-lg sm:text-xl'} text-mahogany font-medium tracking-widest`}>
                 {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
               </span>
               <span className="text-[10px] text-rose-gold">✦</span>
@@ -109,30 +109,30 @@ export default function Hero() {
         {/* Eyebrow */}
         <p
           ref={eyebrowRef}
-          className="text-xs sm:text-sm uppercase tracking-[0.25em] font-serif text-rose-deep mb-4"
+          className={`${isPersian ? 'font-katibeh text-lg sm:text-xl tracking-wide' : 'font-serif text-xs sm:text-sm uppercase tracking-[0.25em]'} text-rose-deep mb-3`}
         >
           {isPersian ? invitationConfig.couple.groomFamilyFa : invitationConfig.couple.groomFamilyEn}
         </p>
 
         {/* Couple Names */}
-        <div className="my-2">
+        <div className="my-3">
           {isPersian ? (
-            <h1 className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
+            <h1 className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-6 py-2">
               <span
                 ref={name1Ref}
-                className="font-persianDisplay text-5xl sm:text-7xl md:text-8xl font-bold text-mahogany tracking-tight drop-shadow-sm"
+                className="font-nastaliq text-6xl sm:text-8xl md:text-9xl text-mahogany tracking-normal drop-shadow-sm leading-relaxed"
               >
                 {invitationConfig.couple.brideFa}
               </span>
               <span
                 ref={ampRef}
-                className="font-persianDisplay text-4xl sm:text-5xl text-rose-gold my-1 sm:my-0"
+                className="font-katibeh text-4xl sm:text-6xl text-rose-gold my-1 sm:my-0 pb-2"
               >
                 و
               </span>
               <span
                 ref={name2Ref}
-                className="font-persianDisplay text-5xl sm:text-7xl md:text-8xl font-bold text-mahogany tracking-tight drop-shadow-sm"
+                className="font-nastaliq text-6xl sm:text-8xl md:text-9xl text-mahogany tracking-normal drop-shadow-sm leading-relaxed"
               >
                 {invitationConfig.couple.groomFa}
               </span>

@@ -18,17 +18,17 @@ export default function Footer() {
           </div>
         </div>
 
-        <h3 className="font-serif text-2xl sm:text-3xl text-mahogany font-medium mb-2">
+        <h3 className={`${isPersian ? 'font-nastaliq text-4xl sm:text-5xl py-2' : 'font-serif text-2xl sm:text-3xl'} text-mahogany font-medium mb-2`}>
           {isPersian
             ? `${invitationConfig.couple.brideFa} و ${invitationConfig.couple.groomFa}`
             : `${invitationConfig.couple.groomEn} & ${invitationConfig.couple.brideEn}`}
         </h3>
 
-        <p className="font-serif text-xs uppercase tracking-[0.2em] text-rose-deep mb-4">
+        <p className={`${isPersian ? 'font-katibeh text-base' : 'font-serif text-xs uppercase tracking-[0.2em]'} text-rose-deep mb-4`}>
           ✦ {isPersian ? invitationConfig.event.dateFa : invitationConfig.event.dateEn} ✦
         </p>
 
-        <p className="font-serif italic text-sm text-warm-gray max-w-md mb-10 leading-relaxed font-light">
+        <p className={`${isPersian ? 'font-nastaliq text-base sm:text-lg leading-loose' : 'font-serif italic text-sm font-light leading-relaxed'} text-warm-gray max-w-md mb-10`}>
           {t('footer_gratitude')}
         </p>
 
