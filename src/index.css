@@ -2,6 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Jinero Curated Persian Wedding Fonts */
+@font-face {
+  font-family: 'Hussaini Nastaleeq';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/hussaini-nastaleeq/hussaininastaleeq.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Parastoo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/parastoo/parastoo-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Parastoo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/parastoo/parastoo-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mirza';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/mirza/mirza-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mirza';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/mirza/mirza-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Lateef';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/lateef/lateef-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Katibeh';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://jinero.online/storage/fonts/katibeh/katibeh-regular.woff2') format('woff2');
+}
+
 @layer base {
   :root {
     --color-champagne: #F8F4E9;
@@ -49,25 +106,32 @@
 @layer components {
   /* Persian Wedding Typography */
   .font-nastaliq {
-    font-family: 'Noto Nastaliq Urdu', 'Katibeh', 'Amiri', serif;
-    line-height: 1.8;
+    font-family: 'Hussaini Nastaleeq', 'Noto Nastaliq Urdu', 'Parastoo', 'Katibeh', serif;
+    line-height: 1.9;
+  }
+
+  .font-parastoo {
+    font-family: 'Parastoo', 'Vazirmatn', serif;
+  }
+
+  .font-mirza {
+    font-family: 'Mirza', 'Katibeh', serif;
   }
 
   .font-katibeh {
-    font-family: 'Katibeh', 'Amiri', serif;
-    letter-spacing: 0;
+    font-family: 'Katibeh', 'Parastoo', 'Amiri', serif;
   }
 
   .font-ruqaa {
-    font-family: 'Aref Ruqaa', 'Katibeh', 'Amiri', serif;
+    font-family: 'Aref Ruqaa', 'Katibeh', 'Parastoo', serif;
   }
 
   .font-amiri {
-    font-family: 'Amiri', serif;
+    font-family: 'Amiri', 'Parastoo', serif;
   }
 
   .font-lateef {
-    font-family: 'Lateef', 'Amiri', serif;
+    font-family: 'Lateef', 'Parastoo', serif;
     line-height: 1.6;
   }
 
