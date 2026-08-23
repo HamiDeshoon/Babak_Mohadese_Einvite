@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-champagne: #F8F4E9;
+    --color-ivory: #FEFDFB;
+    --color-gold: #D4AF37;
+    --color-gold-light: #F5E3B3;
+    --color-rose-gold: #B76E79;
+    --color-deep-rose: #9D4A55;
+    --color-mahogany: #3E2723;
+    --color-warm-gray: #6D5B53;
+    --color-silk: #FDF6F0;
+    --color-blush: #F2D2BD;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-mahogany);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background-image: 
+      radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(183, 110, 121, 0.05) 0%, transparent 45%);
+    background-attachment: fixed;
+  }
+
+  /* Custom Smooth Gold Scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-champagne);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-rose-gold);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-deep-rose);
+  }
+}
+
+@layer components {
+  /* Glass Card */
+  .glass-card {
+    background: rgba(254, 253, 251, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(183, 110, 121, 0.2);
+  }
+
+  /* Gold Shimmer Text */
+  .text-gold-shimmer {
+    background: linear-gradient(90deg, #3E2723 0%, #D4AF37 50%, #3E2723 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: goldShimmer 6s linear infinite;
+  }
+}
+
+@keyframes goldShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
