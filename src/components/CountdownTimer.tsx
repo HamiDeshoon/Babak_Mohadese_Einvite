@@ -77,26 +77,26 @@ export default function CountdownTimer() {
       className="relative py-20 px-6 max-w-5xl mx-auto text-center z-10"
     >
       <div className="inline-flex items-center gap-2 mb-4">
-        <span className="h-px w-8 bg-gradient-to-r from-transparent to-rose-gold/60" />
+        <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
         <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
-          ✦ {t('countdown_title')} ✦
+          ❦ {t('countdown_title')} ❦
         </span>
-        <span className="h-px w-8 bg-gradient-to-l from-transparent to-rose-gold/60" />
+        <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
       </div>
 
-      <p className="text-warm-gray text-sm md:text-base font-light mb-10 max-w-lg mx-auto">
+      <p className="text-warm-gray text-sm md:text-base font-light mb-10 max-w-lg mx-auto leading-relaxed">
         {t('countdown_subtitle')}
       </p>
 
-      {/* Luxury double-bezel countdown cards */}
+      {/* Luxury double-bezel countdown cards with sage-gold gradient */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-2xl mx-auto mb-10">
         {timerUnits.map((unit) => (
           <div
             key={unit.label}
-            className="group relative rounded-3xl p-1 bg-gradient-to-b from-champagne-200/50 via-rose-blush/20 to-champagne-100/40 shadow-luxury transition-all duration-500 hover:-translate-y-1 hover:shadow-luxury-hover"
+            className="group relative rounded-3xl p-1 bg-gradient-to-b from-sage-200/50 via-gold/30 to-champagne-100/40 shadow-luxury transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxury-hover border border-gold/25"
           >
-            <div className="rounded-[calc(1.5rem-4px)] bg-ivory/80 backdrop-blur-xl p-5 sm:p-6 border border-white/60 text-center">
-              <div className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-mahogany tracking-tight transition-transform duration-300 group-hover:scale-105">
+            <div className="rounded-[calc(1.5rem-4px)] bg-ivory/90 backdrop-blur-xl p-5 sm:p-6 border border-white/80 text-center">
+              <div className={`${isPersian ? 'font-katibeh text-4xl sm:text-5xl font-bold' : 'font-serif text-3xl sm:text-4xl md:text-5xl font-normal'} text-mahogany tracking-tight transition-transform duration-300 group-hover:scale-105 text-gold-shimmer`}>
                 {formatNumber(unit.value < 10 ? `0${unit.value}` : unit.value)}
               </div>
               <div className="mt-2 text-xs sm:text-sm uppercase tracking-[0.15em] text-warm-stone font-serif">
@@ -111,7 +111,7 @@ export default function CountdownTimer() {
       <div ref={dropdownRef} className="relative inline-block text-left">
         <button
           onClick={() => setCalendarOpen(!calendarOpen)}
-          className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-mahogany to-mahogany-light text-ivory font-serif text-sm tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-gold-glow hover:scale-105 active:scale-95"
+          className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest text-ivory font-serif text-sm tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-gold-glow hover:scale-105 active:scale-95 border border-gold/30"
         >
           <span>{t('add_to_calendar')}</span>
           <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-300 group-hover:rotate-45">

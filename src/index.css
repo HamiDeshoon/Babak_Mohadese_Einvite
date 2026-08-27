@@ -135,22 +135,73 @@
     line-height: 1.6;
   }
 
-  /* Glass Card */
+  .font-gulzar {
+    font-family: 'Gulzar', 'Katibeh', 'Parastoo', serif;
+  }
+
+  .font-lalezar {
+    font-family: 'Lalezar', 'Katibeh', sans-serif;
+  }
+
+  .font-fairytale {
+    font-family: 'Cinzel Decorative', 'Playfair Display', 'Cormorant Garamond', serif;
+  }
+
+  .font-garamond {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  }
+
+  .font-brush {
+    font-family: 'Alex Brush', 'Great Vibes', cursive;
+  }
+
+  /* Charming Natural Wedding Glass Card */
   .glass-card {
-    background: rgba(254, 253, 251, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(183, 110, 121, 0.2);
+    background: rgba(254, 253, 251, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(183, 110, 121, 0.22);
+    box-shadow: 0 20px 50px -10px rgba(62, 39, 35, 0.08), 0 0 1px 1px rgba(212, 175, 55, 0.2);
+  }
+
+  .glass-card-botanical {
+    background: rgba(255, 254, 251, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(138, 158, 137, 0.25);
+    box-shadow: 0 25px 60px -15px rgba(44, 62, 45, 0.08), 0 0 0 1px rgba(212, 175, 55, 0.25);
   }
 
   /* Gold Shimmer Text */
   .text-gold-shimmer {
-    background: linear-gradient(90deg, #3E2723 0%, #D4AF37 50%, #3E2723 100%);
+    background: linear-gradient(90deg, #3E2723 0%, #D4AF37 40%, #B76E79 60%, #3E2723 100%);
     background-size: 200% auto;
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    animation: goldShimmer 6s linear infinite;
+    animation: goldShimmer 5s linear infinite;
+  }
+
+  /* Fantasy Glow Text */
+  .fantasy-text-glow {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.35), 0 0 40px rgba(183, 110, 121, 0.25);
+  }
+
+  /* Botanical Watercolor Border Frame */
+  .botanical-border {
+    position: relative;
+  }
+  .botanical-border::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.4), rgba(114,140,125,0.3), rgba(183,110,121,0.35), rgba(212,175,55,0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }
 

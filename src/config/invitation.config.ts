@@ -72,7 +72,11 @@ export interface InvitationConfig {
     heroVideo?: string;
     featuredVideo?: string;
     featuredVideoPoster: string;
-    audioTrack?: string;
+    /**
+     * The audio track is per-language so the English and Persian pages each
+     * play their own carefully chosen piece of music.
+     */
+    audioTrack?: { en?: string; fa?: string } | string;
     gallery: GalleryItem[];
   };
   story: {
@@ -94,98 +98,209 @@ export interface InvitationConfig {
 }
 
 export const invitationConfig: InvitationConfig = {
-  couple: {
+couple: {
     groomEn: 'Babak',
     groomFa: 'بابک',
     brideEn: 'Mohadese',
     brideFa: 'محدثه',
     monogramEn: 'B & M',
-    monogramFa: 'ب & م',
+    monogramFa: '𝕭 & 𝕸',
     groomFamilyEn: 'Together with their families',
-    groomFamilyFa: 'با همراهی و شادمانی خانواده‌های محترم',
+    groomFamilyFa: 'با همراهی و شادمانی خانواده\u200cهای محترم',
     brideFamilyEn: '',
     brideFamilyFa: '',
   },
   event: {
-    targetIsoDate: '2026-09-18T18:30:00',
-    endIsoDate: '2026-09-19T01:00:00',
-    dateEn: 'Friday, September 18, 2026',
-    dateFa: 'جمعه ۲۷ شهریور ۱۴۰۵',
-    timeEn: '6:30 PM until late',
-    timeFa: 'ساعت ۱۸:۳۰ الی بامداد',
-    venueNameEn: 'Royal Palace Grand Ballroom',
-    venueNameFa: 'عمارت باشکوه رویال پالاس',
-    venueAddressEn: 'No. 18, Golestan Blvd, Tehran, Iran',
-    venueAddressFa: 'تهران، بلوار گلستان، عمارت رویال پالاس',
-    cityEn: 'Tehran',
-    cityFa: 'تهران',
+    targetIsoDate: '2026-10-09T19:00:00',
+    endIsoDate: '2026-10-10T02:00:00',
+    dateEn: 'Friday, October 9, 2026',
+    dateFa: 'جمعه ۱۷ مهر ۱۴۰۵',
+    timeEn: 'Doors open at 7:00 PM — Ceremony at 7:30 PM',
+    timeFa: 'ساعت ورود ۱۹:۰۰ — شروع مراسم ۱۹:۳۰',
+    venueNameEn: 'Rosamir Reception Hall',
+    venueNameFa: 'تالار پذیرایی رزامیر',
+    venueAddressEn: 'Garmdareh, Karaj County, Alborz Province, Iran',
+    venueAddressFa: 'گرمدره، شهرستان کرج، استان البرز',
+    cityEn: 'Garmdareh',
+    cityFa: 'گرمدره',
     dressCodeEn: 'Black Tie & Formal Elegance',
     dressCodeFa: 'لباس شب رسمی و شیک',
     dressCodeDescEn: 'We kindly request our guests to dress in formal evening attire to make the celebration truly unforgettable.',
     dressCodeDescFa: 'حضور باوقار شما با پوشش رسمی و آراسته، زیبایی جشن ما را دوچندان خواهد کرد.',
   },
   navigation: {
-    googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3230.3416593875154!2d51.2096296603599!3d35.65860216138485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8df9007207f015%3A0xa4accfcab4fcd142!2z2KjYp9i6INi52YXYp9ix2Kog2LTYp9mH2K_Yrtiq!5e0!3m2!1sen!2s!4v1783141964584!5m2!1sen!2s',
-    googleMapsDirectUrl: 'https://maps.google.com/?q=35.658602,51.209630',
-    appleMapsDirectUrl: 'https://maps.apple.com/?q=35.658602,51.209630',
-    neshanDirectUrl: 'https://nshn.ir/search?q=35.658602,51.209630',
-    baladDirectUrl: 'https://balad.ir/location?lat=35.658602&lng=51.209630',
-    wazeDirectUrl: 'https://waze.com/ul?ll=35.658602,51.209630&navigate=yes',
+    googleMapsEmbedUrl:
+      'https://www.google.com/maps?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&hl=fa&z=15&output=embed',
+    googleMapsDirectUrl:
+      'https://www.google.com/maps/search/?api=1&query=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+    appleMapsDirectUrl:
+      'https://maps.apple.com/?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+    neshanDirectUrl:
+      'https://nshn.ir/search?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+    baladDirectUrl:
+      'https://balad.ir/search?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+    wazeDirectUrl:
+      'https://waze.com/ul?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&navigate=yes',
   },
   media: {
-    heroPoster: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85',
+    heroPoster: '/us in the north.jpg',
     heroVideo: '',
     featuredVideo: '',
-    featuredVideoPoster: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=85',
-    audioTrack: '/music.mp3', // La Maritza (Piano) wedding music track
+    featuredVideoPoster: '/us engagement rings.jpg',
+    audioTrack: {
+      en: '/en-You Are My Favorite - Heather Mae (Official Music Video).mp3',
+      fa: '/fa-Mix final.mp3',
+    },
     gallery: [
       {
-        id: '1',
-        src: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
-        titleEn: 'A Gentle Beginning',
-        titleFa: 'آغاز یک نگاه',
-        captionEn: 'Every love story is beautiful, but ours is our favorite.',
-        captionFa: 'هر داستان عشقی زیباست، اما داستان ما جاودانه است.',
+        id: 'childhood-creation',
+        src: '/childhood_creation_fairytale.jpg',
+        titleEn: 'Crafting Stars of Destiny',
+        titleFa: 'ساختن ستاره‌های سرنوشت',
+        captionEn:
+          'Before we even met, the universe was already weaving our story star by star in a quiet garden of dreams.',
+        captionFa:
+          'روایت کودکانه‌ای از سرنوشت؛ وقتی در جهان‌های جداگانه، قلب‌هایمان برای رسیدن به هم بال می‌زدند.',
       },
       {
-        id: '2',
-        src: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80',
-        titleEn: 'Pure Harmony',
-        titleFa: 'هماهنگی و آرامش',
-        captionEn: 'Walking hand in hand toward our next great adventure.',
-        captionFa: 'دست در دست هم به سوی روشن‌ترین فرداها.',
+        id: 'two-children',
+        src: '/two_children_fairytale.jpg',
+        titleEn: 'Whimsical Garden of Youth',
+        titleFa: 'سرآغاز رویاها در باغ جادویی',
+        captionEn:
+          'Two pure hearts walking toward a future that had always been written in the flowers.',
+        captionFa:
+          'دست در دست به سوی آینده‌ای که از همان آغاز در میان گل‌ها نوشته شده بود.',
       },
       {
-        id: '3',
-        src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
-        titleEn: 'Golden Moments',
-        titleFa: 'لحظه‌های طلایی',
-        captionEn: 'Surrounded by love, joy, and gentle laughter.',
-        captionFa: 'در آغوش لبخند، نور و مهربانی.',
+        id: 'g12',
+        src: '/Babak childhood.jpg',
+        titleEn: 'The Boy He Was (Babak)',
+        titleFa: 'کودکی بابک',
+        captionEn:
+          'Looking at this little boy, I see the man who would one day hold my hand forever.',
+        captionFa:
+          'به این پسر کوچک که نگاه می‌کنم، مردی را می‌بینم که قرار است تا همیشه دستم را بگیرد.',
       },
       {
-        id: '4',
-        src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1200&q=80',
-        titleEn: 'The Eternal Promise',
-        titleFa: 'پیمان جاودان',
-        captionEn: 'A lifelong commitment sealed with joy and grace.',
-        captionFa: 'پیمانی از سر مهر برای تمام روزهای پیش‌رو.',
+        id: 'g13',
+        src: "/mohadese's childhood.jpg",
+        titleEn: 'The Girl She Was (Mohadese)',
+        titleFa: 'کودکی محدثه',
+        captionEn:
+          'A smile this pure was always meant to find its way to me — and I am endlessly grateful it did.',
+        captionFa:
+          'لبخندی به این پاکی قرار بود راهش را به سمت من پیدا کند؛ و من برای همیشه سپاسگزارم که این اتفاق افتاد.',
       },
       {
-        id: '5',
-        src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80',
-        titleEn: 'Celebration of Love',
-        titleFa: 'جشن شکوه عشق',
-        captionEn: 'Creating memories that will shine for years to come.',
-        captionFa: 'خاطراتی که تا ابد در قلب‌هایمان می‌درخشند.',
+        id: 'g1',
+        src: '/us in the north.jpg',
+        titleEn: 'North of Forever',
+        titleFa: 'سرزمین آغوش',
+        captionEn:
+          'In the hush of the northern woods, the world shrank down to just the two of us — and we knew this was home.',
+        captionFa:
+          'در سکوت جنگل‌های شمال، دنیا به اندازه‌ی دو نفر کوچک شد؛ و همان‌جا فهمیدیم خانه همین‌جاست.',
       },
       {
-        id: '6',
-        src: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1200&q=80',
-        titleEn: 'Together Forever',
-        titleFa: 'تا همیشه در کنار هم',
-        captionEn: 'Two souls, one heartbeat, infinite dreams.',
-        captionFa: 'دو جان، یک قلب، و آرزوهایی بی‌پایان.',
+        id: 'g2',
+        src: '/us in mountains.jpg',
+        titleEn: 'Higher Ground',
+        titleFa: 'فراز کوهستان',
+        captionEn:
+          'Climbing toward the sky, hand in hand, we found the courage to promise each other the rest of our lives.',
+        captionFa:
+          'در دل کوهستان، دست در دست، دل به هم سپردیم؛ و قولی دادیم که تا قله‌ی زندگی ادامه دارد.',
+      },
+      {
+        id: 'g3',
+        src: '/us in cave.jpg',
+        titleEn: 'Sheltered Hearts',
+        titleFa: 'پناه دل‌ها',
+        captionEn:
+          'Even in the cool shade of stone, your laugh was the warmest place I had ever known.',
+        captionFa:
+          'حتی در سایه‌ی خنک غار، خنده‌ی تو گرم‌ترین نقطه‌ای بود که تا به آن روز شناخته بودم.',
+      },
+      {
+        id: 'g4',
+        src: '/us and sunshine.jpg',
+        titleEn: 'Made of Sunlight',
+        titleFa: 'از جنس آفتاب',
+        captionEn:
+          'The light spilled through your hair and I remember thinking: this is what forever looks like.',
+        captionFa:
+          'نور از لابه‌لای موهایت گذشت و در دلم گفتم: ابدیت دقیقاً همین شکلی است.',
+      },
+      {
+        id: 'g5',
+        src: '/us somewhere.jpg',
+        titleEn: 'Anywhere With You',
+        titleFa: 'هرجا با تو',
+        captionEn:
+          'We never needed a map — wherever your hand found mine, that was the destination.',
+        captionFa:
+          'هیچ‌وقت به نقشه نیاز نداشتیم؛ هرجا دست تو به دستم می‌رسید، مقصد همان‌جا بود.',
+      },
+      {
+        id: 'g6',
+        src: '/snowy us.jpg',
+        titleEn: 'First Snow, Always You',
+        titleFa: 'نخستین برف، همیشه تو',
+        captionEn:
+          'The first snow fell, and the world went quiet — except for the sound of my heart, saying your name.',
+        captionFa:
+          'اولین برف بارید و همه‌چیز ساکت شد؛ فقط صدای قلبم بود که نامت را زمزمه می‌کرد.',
+      },
+      {
+        id: 'g7',
+        src: '/us engagement rings.jpg',
+        titleEn: 'A Quiet Yes',
+        titleFa: 'یک «آری» آرام',
+        captionEn:
+          'Two small circles. One enormous promise. The moment our hands trembled in the best possible way.',
+        captionFa:
+          'دو حلقه‌ی کوچک، یک عهد بزرگ؛ لحظه‌ای که دست‌هایمان از شادی به لرزه افتاد.',
+      },
+      {
+        id: 'g8',
+        src: '/the date of engagement.jpg',
+        titleEn: 'The Day It Began',
+        titleFa: 'روزی که آغاز شد',
+        captionEn:
+          'Some dates belong on calendars. Others belong on the heart — and this one is etched in mine.',
+        captionFa:
+          'بعضی تاریخ‌ها روی تقویم می‌مانند، بعضی‌ها روی قلب؛ این تاریخ روی قلب من حک شده است.',
+      },
+      {
+        id: 'g9',
+        src: '/us and graduation.jpg',
+        titleEn: 'Chapters We Earned',
+        titleFa: 'فصل‌هایی که ساختیم',
+        captionEn:
+          'Hard work, long nights, and your hand on my shoulder — every chapter of us was earned together.',
+        captionFa:
+          'شب‌های بیداری، تلاش‌های بی‌پایان و دست تو روی شانه‌ام؛ تک‌تک فصل‌های ما با هم ساخته شد.',
+      },
+      {
+        id: 'g10',
+        src: '/his birthday in dental clinic.jpg',
+        titleEn: 'Laughter in the Ordinary',
+        titleFa: 'خنده در روزمرگی',
+        captionEn:
+          'Even in the most unexpected places, you turned ordinary days into my favorite memories.',
+        captionFa:
+          'حتی در غیرمنتظره‌ترین لحظه‌ها، تو روزهای معمولی را به خاطره‌های مورد علاقه‌ام تبدیل کردی.',
+      },
+      {
+        id: 'g11',
+        src: '/33 years old.jpg',
+        titleEn: 'Thirty-Three and Counting',
+        titleFa: 'سی و سه سالگی و ادامه‌اش',
+        captionEn:
+          'A birthday candle, a wish, and a heart that already had everything it ever wanted — you.',
+        captionFa:
+          'یک شمع روی کیک، یک آرزو، و قلبی که از قبل همه‌چیزش را داشت: تو.',
       },
     ],
   },
@@ -196,40 +311,48 @@ export const invitationConfig: InvitationConfig = {
       {
         year: 'Chapter I',
         yearFa: 'فصل اول',
-        titleEn: 'The First Spark',
-        titleFa: 'نخستین دیدار',
-        contentEn: 'Our paths crossed in the most unexpected way. What began as a simple conversation quickly revealed an unmistakable connection, quiet understanding, and shared laughter that lit up the room.',
-        contentFa: 'مسیر زندگی‌مان به زیباترین شکل ممکن به هم گره خورد. گفت‌وگویی ساده که خیلی زود به درکی عمیق، لبخندهایی بی‌پایان و اتصالی پاک و صمیمی تبدیل شد.',
-        image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+        titleEn: 'Origins & Two Little Stars',
+        titleFa: 'سرآغاز رویاها: دو ستاره‌ی کوچک',
+        contentEn:
+          'Long before our paths crossed, two childhoods were unfolding with the same laughter, curiosity, and dream of finding a true soulmate.',
+        contentFa:
+          'سال‌ها پیش از آنکه راه‌هایمان یکی شود، در دنیای کودکی با آرزوهایی پاک رشد کردیم؛ غافل از آنکه سرنوشت قشنگ‌ترین پیوند را برایمان کنار گذاشته است.',
+        image: '/childhood_creation_fairytale.jpg',
       },
       {
         year: 'Chapter II',
         yearFa: 'فصل دوم',
         titleEn: 'Growing Side by Side',
         titleFa: 'همگام در مسیر رویاها',
-        contentEn: 'Through seasons of adventures, challenges, shared cups of tea, and late-night dreams, we discovered that home isn’t a place—it is being with each other.',
-        contentFa: 'با هر فصل از زندگی، در میان سفرها، چالش‌ها و رویاپردازی‌های شبانه، آموختیم که خانه یک مکان نیست، بلکه بودن در کنار یکدیگر است.',
-        image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
+        contentEn:
+          'From northern forests to graduation halls, every step we took side by side taught us that home is not a place — it is each other.',
+        contentFa:
+          'از جنگل‌های شمال تا روزهای فارغ‌التحصیلی، هر قدمی که کنار هم برداشتیم یادآور ما شد که خانه یک مکان نیست، بلکه بودن کنار یکدیگر است.',
+        image: '/us in the north.jpg',
       },
       {
         year: 'Chapter III',
         yearFa: 'فصل سوم',
         titleEn: 'The Yes to Forever',
         titleFa: 'پاسخ بله به آینده',
-        contentEn: 'Under the starlit sky, we made a promise to choose each other every day, through every storm and every sunshine. Now, we begin our greatest chapter yet.',
-        contentFa: 'زیر آسمان پرستاره، عهدی بستیم تا در تک تک روزهای زندگی، در شادی و در سختی، تکیه‌گاه یکدیگر باشیم و اکنون بزرگ‌ترین جشن پیوندمان را آغاز می‌کنیم.',
-        image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
+        contentEn:
+          'On bended knee, with a trembling hand and a steady heart, we said the only word that mattered — yes, to forever, to each other.',
+        contentFa:
+          'روزی که زانو زد، با دستی لرزان و قلبی استوار، تنها کلمه‌ای را گفت که اهمیت داشت: «آری»؛ آری به ابدیت، آری به یکدیگر.',
+        image: '/us engagement rings.jpg',
       },
     ],
   },
   schedule: [
     {
-      time: '6:30 PM',
-      timeFa: '۱۸:۳۰',
-      titleEn: 'Guest Welcome & Reception',
-      titleFa: 'استقبال و خوش‌آمدگویی',
-      descEn: 'Arrival of beloved guests, ambient music, and welcome drinks in the rose garden.',
-      descFa: 'ورود مهمانان گرامی، پذیرایی عصرانه و نوای دل‌انگیز موسیقی زنده.',
+      time: '7:00 PM',
+      timeFa: '۱۹:۰۰',
+      titleEn: 'Doors Open & Guest Reception',
+      titleFa: 'باز شدن درب‌ها و پذیرش مهمانان',
+      descEn:
+        'Welcome to Rosamir Hall. Guests are invited to arrive, find their seats, and enjoy welcome refreshments.',
+      descFa:
+        'خوش آمدید به تالار رزامیر. لحظاتی را با پذیرایی آغازین و خوش‌آمدگویی مهمانان گرامی سپری کنید.',
       icon: 'cocktail',
     },
     {
@@ -242,8 +365,8 @@ export const invitationConfig: InvitationConfig = {
       icon: 'ring',
     },
     {
-      time: '8:30 PM',
-      timeFa: '۲۰:۳۰',
+      time: '9:00 PM',
+      timeFa: '۲۱:۰۰',
       titleEn: 'Cake Cutting & Toast',
       titleFa: 'برش کیک و شادباش',
       descEn: 'Sweetening the night with celebration cake and toast to new beginnings.',
@@ -251,8 +374,8 @@ export const invitationConfig: InvitationConfig = {
       icon: 'cake',
     },
     {
-      time: '9:15 PM',
-      timeFa: '۲۱:۱۵',
+      time: '9:45 PM',
+      timeFa: '۲۱:۴۵',
       titleEn: 'Grand Banquet Dinner',
       titleFa: 'ضیافت شام شاهانه',
       descEn: 'A sumptuous feast prepared with love to celebrate our joyful night.',
@@ -260,8 +383,8 @@ export const invitationConfig: InvitationConfig = {
       icon: 'dinner',
     },
     {
-      time: '10:30 PM',
-      timeFa: '۲۲:۳۰',
+      time: '10:45 PM',
+      timeFa: '۲۲:۴۵',
       titleEn: 'Music, Dance & Celebration',
       titleFa: 'جشن، رقص و پایکوبی',
       descEn: 'Dancing the night away with joy, laughter, and lifelong memories.',
@@ -270,15 +393,10 @@ export const invitationConfig: InvitationConfig = {
     },
   ],
   rsvp: {
-    deadlineEn: 'September 5, 2026',
-    deadlineFa: '۱۵ شهریور ۱۴۰۵',
+    deadlineEn: 'September 25, 2026',
+    deadlineFa: '۳ مهر ۱۴۰۵',
     sheetEndpoint: typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_SHEET_URL ? import.meta.env.VITE_GOOGLE_SHEET_URL : '',
-    dietaryOptions: [
-      { id: 'standard', labelEn: 'Standard Feast', labelFa: 'منوی استاندارد' },
-      { id: 'vegetarian', labelEn: 'Vegetarian', labelFa: 'گیاه‌خواری' },
-      { id: 'halal', labelEn: 'Halal Gourmet', labelFa: 'حلال ویژه' },
-      { id: 'none', labelEn: 'No Preference', labelFa: 'بدون اولویت خاص' },
-    ],
+    dietaryOptions: [],
   },
   contacts: {
     groom: {

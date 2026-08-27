@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
-import LanguageSwitch from '../components/LanguageSwitch';
 import AudioPlayer from '../components/AudioPlayer';
 
 export default function Navigation() {
@@ -86,10 +85,9 @@ export default function Navigation() {
             ))}
           </nav>
 
-          {/* Right Action Controls: Audio + Language + Mobile Toggle */}
+          {/* Right Action Controls: Audio + Mobile Toggle */}
           <div className="flex items-center gap-3">
             <AudioPlayer />
-            <LanguageSwitch />
 
             {/* Mobile Hamburger Button */}
             <button
@@ -129,7 +127,7 @@ export default function Navigation() {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className={`text-lg font-serif tracking-wider ${
+                className={`text-xl font-fantasy tracking-wider ${
                   link.isCta
                     ? 'px-8 py-3 rounded-full bg-rose-deep text-ivory shadow-lg'
                     : 'text-mahogany hover:text-rose-gold'

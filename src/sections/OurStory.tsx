@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
+import { asset } from '../lib/assets';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,58 +48,95 @@ export default function OurStory() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
             <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
-              {t('story_eyebrow')}
+              ❦ {t('story_eyebrow')} ❦
             </span>
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className={`${isPersian ? 'font-katibeh text-4xl sm:text-5xl md:text-6xl' : 'font-serif text-3xl sm:text-4xl md:text-5xl'} font-light text-mahogany mb-6`}>
+          <h2 className={`${isPersian ? 'font-fantasy text-4xl sm:text-5xl md:text-6xl' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-6 text-gold-shimmer`}>
             {t('story_title')}
           </h2>
 
-          {/* Romantic Quote */}
-          <blockquote className="max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl bg-champagne/40 border border-rose-blush/40 backdrop-blur-sm text-center">
-            <p className={`${isPersian ? 'font-nastaliq text-lg sm:text-2xl leading-loose text-mahogany' : 'font-serif italic text-base sm:text-lg text-warm-gray leading-relaxed'}`}>
+          {/* Romantic Fairytale Quote */}
+          <blockquote className="max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl bg-ivory/80 border border-gold/30 backdrop-blur-md text-center shadow-luxury relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-sage-200/40 to-transparent rounded-bl-full pointer-events-none" />
+            <p className={`${isPersian ? 'font-nastaliq text-xl sm:text-2xl leading-loose text-mahogany' : 'font-garamond italic text-lg sm:text-xl text-warm-gray leading-relaxed'}`}>
               {isPersian ? invitationConfig.story.quoteFa : invitationConfig.story.quoteEn}
             </p>
           </blockquote>
         </div>
 
-        {/* Story Chapters Timeline / Double-Bezel Cards */}
-        <div ref={cardsRef} className="space-y-12 sm:space-y-16">
+        {/* Story Chapters Timeline / Double-Bezel Botanical Cards */}
+        <div ref={cardsRef} className="space-y-14 sm:space-y-20">
           {invitationConfig.story.chapters.map((chapter, idx) => {
             const isEven = idx % 2 === 0;
+            const isChildhood = idx === 0;
             return (
               <div
                 key={chapter.year}
                 className={`story-card group flex flex-col ${
                   isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                } gap-8 items-center rounded-3xl sm:rounded-4xl p-2 bg-gradient-to-b from-champagne-200/40 via-white/50 to-champagne-100/30 border border-rose-gold/20 shadow-luxury transition-all duration-500 hover:shadow-luxury-hover`}
+                } gap-8 items-center rounded-3xl sm:rounded-4xl p-2 bg-gradient-to-b from-sage-100/50 via-white/70 to-champagne-100/40 border border-gold/25 shadow-luxury transition-all duration-500 hover:shadow-luxury-hover`}
               >
-                {/* Image / Visual Container */}
-                {chapter.image && (
-                  <div className="w-full md:w-1/2 rounded-[calc(2rem-4px)] sm:rounded-[calc(2.5rem-4px)] overflow-hidden aspect-[4/3] bg-champagne-100 relative">
-                    <img
-                      src={chapter.image}
-                      alt={isPersian ? chapter.titleFa : chapter.titleEn}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent opacity-60" />
-                    <span className="absolute bottom-4 left-4 rtl:left-auto rtl:right-4 px-3.5 py-1 rounded-full bg-ivory/90 backdrop-blur-md text-xs font-serif text-mahogany shadow-sm">
-                      {isPersian ? chapter.yearFa : chapter.year}
-                    </span>
-                  </div>
-                )}
+                {/* Visual Container */}
+                <div className="w-full md:w-1/2 flex flex-col gap-3">
+                  {chapter.image && (
+                    <div className="w-full rounded-[calc(2rem-4px)] sm:rounded-[calc(2.5rem-4px)] overflow-hidden aspect-[4/3] bg-champagne-100 relative shadow-sm">
+                      <img
+                        src={asset(chapter.image)}
+                        alt={isPersian ? chapter.titleFa : chapter.titleEn}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-mahogany/50 via-transparent to-transparent opacity-60" />
+                      <span className="absolute bottom-4 left-4 rtl:left-auto rtl:right-4 px-4 py-1 rounded-full bg-ivory/95 backdrop-blur-md text-xs font-serif text-mahogany shadow-sm border border-gold/30">
+                        ❦ {isPersian ? chapter.yearFa : chapter.year}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Special Childhood Dual Portraits under Chapter 1 */}
+                  {isChildhood && (
+                    <div className="grid grid-cols-2 gap-3 pt-1">
+                      <div className="relative rounded-2xl overflow-hidden aspect-square border border-rose-gold/30 shadow-sm group/child">
+                        <img
+                          src={asset('/Babak childhood.jpg')}
+                          alt={isPersian ? 'کودکی بابک' : "Babak's Childhood"}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover/child:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/80 via-transparent to-transparent flex items-end p-2.5">
+                          <span className="text-[11px] font-katibeh sm:text-xs text-ivory font-medium">
+                            {isPersian ? 'کودکی بابک' : 'Little Babak'}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="relative rounded-2xl overflow-hidden aspect-square border border-rose-gold/30 shadow-sm group/child">
+                        <img
+                          src={asset("/mohadese's childhood.jpg")}
+                          alt={isPersian ? 'کودکی محدثه' : "Mohadese's Childhood"}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover/child:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/80 via-transparent to-transparent flex items-end p-2.5">
+                          <span className="text-[11px] font-katibeh sm:text-xs text-ivory font-medium">
+                            {isPersian ? 'کودکی محدثه' : 'Little Mohadese'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 {/* Text Content */}
                 <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-center text-left rtl:text-right">
-                  <div className="text-xs uppercase tracking-[0.2em] font-serif text-rose-gold mb-2">
-                    ✦ {isPersian ? chapter.yearFa : chapter.year} ✦
+                  <div className="text-xs uppercase tracking-[0.2em] font-serif text-rose-deep mb-2 flex items-center gap-2">
+                    <span className="text-gold">✦</span>
+                    <span>{isPersian ? chapter.yearFa : chapter.year}</span>
+                    <span className="text-gold">✦</span>
                   </div>
-                  <h3 className={`${isPersian ? 'font-katibeh text-3xl sm:text-4xl' : 'font-serif text-2xl sm:text-3xl'} font-medium text-mahogany mb-3`}>
+                  <h3 className={`${isPersian ? 'font-fantasy text-3xl sm:text-4xl' : 'font-fairytale text-2xl sm:text-3xl'} font-normal text-mahogany mb-3`}>
                     {isPersian ? chapter.titleFa : chapter.titleEn}
                   </h3>
                   <p className="font-sans text-sm sm:text-base text-warm-gray font-light leading-relaxed">

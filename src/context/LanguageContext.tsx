@@ -5,6 +5,7 @@ export type Language = 'en' | 'fa';
 
 interface LanguageContextType {
   language: Language;
+  // Locked per route: pages are fully separate, no runtime switching.
   setLanguage: (lang: Language) => void;
   isPersian: boolean;
   dir: 'ltr' | 'rtl';
@@ -109,26 +110,20 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const langParam = urlParams.get('lang');
-      if (langParam === 'fa' || langParam === 'en') return langParam;
-      const stored = localStorage.getItem('einvite_lang');
-      if (stored === 'fa' || stored === 'en') return stored;
-    }
-    return 'fa'; // Default to Persian for rich cultural setting, switchable anytime
-  });
+export function LanguageProvider({
+  children,
+  initial = 'fa',
+}: {
+  children: ReactNode;
+  initial?: Language;
+}) {
+  // Language is now hard-coded per route. The route component is responsible
+  // for passing `initial="en"` or `initial="fa"` and there is no UI to switch
+  // languages — each page is fully its own experience.
+  const [language, setLanguageState] = useState<Language>(initial);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('einvite_lang', lang);
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', lang);
-      window.history.replaceState({}, '', url.toString());
-    }
   };
 
   useEffect(() => {

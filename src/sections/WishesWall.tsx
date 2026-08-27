@@ -78,24 +78,24 @@ export default function WishesWall() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
             <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
-              {t('wishes_eyebrow')}
+              ❦ {t('wishes_eyebrow')} ❦
             </span>
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-mahogany mb-4">
+          <h2 className={`${isPersian ? 'font-fantasy text-4xl sm:text-5xl md:text-6xl' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-4 text-gold-shimmer`}>
             {t('wishes_title')}
           </h2>
 
-          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto">
+          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed">
             {t('wishes_subtitle')}
           </p>
         </div>
 
         {/* Input Box */}
-        <div className="max-w-2xl mx-auto mb-14 rounded-3xl p-1 bg-gradient-to-b from-champagne-200/50 via-rose-blush/30 to-champagne-100/40 shadow-luxury">
+        <div className="max-w-2xl mx-auto mb-14 rounded-3xl p-1 bg-gradient-to-b from-sage-200/50 via-gold/30 to-champagne-100/40 shadow-luxury border border-gold/25">
           <form
             onSubmit={handlePostWish}
             className="p-6 sm:p-8 rounded-[calc(1.5rem-4px)] bg-ivory/95 border border-white/80 space-y-4"
@@ -107,7 +107,7 @@ export default function WishesWall() {
                 placeholder={t('wishes_author')}
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                className="w-full px-5 py-3 rounded-xl bg-champagne-50/50 border border-rose-gold/20 text-sm text-mahogany outline-none focus:border-gold transition-all"
+                className="w-full px-5 py-3 rounded-xl bg-champagne-50/50 border border-sage-300 text-sm text-mahogany outline-none focus:border-gold transition-all"
               />
             </div>
 
@@ -118,14 +118,14 @@ export default function WishesWall() {
                 placeholder={t('wishes_placeholder')}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full px-5 py-3 rounded-xl bg-champagne-50/50 border border-rose-gold/20 text-sm text-mahogany outline-none focus:border-gold transition-all resize-none"
+                className="w-full px-5 py-3 rounded-xl bg-champagne-50/50 border border-sage-300 text-sm text-mahogany outline-none focus:border-gold transition-all resize-none"
               />
             </div>
 
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-full bg-rose-gold hover:bg-rose-deep text-ivory font-serif text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105 active:scale-95"
+                className="px-7 py-2.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest hover:shadow-gold-glow text-ivory font-serif text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 border border-gold/30"
               >
                 {t('wishes_post')}
               </button>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig, GalleryItem } from '../config/invitation.config';
+import { asset } from '../lib/assets';
 
 export default function Gallery() {
   const { isPersian, t } = useLanguage();
@@ -14,88 +15,51 @@ export default function Gallery() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
             <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
-              {t('gallery_eyebrow')}
+              ❦ {t('gallery_eyebrow')} ❦
             </span>
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-mahogany mb-4">
+          <h2 className={`${isPersian ? 'font-fantasy text-4xl sm:text-5xl md:text-6xl' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-4 text-gold-shimmer`}>
             {t('gallery_title')}
           </h2>
 
-          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto">
+          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed">
             {t('gallery_desc')}
           </p>
         </div>
 
-        {/* Video Invitation Player if configured */}
-        <div className="mb-16 max-w-4xl mx-auto rounded-[2.5rem] p-2 bg-gradient-to-b from-champagne-200/50 via-rose-blush/30 to-champagne-100/40 shadow-luxury">
-          <div className="rounded-[calc(2.5rem-8px)] overflow-hidden bg-ivory p-6 sm:p-8 border border-white/80 text-center">
-            <h3 className="font-serif text-xl sm:text-2xl text-mahogany font-medium mb-2">
-              {t('video_invitation_title')}
-            </h3>
-            <p className="font-sans text-xs sm:text-sm text-warm-gray mb-6 font-light">
-              {t('video_invitation_desc')}
-            </p>
-
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-md bg-champagne-100">
-              {invitationConfig.media.featuredVideo ? (
-                <video
-                  src={invitationConfig.media.featuredVideo}
-                  controls
-                  poster={invitationConfig.media.featuredVideoPoster}
-                  className="w-full h-full object-cover"
-                >
-                  Your browser does not support video playback.
-                </video>
-              ) : (
-                <div className="w-full h-full relative group cursor-pointer">
-                  <img
-                    src={invitationConfig.media.featuredVideoPoster}
-                    alt="Video Invitation Preview"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-mahogany/30 backdrop-blur-[2px] flex items-center justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-ivory/90 backdrop-blur-md shadow-gold-glow flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                      <span className="text-rose-deep text-2xl sm:text-3xl ml-1 rtl:mr-1 rtl:ml-0">▶</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
         {/* Bento Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {images.map((img) => (
             <figure
               key={img.id}
               onClick={() => setActiveImage(img)}
-              className="group cursor-pointer rounded-3xl p-1 bg-gradient-to-b from-champagne-200/40 via-white/60 to-champagne-100/30 border border-rose-gold/20 shadow-luxury transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxury-hover overflow-hidden"
+              className="group cursor-pointer rounded-3xl p-1.5 bg-gradient-to-b from-sage-100/60 via-champagne-100/50 to-rose-blush/30 border border-gold/30 shadow-luxury transition-all duration-500 hover:-translate-y-2 hover:shadow-luxury-hover overflow-hidden"
             >
-              <div className="rounded-[calc(1.5rem-4px)] overflow-hidden bg-ivory">
+              <div className="rounded-[calc(1.5rem-4px)] overflow-hidden bg-ivory/95">
                 <div className="aspect-[4/3] overflow-hidden relative">
                   <img
-                    src={img.src}
+                    src={asset(img.src)}
                     alt={isPersian ? img.titleFa : img.titleEn}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-mahogany/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-mahogany/70 via-forest/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-5">
                     <span className="text-xs font-serif text-ivory tracking-widest uppercase">
-                      ✦ Click to expand
+                      ✦ {isPersian ? 'بزرگنمایی تصویر' : 'Expand Image'}
                     </span>
+                    <span className="text-gold text-lg">✦</span>
                   </div>
                 </div>
 
-                <figcaption className="p-4 text-center">
-                  <h4 className="font-serif text-base font-medium text-mahogany mb-1">
+                <figcaption className="p-5 text-center bg-ivory/90 backdrop-blur-sm">
+                  <h4 className={`${isPersian ? 'font-katibeh text-xl sm:text-2xl' : 'font-serif text-base sm:text-lg'} font-semibold text-mahogany mb-1.5`}>
                     {isPersian ? img.titleFa : img.titleEn}
                   </h4>
-                  <p className="font-sans text-xs text-warm-gray font-light">
+                  <p className="font-sans text-xs sm:text-sm text-warm-gray font-light leading-relaxed">
                     {isPersian ? img.captionFa : img.captionEn}
                   </p>
                 </figcaption>
@@ -125,7 +89,7 @@ export default function Gallery() {
 
             <div className="rounded-[calc(1.5rem-4px)] bg-ivory overflow-hidden">
               <img
-                src={activeImage.src}
+                src={asset(activeImage.src)}
                 alt={isPersian ? activeImage.titleFa : activeImage.titleEn}
                 className="max-h-[70vh] w-auto mx-auto object-contain"
               />

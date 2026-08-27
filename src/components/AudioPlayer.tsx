@@ -1,34 +1,51 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
+import { asset } from '../lib/assets';
+
+function resolveAudioTrack(lang: 'en' | 'fa'): string {
+  const at = invitationConfig.media.audioTrack;
+  if (!at) return '';
+  if (typeof at === 'string') return asset(at);
+  return asset((lang === 'fa' ? at.fa : at.en) ?? at.en ?? at.fa ?? '');
+}
 
 export default function AudioPlayer() {
-  const { isPersian, t } = useLanguage();
+  const { isPersian, t, language } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(false);
   const [showAutoPlayPrompt, setShowAutoPlayPrompt] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const currentSrcRef = useRef<string>('');
+
+  const buildAudio = () => {
+    const src = resolveAudioTrack(language);
+    if (!src) return null;
+    if (audioRef.current && currentSrcRef.current === src) return audioRef.current;
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.volume = 0.75;
+    audioRef.current = audio;
+    currentSrcRef.current = src;
+    return audio;
+  };
 
   const startPlaying = () => {
-    if (!audioRef.current && invitationConfig.media.audioTrack) {
-      const audio = new Audio(invitationConfig.media.audioTrack);
-      audio.loop = true;
-      audio.volume = 0.75;
-      audioRef.current = audio;
-    }
-
-    if (audioRef.current) {
-      audioRef.current
-        .play()
-        .then(() => {
-          setIsPlaying(true);
-          setShowAutoPlayPrompt(false);
-        })
-        .catch(() => {
-          // Autoplay blocked by browser policy
-          setIsPlaying(false);
-          setShowAutoPlayPrompt(true);
-        });
-    }
+    const audio = buildAudio();
+    if (!audio) return;
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+        setShowAutoPlayPrompt(false);
+      })
+      .catch(() => {
+        // Autoplay blocked by browser policy
+        setIsPlaying(false);
+        setShowAutoPlayPrompt(true);
+      });
   };
 
   const pausePlaying = () => {
@@ -45,6 +62,19 @@ export default function AudioPlayer() {
       startPlaying();
     }
   };
+
+  // Whenever the locked language of the page changes (e.g. cross-route nav),
+  // rebuild the audio source so the right track plays.
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    audioRef.current = null;
+    currentSrcRef.current = '';
+    setIsPlaying(false);
+    startPlaying();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language]);
 
   useEffect(() => {
     // 1. Attempt initial autoplay
@@ -69,6 +99,7 @@ export default function AudioPlayer() {
         audioRef.current.pause();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

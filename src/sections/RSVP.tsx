@@ -5,10 +5,9 @@ import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
 
 export default function RSVP() {
-  const { isPersian, formatNumber, t } = useLanguage();
+  const { isPersian, formatNumber, t, language } = useLanguage();
   const [attending, setAttending] = useState<'accept' | 'decline' | null>(null);
   const [guestCount, setGuestCount] = useState<number>(1);
-  const [dietary, setDietary] = useState<string>('standard');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -54,14 +53,17 @@ export default function RSVP() {
     const form = formRef.current;
     if (!form) return;
 
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement | null;
+
     const body = {
       name: (form.elements.namedItem('name') as HTMLInputElement).value,
       phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
+      email: emailInput?.value?.trim() || '',
       attending,
       guestCount: attending === 'accept' ? guestCount : 0,
-      dietary: attending === 'accept' ? dietary : '',
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
       website: (form.elements.namedItem('website') as HTMLInputElement).value, // Honeypot
+      language, // 'en' or 'fa'
       timestamp: new Date().toISOString(),
     };
 
@@ -99,31 +101,31 @@ export default function RSVP() {
         {/* Section Header */}
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
             <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
-              {t('rsvp_eyebrow')}
+              ❦ {t('rsvp_eyebrow')} ❦
             </span>
-            <span className="h-px w-6 bg-rose-gold/60" />
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className={`${isPersian ? 'font-katibeh text-4xl sm:text-5xl md:text-6xl' : 'font-serif text-3xl sm:text-4xl md:text-5xl'} font-light text-mahogany mb-4`}>
+          <h2 className={`${isPersian ? 'font-fantasy text-4xl sm:text-5xl md:text-6xl' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-4 text-gold-shimmer`}>
             {t('rsvp_title')}
           </h2>
 
-          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto">
+          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed">
             {t('rsvp_desc')}{' '}
-            <span className={`${isPersian ? 'font-katibeh text-lg' : 'font-serif font-medium'} text-rose-deep`}>
+            <span className={`${isPersian ? 'font-katibeh text-xl font-bold' : 'font-serif font-medium'} text-rose-deep`}>
               {isPersian ? invitationConfig.rsvp.deadlineFa : invitationConfig.rsvp.deadlineEn}
             </span>{' '}
             {t('rsvp_desc_suffix')}
           </p>
         </div>
 
-        {/* Double-Bezel Ultra-Luxury RSVP Card */}
-        <div className="rounded-[3rem] p-2 sm:p-3 bg-gradient-to-b from-gold/40 via-rose-gold/30 to-champagne-200/50 shadow-2xl relative overflow-hidden">
-          {/* Subtle gold foil accent in corner */}
-          <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-gradient-to-br from-gold/30 to-transparent blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-gradient-to-tr from-rose-deep/20 to-transparent blur-2xl pointer-events-none" />
+        {/* Double-Bezel Ultra-Luxury Charming Natural RSVP Card */}
+        <div className="rounded-[3rem] p-2 sm:p-3 bg-gradient-to-b from-sage-200/50 via-gold/30 to-champagne-200/50 shadow-2xl relative overflow-hidden">
+          {/* Subtle gold foil & sage leaf accents in corners */}
+          <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-gradient-to-br from-gold/30 via-sage-300/20 to-transparent blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-12 -left-12 w-40 h-40 rounded-full bg-gradient-to-tr from-rose-deep/20 via-eucalyptus-light/30 to-transparent blur-2xl pointer-events-none" />
 
           <div className="rounded-[calc(3rem-8px)] bg-ivory/95 backdrop-blur-3xl p-8 sm:p-12 border border-white/90 relative z-10">
             {/* Wax Seal Header */}
@@ -139,7 +141,7 @@ export default function RSVP() {
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
                 {/* Attendance Decision Buttons */}
                 <div className="space-y-3">
-                  <label className={`block text-center ${isPersian ? 'font-katibeh text-base' : 'text-xs uppercase tracking-widest font-serif'} text-warm-gray`}>
+                  <label className={`block text-center ${isPersian ? 'font-katibeh text-lg' : 'text-xs uppercase tracking-widest font-serif'} text-warm-gray`}>
                     {t('rsvp_eyebrow')}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -149,9 +151,9 @@ export default function RSVP() {
                         setAttending('accept');
                         setError('');
                       }}
-                      className={`py-4 px-6 rounded-2xl ${isPersian ? 'font-katibeh text-lg sm:text-xl font-medium' : 'font-serif text-sm sm:text-base'} transition-all duration-300 border flex items-center justify-center gap-2 ${
+                      className={`py-4 px-6 rounded-2xl ${isPersian ? 'font-katibeh text-xl font-medium' : 'font-serif text-sm sm:text-base'} transition-all duration-300 border flex items-center justify-center gap-2 ${
                         attending === 'accept'
-                          ? 'bg-gradient-to-r from-rose-deep via-rose-gold to-gold text-ivory border-transparent shadow-gold-glow scale-[1.02]'
+                          ? 'bg-gradient-to-r from-forest via-sage-500 to-forest text-ivory border-transparent shadow-gold-glow scale-[1.02]'
                           : 'bg-champagne-50/70 hover:bg-champagne text-mahogany border-rose-gold/25'
                       }`}
                     >
@@ -164,7 +166,7 @@ export default function RSVP() {
                         setAttending('decline');
                         setError('');
                       }}
-                      className={`py-4 px-6 rounded-2xl ${isPersian ? 'font-katibeh text-lg sm:text-xl font-medium' : 'font-serif text-sm sm:text-base'} transition-all duration-300 border flex items-center justify-center gap-2 ${
+                      className={`py-4 px-6 rounded-2xl ${isPersian ? 'font-katibeh text-xl font-medium' : 'font-serif text-sm sm:text-base'} transition-all duration-300 border flex items-center justify-center gap-2 ${
                         attending === 'decline'
                           ? 'bg-mahogany text-ivory border-transparent shadow-md scale-[1.02]'
                           : 'bg-champagne-50/70 hover:bg-champagne text-warm-gray border-rose-gold/25'
@@ -205,6 +207,19 @@ export default function RSVP() {
                     />
                   </div>
 
+                  {/* Optional Email Input */}
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest font-serif text-mahogany mb-2">
+                      {isPersian ? 'ایمیل (اختیاری)' : 'Email Address (Optional)'}
+                    </label>
+                    <input
+                      name="email"
+                      type="email"
+                      placeholder={isPersian ? 'name@example.com' : 'name@example.com'}
+                      className="w-full px-5 py-3.5 rounded-2xl bg-champagne-50/50 border border-rose-gold/25 focus:border-gold focus:bg-ivory text-mahogany text-sm outline-none transition-all duration-300 shadow-inner rtl:text-right"
+                    />
+                  </div>
+
                   {/* Guest Counter Stepper (Shown if accepting) */}
                   {attending === 'accept' && (
                     <div className="p-4 rounded-2xl bg-champagne-50/60 border border-rose-gold/20 flex items-center justify-between">
@@ -239,31 +254,6 @@ export default function RSVP() {
                     </div>
                   )}
 
-                  {/* Menu Preference (Shown if accepting) */}
-                  {attending === 'accept' && (
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest font-serif text-mahogany mb-2">
-                        {t('rsvp_dietary')}
-                      </label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        {invitationConfig.rsvp.dietaryOptions.map((opt) => (
-                          <button
-                            key={opt.id}
-                            type="button"
-                            onClick={() => setDietary(opt.id)}
-                            className={`py-2.5 px-3 rounded-xl text-xs font-serif transition-all duration-200 border ${
-                              dietary === opt.id
-                                ? 'bg-rose-gold text-ivory border-rose-gold shadow-sm'
-                                : 'bg-champagne-50/50 hover:bg-champagne text-warm-gray border-rose-gold/20'
-                            }`}
-                          >
-                            {isPersian ? opt.labelFa : opt.labelEn}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
                   {/* Warm Message / Song Request Note */}
                   <div>
                     <label className="block text-xs uppercase tracking-widest font-serif text-mahogany mb-2">
@@ -292,7 +282,7 @@ export default function RSVP() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full py-4 rounded-full bg-gradient-to-r from-mahogany via-rose-deep to-mahogany text-ivory font-serif text-sm sm:text-base uppercase tracking-widest shadow-luxury hover:shadow-gold-glow hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 disabled:opacity-50"
+                    className="w-full py-4 rounded-full bg-gradient-to-r from-mahogany via-rose-deep to-forest text-ivory font-serif text-sm sm:text-base uppercase tracking-widest shadow-luxury hover:shadow-gold-glow hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 disabled:opacity-50"
                   >
                     {submitting ? t('rsvp_submitting') : t('rsvp_submit')} ✦
                   </button>
