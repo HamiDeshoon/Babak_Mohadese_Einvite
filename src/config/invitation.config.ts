@@ -54,10 +54,6 @@ export interface InvitationConfig {
     venueAddressFa: string;
     cityEn: string;
     cityFa: string;
-    dressCodeEn: string;
-    dressCodeFa: string;
-    dressCodeDescEn: string;
-    dressCodeDescFa: string;
   };
   navigation: {
     googleMapsEmbedUrl: string;
@@ -123,10 +119,6 @@ couple: {
     venueAddressFa: 'گرمدره، شهرستان کرج، استان البرز',
     cityEn: 'Garmdareh',
     cityFa: 'گرمدره',
-    dressCodeEn: 'Black Tie & Formal Elegance',
-    dressCodeFa: 'لباس شب رسمی و شیک',
-    dressCodeDescEn: 'We kindly request our guests to dress in formal evening attire to make the celebration truly unforgettable.',
-    dressCodeDescFa: 'حضور باوقار شما با پوشش رسمی و آراسته، زیبایی جشن ما را دوچندان خواهد کرد.',
   },
   navigation: {
     googleMapsEmbedUrl:
@@ -153,24 +145,14 @@ couple: {
     },
     gallery: [
       {
-        id: 'childhood-creation',
-        src: '/childhood_creation_fairytale.jpg',
-        titleEn: 'Crafting Stars of Destiny',
-        titleFa: 'ساختن ستاره‌های سرنوشت',
+        id: 'childhood-hug',
+        src: '/childhood_hug_realistic.jpg',
+        titleEn: 'Embrace of Destiny',
+        titleFa: 'آغوش مهر کودکی',
         captionEn:
-          'Before we even met, the universe was already weaving our story star by star in a quiet garden of dreams.',
+          'Before we knew the road ahead, our hearts were already reaching out toward forever.',
         captionFa:
-          'روایت کودکانه‌ای از سرنوشت؛ وقتی در جهان‌های جداگانه، قلب‌هایمان برای رسیدن به هم بال می‌زدند.',
-      },
-      {
-        id: 'two-children',
-        src: '/two_children_fairytale.jpg',
-        titleEn: 'Whimsical Garden of Youth',
-        titleFa: 'سرآغاز رویاها در باغ جادویی',
-        captionEn:
-          'Two pure hearts walking toward a future that had always been written in the flowers.',
-        captionFa:
-          'دست در دست به سوی آینده‌ای که از همان آغاز در میان گل‌ها نوشته شده بود.',
+          'روایت شیرین و واقعی از کودکی دو ستاره، پیش از آنکه بدانند جهان چه پیوند زیبایی را برایشان در آستین دارد.',
       },
       {
         id: 'g12',
@@ -311,13 +293,13 @@ couple: {
       {
         year: 'Chapter I',
         yearFa: 'فصل اول',
-        titleEn: 'Origins & Two Little Stars',
-        titleFa: 'سرآغاز رویاها: دو ستاره‌ی کوچک',
+        titleEn: 'Childhood & Innocent Dreams',
+        titleFa: 'فصل کودکی و آغاز رویاها',
         contentEn:
-          'Long before our paths crossed, two childhoods were unfolding with the same laughter, curiosity, and dream of finding a true soulmate.',
+          'Two innocent childhoods unfolding with laughter and curiosity, unknowingly walking toward the moment their destinies would become one.',
         contentFa:
-          'سال‌ها پیش از آنکه راه‌هایمان یکی شود، در دنیای کودکی با آرزوهایی پاک رشد کردیم؛ غافل از آنکه سرنوشت قشنگ‌ترین پیوند را برایمان کنار گذاشته است.',
-        image: '/childhood_creation_fairytale.jpg',
+          'سال‌ها پیش از آنکه راه‌هایمان یکی شود، در دنیای کودکی با آرزوهایی پاک رشد کردیم؛ غافل از آنکه سرنوشت زیباترین پیوند را برایمان رقم زده است.',
+        image: '/childhood_hug_realistic.jpg',
       },
       {
         year: 'Chapter II',

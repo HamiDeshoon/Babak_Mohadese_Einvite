@@ -4,7 +4,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LanguageProvider, type Language } from './context/LanguageContext';
-import { asset } from './lib/assets';
 import ParticleBackground from './components/ParticleBackground';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
@@ -49,12 +48,16 @@ function MainContent() {
 
   return (
     <div className="min-h-screen relative selection:bg-sage-400 selection:text-ivory bg-ivory">
-      {/* Charming Natural Wedding Pure CSS Ambient Lighting */}
+      {/* Charming Natural Wedding Botanical Wallpaper & Ambient Lighting */}
       <div 
-        className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_20%_20%,rgba(138,158,137,0.12)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.08)_0%,transparent_50%),radial-gradient(circle_at_50%_50%,rgba(183,110,121,0.06)_0%,transparent_60%)]"
+        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-top bg-no-repeat opacity-40 mix-blend-multiply transition-opacity duration-1000"
+        style={{ backgroundImage: "url('/botanical_wedding_wallpaper.jpg')" }}
       />
       <div 
-        className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-ivory/60 via-transparent to-ivory/80"
+        className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_20%_20%,rgba(138,158,137,0.12)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.08)_0%,transparent_50%)]"
+      />
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-transparent via-ivory/30 to-ivory/60"
       />
 
       {/* Three.js Ethereal Stardust & Petal Background */}

@@ -82,50 +82,66 @@ export default function OurStory() {
               >
                 {/* Visual Container */}
                 <div className="w-full md:w-1/2 flex flex-col gap-3">
-                  {chapter.image && (
-                    <div className="w-full rounded-[calc(2rem-4px)] sm:rounded-[calc(2.5rem-4px)] overflow-hidden aspect-[4/3] bg-champagne-100 relative shadow-sm">
-                      <img
-                        src={asset(chapter.image)}
-                        alt={isPersian ? chapter.titleFa : chapter.titleEn}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-mahogany/50 via-transparent to-transparent opacity-60" />
-                      <span className="absolute bottom-4 left-4 rtl:left-auto rtl:right-4 px-4 py-1 rounded-full bg-ivory/95 backdrop-blur-md text-xs font-serif text-mahogany shadow-sm border border-gold/30">
-                        ❦ {isPersian ? chapter.yearFa : chapter.year}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Special Childhood Dual Portraits under Chapter 1 */}
-                  {isChildhood && (
-                    <div className="grid grid-cols-2 gap-3 pt-1">
-                      <div className="relative rounded-2xl overflow-hidden aspect-square border border-rose-gold/30 shadow-sm group/child">
+                  {isChildhood ? (
+                    <div className="flex flex-col gap-3">
+                      {/* Main Realistic Childhood Hug Feature */}
+                      <div className="w-full rounded-[calc(2rem-4px)] sm:rounded-[calc(2.5rem-4px)] overflow-hidden aspect-[4/3] bg-champagne-100 relative shadow-sm border border-gold/30 group/hero">
                         <img
-                          src={asset('/Babak childhood.jpg')}
-                          alt={isPersian ? 'کودکی بابک' : "Babak's Childhood"}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover/child:scale-110"
+                          src={asset('/childhood_hug_realistic.jpg')}
+                          alt={isPersian ? 'آغوش مهر کودکی' : 'Childhood Embrace'}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover/hero:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/80 via-transparent to-transparent flex items-end p-2.5">
-                          <span className="text-[11px] font-katibeh sm:text-xs text-ivory font-medium">
-                            {isPersian ? 'کودکی بابک' : 'Little Babak'}
-                          </span>
-                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/70 via-transparent to-transparent opacity-75" />
+                        <span className="absolute bottom-3 left-3 rtl:left-auto rtl:right-3 px-3.5 py-1 rounded-full bg-ivory/95 backdrop-blur-md text-xs font-serif text-mahogany shadow-sm border border-gold/30">
+                          ❦ {isPersian ? 'آغوش دو ستاره‌ی کوچک' : 'Embrace of Destiny'}
+                        </span>
                       </div>
 
-                      <div className="relative rounded-2xl overflow-hidden aspect-square border border-rose-gold/30 shadow-sm group/child">
-                        <img
-                          src={asset("/mohadese's childhood.jpg")}
-                          alt={isPersian ? 'کودکی محدثه' : "Mohadese's Childhood"}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover/child:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/80 via-transparent to-transparent flex items-end p-2.5">
-                          <span className="text-[11px] font-katibeh sm:text-xs text-ivory font-medium">
-                            {isPersian ? 'کودکی محدثه' : 'Little Mohadese'}
-                          </span>
+                      {/* Dual Original Childhood Portraits */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-gold/25 shadow-sm group/child bg-ivory/80">
+                          <img
+                            src={asset('/Babak childhood.jpg')}
+                            alt={isPersian ? 'کودکی بابک' : "Babak's Childhood"}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover/child:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-mahogany/80 via-transparent to-transparent flex items-end p-2.5">
+                            <span className={`${isPersian ? 'font-katibeh text-xs sm:text-sm' : 'font-serif text-[11px]'} text-ivory font-medium`}>
+                              {isPersian ? 'کودکی بابک' : 'Little Babak'}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-gold/25 shadow-sm group/child bg-ivory/80">
+                          <img
+                            src={asset("/mohadese's childhood.jpg")}
+                            alt={isPersian ? 'کودکی محدثه' : "Mohadese's Childhood"}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover/child:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-mahogany/80 via-transparent to-transparent flex items-end p-2.5">
+                            <span className={`${isPersian ? 'font-katibeh text-xs sm:text-sm' : 'font-serif text-[11px]'} text-ivory font-medium`}>
+                              {isPersian ? 'کودکی محدثه' : 'Little Mohadese'}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  ) : (
+                    chapter.image && (
+                      <div className="w-full rounded-[calc(2rem-4px)] sm:rounded-[calc(2.5rem-4px)] overflow-hidden aspect-[4/3] bg-champagne-100 relative shadow-sm">
+                        <img
+                          src={asset(chapter.image)}
+                          alt={isPersian ? chapter.titleFa : chapter.titleEn}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/50 via-transparent to-transparent opacity-60" />
+                        <span className="absolute bottom-4 left-4 rtl:left-auto rtl:right-4 px-4 py-1 rounded-full bg-ivory/95 backdrop-blur-md text-xs font-serif text-mahogany shadow-sm border border-gold/30">
+                          ❦ {isPersian ? chapter.yearFa : chapter.year}
+                        </span>
+                      </div>
+                    )
                   )}
                 </div>
 

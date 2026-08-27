@@ -92,8 +92,8 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
 
   // Wishes Wall
   wishes_eyebrow: { en: 'Guest Book', fa: 'دفتر یادبود و شادباش' },
-  wishes_title: { en: 'Warm Wishes & Blessings', fa: 'تبریک‌ها و دعای خیر شما' },
-  wishes_subtitle: { en: 'Leave a sweet note that Babak & Mohadese will treasure forever.', fa: 'جمله‌ای به یادگار برای بابک و محدثه بنویسید تا همیشه در خاطرشان بماند.' },
+  wishes_title: { en: 'Warm Wishes & Blessings', fa: 'تبریک‌ها و دل‌نوشته‌های شما' },
+  wishes_subtitle: { en: 'If you’d like to say something for everyone to see, write it here.', fa: 'اگه دوست دارید چیزی بگین که همه ببینن، اینجا بنویسین' },
   wishes_author: { en: 'Your Name', fa: 'نام شما' },
   wishes_placeholder: { en: 'Write your warmest blessing or funny memory...', fa: 'متن تبریک، آرزوی زیبا یا خاطره‌ای شیرین بنویسید...' },
   wishes_post: { en: 'Send Blessing ✦', fa: 'ثبت شادباش ✦' },

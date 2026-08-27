@@ -60,13 +60,6 @@ export default function TheWedding() {
       descEn: `${invitationConfig.event.venueNameEn}, ${invitationConfig.event.cityEn}`,
       descFa: `${invitationConfig.event.venueNameFa}، ${invitationConfig.event.cityFa}`,
     },
-    {
-      icon: '✨',
-      titleEn: 'Dress Code',
-      titleFa: 'کد پوشش',
-      descEn: invitationConfig.event.dressCodeEn,
-      descFa: invitationConfig.event.dressCodeFa,
-    },
   ];
 
   return (
@@ -91,20 +84,20 @@ export default function TheWedding() {
           </h2>
 
           <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed">
-            {isPersian ? invitationConfig.event.dressCodeDescFa : invitationConfig.event.dressCodeDescEn}
+            {isPersian ? 'با کمال مسرت و شادمانی، چشم‌انتظار قدوم پرمهر شما عزیزان در این شب رویایی هستیم.' : 'With boundless joy, we look forward to celebrating this unforgettable night together with you.'}
           </p>
         </div>
 
-        {/* 4 Feature Cards */}
-        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* 3 Feature Cards (Date, Time, Location) */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
           {detailCards.map((card) => (
             <div
               key={card.titleEn}
               className="detail-card rounded-3xl p-1 bg-gradient-to-b from-sage-100/60 via-white/80 to-champagne-100/40 shadow-luxury transition-all duration-300 hover:-translate-y-1.5 hover:shadow-luxury-hover border border-gold/25"
             >
-              <div className="rounded-[calc(1.5rem-4px)] p-6 bg-ivory/95 backdrop-blur-xl h-full flex flex-col items-center text-center justify-center border border-white/60">
-                <span className="text-3xl mb-3 drop-shadow-sm">{card.icon}</span>
-                <h3 className={`${isPersian ? 'font-katibeh text-2xl font-bold' : 'font-serif text-lg font-medium'} text-mahogany mb-1.5`}>
+              <div className="rounded-[calc(1.5rem-4px)] p-8 bg-ivory/95 backdrop-blur-xl h-full flex flex-col items-center text-center justify-center border border-white/60">
+                <span className="text-4xl mb-3.5 drop-shadow-sm">{card.icon}</span>
+                <h3 className={`${isPersian ? 'font-katibeh text-2xl font-bold' : 'font-serif text-lg font-medium'} text-mahogany mb-2`}>
                   {isPersian ? card.titleFa : card.titleEn}
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-warm-gray leading-relaxed font-light">
