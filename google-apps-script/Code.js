@@ -20,7 +20,9 @@
 // Configure notification recipients for Babak & Mohadese
 const CONFIG = {
   // Comma-separated emails to receive instant RSVP alerts
-  NOTIFICATION_EMAILS: ['babak@example.com', 'mohadese@example.com'], // <-- Replace with real emails
+  NOTIFICATION_EMAILS: ['ebrahimib941941@gmail.com', 'mohiestaji@gmail.com', 'tmha456@gmail.com'],
+  // Target Google Sheet ID
+  SPREADSHEET_ID: '1e5EDayKjb8vTPIgaaTa1lB-r1NNP575UZAZWk6qhlmM',
   SHEET_NAME: 'RSVP Responses',
   COUPLE_NAMES: 'Babak & Mohadese (بابک و محدثه)',
   WEDDING_DATE: 'Friday, October 9, 2026 (جمعه ۱۷ مهر ۱۴۰۵)',
@@ -28,15 +30,41 @@ const CONFIG = {
 };
 
 /**
+ * Get the target Spreadsheet (by ID if specified, or active bound spreadsheet)
+ */
+function getSpreadsheet() {
+  try {
+    if (CONFIG.SPREADSHEET_ID && CONFIG.SPREADSHEET_ID.trim() !== '') {
+      return SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID.trim());
+    }
+  } catch (err) {
+    Logger.log('Could not open by ID, falling back to active spreadsheet: ' + err.toString());
+  }
+  return SpreadsheetApp.getActiveSpreadsheet();
+}
+
+/**
  * Handle incoming POST requests from the RSVP form
  */
 function doPost(e) {
   try {
-    let data;
-    if (e.postData && e.postData.contents) {
+    let data = {};
+    if (e && e.postData && e.postData.contents) {
       data = JSON.parse(e.postData.contents);
+    } else if (e && e.parameter && Object.keys(e.parameter).length > 0) {
+      data = e.parameter;
     } else {
-      data = e.parameter || {};
+      // Safe fallback if clicked directly via the Apps Script editor "Run" button
+      data = {
+        name: 'مهمان تستی (Manual Test)',
+        phone: '۰۹۱۲۶۳۳۴۷۵۱',
+        email: 'tmha456@gmail.com',
+        attending: 'accept',
+        guestCount: 2,
+        message: 'آرزوی خوشبختی و شادکامی برای بابک و محدثه عزیز 🌸',
+        website: '',
+        language: 'fa',
+      };
     }
 
     // Ignore bot submissions caught by honeypot
@@ -46,7 +74,7 @@ function doPost(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     let sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
     // If sheet doesn't exist, create it with styled headers
@@ -301,3 +329,27 @@ function sendNotificationEmail(info) {
     htmlBody: htmlBody,
   });
 }
+
+/**
+ * Run this function directly inside Google Apps Script editor (▶️ Run)
+ * to test permissions, Google Sheet creation, and email delivery.
+ */
+function testDoPost() {
+  const mockEvent = {
+    postData: {
+      contents: JSON.stringify({
+        name: 'مهمان تستی (حمید)',
+        phone: '۰۹۱۲۶۳۳۴۷۵۱',
+        email: 'tmha456@gmail.com',
+        attending: 'accept',
+        guestCount: 2,
+        message: 'با آرزوی خوشبختی و شادکامی برای بابک و محدثه عزیز 🌸',
+        website: '',
+        language: 'fa',
+      }),
+    },
+  };
+  const result = doPost(mockEvent);
+  Logger.log('Test Result: ' + result.getContent());
+}
+

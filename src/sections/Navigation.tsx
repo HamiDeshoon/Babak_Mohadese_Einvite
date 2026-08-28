@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
 import AudioPlayer from '../components/AudioPlayer';
 
 export default function Navigation() {
-  const { isPersian, t } = useLanguage();
+  const { isPersian, t, language } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +32,12 @@ export default function Navigation() {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const toggleLanguage = (targetLang: 'fa' | 'en') => {
+    if (targetLang !== language) {
+      navigate(`/${targetLang}`);
     }
   };
 
@@ -85,8 +93,32 @@ export default function Navigation() {
             ))}
           </nav>
 
-          {/* Right Action Controls: Audio + Mobile Toggle */}
-          <div className="flex items-center gap-3">
+          {/* Right Action Controls: Language Toggle + Audio + Mobile Toggle */}
+          <div className="flex items-center gap-2.5">
+            {/* Language Switcher Capsule */}
+            <div className="flex items-center bg-champagne-100/70 p-0.5 rounded-full border border-rose-gold/25 shadow-inner">
+              <button
+                onClick={() => toggleLanguage('fa')}
+                className={`px-2.5 py-1 rounded-full text-[11px] font-serif transition-all duration-300 ${
+                  isPersian
+                    ? 'bg-mahogany text-ivory font-medium shadow-sm'
+                    : 'text-warm-gray hover:text-mahogany'
+                }`}
+              >
+                فا
+              </button>
+              <button
+                onClick={() => toggleLanguage('en')}
+                className={`px-2.5 py-1 rounded-full text-[11px] font-serif transition-all duration-300 ${
+                  !isPersian
+                    ? 'bg-mahogany text-ivory font-medium shadow-sm'
+                    : 'text-warm-gray hover:text-mahogany'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
             <AudioPlayer />
 
             {/* Mobile Hamburger Button */}
@@ -115,8 +147,34 @@ export default function Navigation() {
         <div className="fixed inset-0 z-40 bg-ivory/95 backdrop-blur-3xl flex flex-col justify-center items-center px-6 lg:hidden animate-in fade-in duration-300">
           <div className="flex flex-col items-center gap-6 text-center">
             <span className="text-3xl text-gold mb-2">💍</span>
-            <div className="font-serif text-2xl text-mahogany mb-4">
+            <div className="font-serif text-2xl text-mahogany mb-2">
               {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
+            </div>
+
+            {/* Mobile Language Switcher */}
+            <div className="flex items-center gap-2 mb-4 bg-champagne-100/90 p-1 rounded-full border border-rose-gold/30">
+              <button
+                onClick={() => {
+                  toggleLanguage('fa');
+                  setMobileMenuOpen(false);
+                }}
+                className={`px-4 py-1.5 rounded-full text-xs font-serif ${
+                  isPersian ? 'bg-mahogany text-ivory shadow-sm' : 'text-warm-gray'
+                }`}
+              >
+                فارسی
+              </button>
+              <button
+                onClick={() => {
+                  toggleLanguage('en');
+                  setMobileMenuOpen(false);
+                }}
+                className={`px-4 py-1.5 rounded-full text-xs font-serif ${
+                  !isPersian ? 'bg-mahogany text-ivory shadow-sm' : 'text-warm-gray'
+                }`}
+              >
+                English
+              </button>
             </div>
 
             {navLinks.map((link) => (

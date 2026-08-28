@@ -377,7 +377,10 @@ couple: {
   rsvp: {
     deadlineEn: 'September 25, 2026',
     deadlineFa: '۳ مهر ۱۴۰۵',
-    sheetEndpoint: typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_SHEET_URL ? import.meta.env.VITE_GOOGLE_SHEET_URL : '',
+    sheetEndpoint:
+      typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_SHEET_URL
+        ? import.meta.env.VITE_GOOGLE_SHEET_URL
+        : 'https://script.google.com/macros/s/AKfycbydMVxXh8J5GYI2tj7whQ6VFlABbTwU3J3AG8nY-jfIlJDhstbsWCYiLqzbxDP1fcKq2A/exec',
     dietaryOptions: [],
   },
   contacts: {

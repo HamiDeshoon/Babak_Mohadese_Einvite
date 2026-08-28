@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
+import { asset } from '../lib/assets';
 
 export default function Hero() {
   const { isPersian, t } = useLanguage();
@@ -90,16 +91,27 @@ export default function Hero() {
       className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-28 pb-16 px-6 text-center overflow-hidden z-10"
     >
       {/* Background Soft Mesh & Botanical Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-sage-200/30 via-gold-light/20 to-rose-blush/25 blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-gold/10 blur-2xl pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] rounded-full bg-gradient-to-tr from-sage-200/35 via-gold-light/25 to-rose-blush/30 blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[450px] h-[450px] rounded-full bg-gold/15 blur-3xl pointer-events-none -z-10" />
+
+      {/* Floating Botanical Flower Elements (Charming Natural Wedding Inspiration) */}
+      <div className="absolute top-20 -left-12 w-48 h-48 opacity-25 pointer-events-none rounded-full overflow-hidden blur-[1px] -z-10">
+        <img src={asset('/charming/Image-1.png')} alt="" className="w-full h-full object-cover animate-[spin_60s_linear_infinite]" />
+      </div>
+      <div className="absolute bottom-24 -right-12 w-56 h-56 opacity-25 pointer-events-none rounded-full overflow-hidden blur-[1px] -z-10">
+        <img src={asset('/charming/Image-1.png')} alt="" className="w-full h-full object-cover animate-[spin_80s_linear_infinite_reverse]" />
+      </div>
 
       <div className="max-w-4xl mx-auto flex flex-col items-center relative z-10">
-        {/* Luxury Crest Monogram */}
+        {/* Charming Natural Wedding Luxury Crest Monogram */}
         <div ref={crestRef} className="mb-6 relative group">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[2px] bg-gradient-to-tr from-gold via-sage-300 to-rose-gold shadow-gold-glow flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-ivory/95 via-white/85 to-ivory/95 backdrop-blur-md flex flex-col items-center justify-center border border-white/80 shadow-xl">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-[2.5px] bg-gradient-to-tr from-gold via-sage-400 to-rose-gold shadow-gold-glow flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-ivory/95 via-white/90 to-ivory/95 backdrop-blur-md flex flex-col items-center justify-center border border-white/80 shadow-xl relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10 pointer-events-none">
+                <img src={asset('/charming/Image-1.png')} alt="" className="w-full h-full object-cover" />
+              </div>
               <span className="text-xs text-gold">✦</span>
-              <span className={`${isPersian ? 'font-fantasy text-xl pt-1' : 'font-fairytale text-lg sm:text-xl'} text-mahogany font-medium tracking-widest`}>
+              <span className={`${isPersian ? 'font-fantasy text-2xl pt-1' : 'font-fairytale text-xl sm:text-2xl'} text-mahogany font-medium tracking-widest relative z-10`}>
                 {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
               </span>
               <span className="text-[10px] text-sage-500">✦</span>
@@ -170,28 +182,33 @@ export default function Hero() {
           {t('hero_request')}
         </p>
 
-        {/* Date & Location Badge */}
+        {/* Date & Location Double-Bezel Badge */}
         <div ref={badgeRef} className="mt-8">
-          <div className="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-full bg-ivory/90 backdrop-blur-xl border border-gold/30 shadow-luxury">
-            <span className="text-gold">✦</span>
-            <span className={`${isPersian ? 'font-katibeh text-lg sm:text-xl' : 'font-serif text-sm sm:text-base'} text-mahogany font-medium tracking-wider`}>
-              {isPersian ? invitationConfig.event.dateFa : invitationConfig.event.dateEn}
-            </span>
-            <span className="text-sage-400">•</span>
-            <span className={`${isPersian ? 'font-katibeh text-base sm:text-lg' : 'font-serif text-xs sm:text-sm'} text-warm-stone`}>
-              {isPersian ? invitationConfig.event.timeFa : invitationConfig.event.timeEn}
-            </span>
-            <span className="text-gold">✦</span>
+          <div className="rounded-full p-1 bg-gradient-to-r from-gold/30 via-sage-300/30 to-rose-gold/30 shadow-luxury">
+            <div className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 rounded-full bg-ivory/95 backdrop-blur-xl border border-white/80">
+              <span className="text-gold">✦</span>
+              <span className={`${isPersian ? 'font-katibeh text-lg sm:text-xl' : 'font-serif text-sm sm:text-base'} text-mahogany font-medium tracking-wider`}>
+                {isPersian ? invitationConfig.event.dateFa : invitationConfig.event.dateEn}
+              </span>
+              <span className="text-sage-400">•</span>
+              <span className={`${isPersian ? 'font-katibeh text-base sm:text-lg' : 'font-serif text-xs sm:text-sm'} text-warm-stone`}>
+                {isPersian ? invitationConfig.event.timeFa : invitationConfig.event.timeEn}
+              </span>
+              <span className="text-gold">✦</span>
+            </div>
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons with Island Button-in-Button architecture */}
         <div ref={ctaRef} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={() => scrollToSection('rsvp')}
-            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest text-ivory font-serif text-sm uppercase tracking-wider shadow-lg hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-gold/30"
+            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest text-ivory font-serif text-sm uppercase tracking-wider shadow-lg hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-gold/30 flex items-center gap-2 group"
           >
-            {t('nav_rsvp')} ✦
+            <span>{t('nav_rsvp')}</span>
+            <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs group-hover:rotate-45 transition-transform duration-300">
+              ✦
+            </span>
           </button>
           <button
             onClick={() => scrollToSection('the-wedding')}
