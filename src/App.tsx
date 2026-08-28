@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LanguageProvider, type Language } from './context/LanguageContext';
+import { asset } from './lib/assets';
 import ParticleBackground from './components/ParticleBackground';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
@@ -51,7 +52,7 @@ function MainContent() {
       {/* Charming Natural Wedding Botanical Wallpaper & Ambient Lighting */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 bg-cover bg-top bg-no-repeat opacity-40 mix-blend-multiply transition-opacity duration-1000"
-        style={{ backgroundImage: "url('/botanical_wedding_wallpaper.jpg')" }}
+        style={{ backgroundImage: `url('${asset('/botanical_wedding_wallpaper.jpg')}')` }}
       />
       <div 
         className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_20%_20%,rgba(138,158,137,0.12)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.08)_0%,transparent_50%)]"
@@ -94,7 +95,7 @@ function RootRedirect() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<RootRedirect />} />
         <Route

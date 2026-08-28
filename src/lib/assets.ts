@@ -8,12 +8,10 @@ export function asset(path: string): string {
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
     return path;
   }
-  const normalized = path.startsWith('/') ? path : `/${path}`;
-  // Encode each path segment so spaces / parentheses / Persian glyphs work in <img>/<audio> src.
-  return normalized
+  const clean = path.startsWith('/') ? path.slice(1) : path;
+  const encoded = clean
     .split('/')
     .map((segment) => {
-      // Preserve leading slash of absolute URLs handled above; segments may be empty after split.
       if (segment === '') return segment;
       try {
         return encodeURIComponent(decodeURIComponent(segment));
@@ -22,4 +20,6 @@ export function asset(path: string): string {
       }
     })
     .join('/');
+  const base = import.meta.env.BASE_URL || '/';
+  return base.endsWith('/') ? `${base}${encoded}` : `${base}/${encoded}`;
 }
