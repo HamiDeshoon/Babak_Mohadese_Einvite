@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
 import AudioPlayer from '../components/AudioPlayer';
@@ -9,6 +9,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +23,8 @@ export default function Navigation() {
     { label: t('nav_story'), href: '#our-story' },
     { label: t('nav_wedding'), href: '#the-wedding' },
     { label: t('nav_venue'), href: '#venue' },
-    { label: t('nav_gallery'), href: '#gallery' },
     { label: t('nav_wishes'), href: '#wishes' },
+    { label: t('nav_gallery'), href: '#gallery' },
     { label: t('nav_rsvp'), href: '#rsvp', isCta: true },
   ];
 
@@ -36,7 +37,7 @@ export default function Navigation() {
   };
 
   const toggleLanguage = (targetLang: 'fa' | 'en') => {
-    if (targetLang !== language) {
+    if (targetLang !== language || !location.pathname.includes(`/${targetLang}`)) {
       navigate(`/${targetLang}`);
     }
   };
@@ -67,7 +68,7 @@ export default function Navigation() {
             <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-rose-gold to-gold flex items-center justify-center text-ivory text-xs font-serif shadow-sm shrink-0 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-105">
               ✦
             </span>
-            <span className="font-serif text-sm sm:text-lg font-medium tracking-tight text-mahogany truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none">
+            <span className={`${isPersian ? 'font-nastaliq text-base sm:text-xl pt-1' : 'font-serif text-sm sm:text-lg'} font-medium tracking-tight text-mahogany truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none`}>
               {isPersian ? `${invitationConfig.couple.brideFa} و ${invitationConfig.couple.groomFa}` : `${invitationConfig.couple.groomEn} & ${invitationConfig.couple.brideEn}`}
             </span>
           </a>
@@ -98,6 +99,7 @@ export default function Navigation() {
             {/* Compact Language Switcher Capsule */}
             <div className="flex items-center bg-champagne-100/70 p-0.5 rounded-full border border-rose-gold/25 shadow-inner">
               <button
+                type="button"
                 onClick={() => toggleLanguage('fa')}
                 aria-label="Persian Language"
                 className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-serif transition-all duration-300 ${
@@ -109,6 +111,7 @@ export default function Navigation() {
                 فا
               </button>
               <button
+                type="button"
                 onClick={() => toggleLanguage('en')}
                 aria-label="English Language"
                 className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-serif transition-all duration-300 ${
@@ -164,13 +167,14 @@ export default function Navigation() {
             className="flex flex-col items-center gap-5 text-center w-full max-w-xs"
           >
             <span className="text-3xl text-gold mb-1">💍</span>
-            <div className="font-serif text-2xl text-mahogany mb-1">
+            <div className="font-nastaliq text-3xl text-mahogany mb-1">
               {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
             </div>
 
             {/* Mobile Language Switcher */}
             <div className="flex items-center gap-2 mb-3 bg-champagne-100/90 p-1 rounded-full border border-rose-gold/30">
               <button
+                type="button"
                 onClick={() => {
                   toggleLanguage('fa');
                   setMobileMenuOpen(false);
@@ -182,6 +186,7 @@ export default function Navigation() {
                 فارسی
               </button>
               <button
+                type="button"
                 onClick={() => {
                   toggleLanguage('en');
                   setMobileMenuOpen(false);
@@ -194,7 +199,7 @@ export default function Navigation() {
               </button>
             </div>
 
-            <div className="flex flex-col w-full gap-3">
+            <div className="flex flex-col w-full gap-2.5">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -203,10 +208,10 @@ export default function Navigation() {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className={`text-lg py-2.5 px-6 rounded-2xl transition-all ${
+                  className={`text-lg py-2 px-6 rounded-2xl transition-all ${
                     link.isCta
                       ? 'bg-rose-deep text-ivory shadow-lg font-serif'
-                      : 'text-mahogany hover:bg-champagne-100/70 font-fantasy'
+                      : 'text-mahogany hover:bg-champagne-100/70 font-nastaliq'
                   }`}
                 >
                   {link.label}

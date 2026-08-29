@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { LanguageProvider, type Language } from './context/LanguageContext';
-import { asset } from './lib/assets';
-import ParticleBackground from './components/ParticleBackground';
+import { LanguageProvider } from './context/LanguageContext';
+import type { Language } from './context/LanguageContext';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
 import CountdownTimer from './components/CountdownTimer';
@@ -16,13 +15,12 @@ import Gallery from './sections/Gallery';
 import RSVP from './sections/RSVP';
 import WishesWall from './sections/WishesWall';
 import Footer from './sections/Footer';
-import './index.css';
+import ParticleBackground from './components/ParticleBackground';
+import { asset } from './lib/assets';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function MainContent() {
-  // Re-initialize smooth scroll on every route change so the Lenis instance
-  // always tracks the active page's sections.
   const location = useLocation();
 
   useEffect(() => {
@@ -41,7 +39,7 @@ function MainContent() {
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    // Always jump to top when switching between the two pages.
+    // Always jump to top when switching between pages.
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 
     return () => {
@@ -70,16 +68,16 @@ function MainContent() {
       {/* Floating Glass Capsule Navigation */}
       <Navigation />
 
-      {/* Main Experience Flow */}
+      {/* Main Experience Flow - Gallery moved to the end as requested */}
       <main className="relative z-10">
         <Hero />
         <CountdownTimer />
         <OurStory />
         <TheWedding />
         <LocationSection />
-        <Gallery />
-        <RSVP />
         <WishesWall />
+        <RSVP />
+        <Gallery />
         <Footer />
       </main>
     </div>
@@ -87,12 +85,10 @@ function MainContent() {
 }
 
 function LanguageRoute({ lang, children }: { lang: Language; children: React.ReactNode }) {
-  return <LanguageProvider initial={lang}>{children}</LanguageProvider>;
+  return <LanguageProvider key={lang} initial={lang}>{children}</LanguageProvider>;
 }
 
 function RootRedirect() {
-  // The root URL has no language switcher; send the visitor to the Persian
-  // page by default, which is the primary audience for this celebration.
   return <Navigate to="/fa" replace />;
 }
 

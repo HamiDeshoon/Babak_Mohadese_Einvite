@@ -1,33 +1,3 @@
-export interface TimelineItem {
-  time: string;
-  timeFa: string;
-  titleEn: string;
-  titleFa: string;
-  descEn: string;
-  descFa: string;
-  icon: 'ring' | 'cake' | 'music' | 'dinner' | 'sparkles' | 'cocktail';
-}
-
-export interface StoryChapter {
-  year: string;
-  yearFa: string;
-  titleEn: string;
-  titleFa: string;
-  contentEn: string;
-  contentFa: string;
-  image?: string;
-}
-
-export interface GalleryItem {
-  id: string;
-  src: string;
-  titleEn: string;
-  titleFa: string;
-  captionEn: string;
-  captionFa: string;
-  span?: 'col-span-1' | 'col-span-2' | 'row-span-2';
-}
-
 export interface InvitationConfig {
   couple: {
     groomEn: string;
@@ -42,7 +12,7 @@ export interface InvitationConfig {
     brideFamilyFa: string;
   };
   event: {
-    targetIsoDate: string; // Used by countdown and calendar
+    targetIsoDate: string;
     endIsoDate: string;
     dateEn: string;
     dateFa: string;
@@ -65,74 +35,104 @@ export interface InvitationConfig {
   };
   media: {
     heroPoster: string;
-    heroVideo?: string;
-    featuredVideo?: string;
+    heroVideo: string;
+    featuredVideo: string;
     featuredVideoPoster: string;
-    /**
-     * The audio track is per-language so the English and Persian pages each
-     * play their own carefully chosen piece of music.
-     */
-    audioTrack?: { en?: string; fa?: string } | string;
-    gallery: GalleryItem[];
+    audioTrack: {
+      en: string;
+      fa: string;
+    };
+    gallery: Array<{
+      id: string;
+      src: string;
+      titleEn: string;
+      titleFa: string;
+      captionEn: string;
+      captionFa: string;
+    }>;
   };
   story: {
     quoteEn: string;
     quoteFa: string;
-    chapters: StoryChapter[];
+    chapters: Array<{
+      year: string;
+      yearFa: string;
+      titleEn: string;
+      titleFa: string;
+      contentEn: string;
+      contentFa: string;
+      image?: string;
+    }>;
   };
-  schedule: TimelineItem[];
+  schedule: Array<{
+    time: string;
+    timeFa: string;
+    titleEn: string;
+    titleFa: string;
+    descEn: string;
+    descFa: string;
+    icon: string;
+  }>;
   rsvp: {
     deadlineEn: string;
     deadlineFa: string;
     sheetEndpoint: string;
-    dietaryOptions: { id: string; labelEn: string; labelFa: string }[];
+    dietaryOptions: string[];
   };
   contacts: {
-    groom: { nameEn: string; nameFa: string; phone: string; displayPhone: string };
-    bride: { nameEn: string; nameFa: string; phone: string; displayPhone: string };
+    groom: {
+      nameEn: string;
+      nameFa: string;
+      phone: string;
+      displayPhone: string;
+    };
+    bride: {
+      nameEn: string;
+      nameFa: string;
+      phone: string;
+      displayPhone: string;
+    };
   };
 }
 
 export const invitationConfig: InvitationConfig = {
-couple: {
+  couple: {
     groomEn: 'Babak',
     groomFa: 'بابک',
     brideEn: 'Mohadese',
     brideFa: 'محدثه',
     monogramEn: 'B & M',
-    monogramFa: '𝕭 & 𝕸',
-    groomFamilyEn: 'Together with their families',
-    groomFamilyFa: 'با همراهی و شادمانی خانواده\u200cهای محترم',
-    brideFamilyEn: '',
-    brideFamilyFa: '',
+    monogramFa: 'ب & م',
+    groomFamilyEn: 'The Ebrahimi & Estaji Families',
+    groomFamilyFa: 'خانواده‌های محترم ابراهیمی و استاجی',
+    brideFamilyEn: 'The Estaji Family',
+    brideFamilyFa: 'خانواده محترم استاجی',
   },
   event: {
-    targetIsoDate: '2026-10-09T19:00:00',
+    targetIsoDate: '2026-10-09T18:00:00',
     endIsoDate: '2026-10-10T02:00:00',
     dateEn: 'Friday, October 9, 2026',
     dateFa: 'جمعه ۱۷ مهر ۱۴۰۵',
-    timeEn: 'Doors open at 7:00 PM — Ceremony at 7:30 PM',
-    timeFa: 'ساعت ورود ۱۹:۰۰ — شروع مراسم ۱۹:۳۰',
-    venueNameEn: 'Rosamir Reception Hall',
-    venueNameFa: 'تالار پذیرایی رزامیر',
-    venueAddressEn: 'Garmdareh, Karaj County, Alborz Province, Iran',
-    venueAddressFa: 'گرمدره، شهرستان کرج، استان البرز',
-    cityEn: 'Garmdareh',
+    timeEn: 'Reception & Doors Open at 6:00 PM',
+    timeFa: 'ساعت ۱۸:۰۰ (۶ عصر)',
+    venueNameEn: 'Rosamir Palace',
+    venueNameFa: 'عمارت مجلل رزامیر',
+    venueAddressEn: 'Garmdarreh, Amirabad Blvd, Kouhak 2nd West, Rosamir Palace',
+    venueAddressFa: 'گرمدره، بلوار امیرآباد، کوهک دوم غربی، عمارت رزامیر',
+    cityEn: 'Garmdarreh',
     cityFa: 'گرمدره',
   },
   navigation: {
     googleMapsEmbedUrl:
-      'https://www.google.com/maps?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&hl=fa&z=15&output=embed',
-    googleMapsDirectUrl:
-      'https://www.google.com/maps/search/?api=1&query=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+      'https://maps.google.com/maps?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA+%D9%85%D8%AC%D9%84%D9%84+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&hl=fa&z=15&output=embed',
+    googleMapsDirectUrl: 'https://maps.app.goo.gl/VaX7pFHPccWEKgx47?g_st=atm',
     appleMapsDirectUrl:
-      'https://maps.apple.com/?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
-    neshanDirectUrl:
-      'https://nshn.ir/search?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+      'https://maps.apple.com/?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D9%85%D8%AC%D9%84%D9%84%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+    neshanDirectUrl: 'https://nshn.ir/83rbvoC1VxCvuE',
     baladDirectUrl:
-      'https://balad.ir/search?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+      'https://balad.ir/search?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
     wazeDirectUrl:
-      'https://waze.com/ul?q=%D8%AA%D8%A7%D9%84%D8%A7%D8%B1%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&navigate=yes',
+      'https://waze.com/ul?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&navigate=yes',
   },
   media: {
     heroPoster: '/us in the north.jpg',
@@ -152,7 +152,7 @@ couple: {
         captionEn:
           'Before we knew the road ahead, our hearts were already reaching out toward forever.',
         captionFa:
-          'روایت شیرین و واقعی از کودکی دو ستاره، پیش از آنکه بدانند جهان چه پیوند زیبایی را برایشان در آستین دارد.',
+          'روایت شیرین و واقعی از کودکی دو ستاره، پیش از آنکه بدانند جهان چه پیوند زیبایی را برایشان رقم زده است.',
       },
       {
         id: 'g12',
@@ -250,56 +250,57 @@ couple: {
         titleEn: 'The Day It Began',
         titleFa: 'روزی که آغاز شد',
         captionEn:
-          'Some dates belong on calendars. Others belong on the heart — and this one is etched in mine.',
+          'The calendar marked a date, but our hearts had already made the decision a long time ago.',
         captionFa:
-          'بعضی تاریخ‌ها روی تقویم می‌مانند، بعضی‌ها روی قلب؛ این تاریخ روی قلب من حک شده است.',
+          'تقویم یک تاریخ را ثبت کرد، اما دل‌های ما خیلی پیش‌تر از آن تصمیمشان را گرفته بودند.',
       },
       {
         id: 'g9',
-        src: '/us and graduation.jpg',
-        titleEn: 'Chapters We Earned',
-        titleFa: 'فصل‌هایی که ساختیم',
+        src: '/mohadese.jpg',
+        titleEn: 'Mohadese',
+        titleFa: 'محدثه، ستاره‌ی شب‌های من',
         captionEn:
-          'Hard work, long nights, and your hand on my shoulder — every chapter of us was earned together.',
+          'Your eyes hold every reason I will ever need to be happy. Thank you for choosing this life with me.',
         captionFa:
-          'شب‌های بیداری، تلاش‌های بی‌پایان و دست تو روی شانه‌ام؛ تک‌تک فصل‌های ما با هم ساخته شد.',
+          'در چشمانت تمام دلایلی که برای شاد زیستن نیاز دارم را می‌بینم؛ ممنونم که این مسیر را با من انتخاب کردی.',
       },
       {
         id: 'g10',
-        src: '/his birthday in dental clinic.jpg',
-        titleEn: 'Laughter in the Ordinary',
-        titleFa: 'خنده در روزمرگی',
+        src: '/babak and mohadese.jpg',
+        titleEn: 'Our Safe Harbor',
+        titleFa: 'ساحل آرامش ما',
         captionEn:
-          'Even in the most unexpected places, you turned ordinary days into my favorite memories.',
+          'No storm can touch what was built on this much quiet certainty. Here is to a lifetime of safe harbors.',
         captionFa:
-          'حتی در غیرمنتظره‌ترین لحظه‌ها، تو روزهای معمولی را به خاطره‌های مورد علاقه‌ام تبدیل کردی.',
+          'هیچ طوفانی به آنچه با این اندازه از یقین ساخته شده، آسیبی نخواهد زد؛ به امید عمری پر از آرامش.',
       },
       {
         id: 'g11',
-        src: '/33 years old.jpg',
-        titleEn: 'Thirty-Three and Counting',
-        titleFa: 'سی و سه سالگی و ادامه‌اش',
+        src: '/babak and mohadese 2.jpg',
+        titleEn: 'To Forever, Hand in Hand',
+        titleFa: 'به سوی ابدیت، دست در دست',
         captionEn:
-          'A birthday candle, a wish, and a heart that already had everything it ever wanted — you.',
+          'This is not the end of a love story — it is the very first sentence of our forever.',
         captionFa:
-          'یک شمع روی کیک، یک آرزو، و قلبی که از قبل همه‌چیزش را داشت: تو.',
+          'این پایان یک داستان عاشقانه نیست؛ این نخستین جمله‌ی ابدیت مشترک ماست.',
       },
     ],
   },
   story: {
-    quoteEn: '“In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.”',
-    quoteFa: '«در تمام جهان، هیچ قلبی چون قلب تو برای من نیست؛ و در تمام جهان، هیچ عشقی چون عشق من برای تو نیست.»',
+    quoteEn:
+      '“In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.”',
+    quoteFa:
+      '«تو مرا جان و جهانی، چه کنم جان و جهان را... در دل من چیزی جز مهر و اشتیاق ابدی تو نیست.»',
     chapters: [
       {
         year: 'Chapter I',
         yearFa: 'فصل اول',
-        titleEn: 'Childhood & Innocent Dreams',
-        titleFa: 'فصل کودکی و آغاز رویاها',
+        titleEn: 'Destined From the Start',
+        titleFa: 'آغاز سرنوشت',
         contentEn:
-          'Two innocent childhoods unfolding with laughter and curiosity, unknowingly walking toward the moment their destinies would become one.',
+          'Long before our paths crossed in life, the universe was already aligning the gentle steps of two souls destined to meet.',
         contentFa:
-          'سال‌ها پیش از آنکه راه‌هایمان یکی شود، در دنیای کودکی با آرزوهایی پاک رشد کردیم؛ غافل از آنکه سرنوشت زیباترین پیوند را برایمان رقم زده است.',
-        image: '/childhood_hug_realistic.jpg',
+          'سال‌ها پیش از آنکه راه‌هایمان یکی شود، در دنیای پاک کودکی رشد کردیم؛ غافل از آنکه سرنوشت زیباترین پیوند را برایمان در آستین دارد.',
       },
       {
         year: 'Chapter II',
@@ -310,7 +311,6 @@ couple: {
           'From northern forests to graduation halls, every step we took side by side taught us that home is not a place — it is each other.',
         contentFa:
           'از جنگل‌های شمال تا روزهای فارغ‌التحصیلی، هر قدمی که کنار هم برداشتیم یادآور ما شد که خانه یک مکان نیست، بلکه بودن کنار یکدیگر است.',
-        image: '/us in the north.jpg',
       },
       {
         year: 'Chapter III',
@@ -321,57 +321,65 @@ couple: {
           'On bended knee, with a trembling hand and a steady heart, we said the only word that mattered — yes, to forever, to each other.',
         contentFa:
           'روزی که زانو زد، با دستی لرزان و قلبی استوار، تنها کلمه‌ای را گفت که اهمیت داشت: «آری»؛ آری به ابدیت، آری به یکدیگر.',
-        image: '/us engagement rings.jpg',
       },
     ],
   },
   schedule: [
     {
-      time: '7:00 PM',
-      timeFa: '۱۹:۰۰',
+      time: '6:00 PM',
+      timeFa: '۱۸:۰۰',
       titleEn: 'Doors Open & Guest Reception',
       titleFa: 'باز شدن درب‌ها و پذیرش مهمانان',
       descEn:
-        'Welcome to Rosamir Hall. Guests are invited to arrive, find their seats, and enjoy welcome refreshments.',
+        'Welcome to Rosamir Palace. Guests are invited to arrive, find their seats, and enjoy welcome refreshments.',
       descFa:
-        'خوش آمدید به تالار رزامیر. لحظاتی را با پذیرایی آغازین و خوش‌آمدگویی مهمانان گرامی سپری کنید.',
+        'خوش‌آمدگویی به عمارت مجلل رزامیر. ورود و استقرار مهمانان ارجمند همراه با پذیرایی آغازین.',
       icon: 'cocktail',
     },
     {
       time: '7:30 PM',
       timeFa: '۱۹:۳۰',
-      titleEn: 'Solemn Marriage Ceremony',
-      titleFa: 'مراسم عقد و پیمان مهر',
+      titleEn: 'Persian Aryan Marriage Ceremony',
+      titleFa: 'مراسم عقد آریایی',
       descEn: 'The auspicious moment of sealing our vows in front of family and friends.',
-      descFa: 'قرائت خطبه عقد آریایی و ثبت ماندگارترین لحظه‌ی پیوند عشق.',
+      descFa: 'قرائت سوگندنامه و پیمان مهر عقد آریایی در محضر خانواده‌های گرانقدر.',
       icon: 'ring',
+    },
+    {
+      time: '8:00 PM',
+      timeFa: '۲۰:۰۰',
+      titleEn: 'Dance & Celebration Begins',
+      titleFa: 'شروع رقص و پایکوبی',
+      descEn: 'Commencing the joy and celebratory dance with our dearest guests.',
+      descFa: 'آغاز بزم و شادی و رقص مهمانان عزیز در تالار اصلی.',
+      icon: 'music',
     },
     {
       time: '9:00 PM',
       timeFa: '۲۱:۰۰',
-      titleEn: 'Cake Cutting & Toast',
-      titleFa: 'برش کیک و شادباش',
+      titleEn: 'Cake Cutting Ceremony',
+      titleFa: 'مراسم برش کیک',
       descEn: 'Sweetening the night with celebration cake and toast to new beginnings.',
-      descFa: 'مراسم بریدن کیک و شادباش و تبریک‌های صمیمانه.',
+      descFa: 'مراسم برش کیک شادباش پیوند بابک و محدثه.',
       icon: 'cake',
     },
     {
       time: '9:45 PM',
       timeFa: '۲۱:۴۵',
-      titleEn: 'Grand Banquet Dinner',
-      titleFa: 'ضیافت شام شاهانه',
-      descEn: 'A sumptuous feast prepared with love to celebrate our joyful night.',
-      descFa: 'صرف شام فاخر و پذیرایی ویژه از مهمانان عالی‌قدر.',
-      icon: 'dinner',
+      titleEn: 'Celebration & Dance Continues',
+      titleFa: 'ادامه رقص و پایکوبی',
+      descEn: 'Continuing the energetic dance, laughter, and lifelong memories.',
+      descFa: 'ادامه‌ی جشن پرشور و رقص خاطره‌انگیز.',
+      icon: 'sparkles',
     },
     {
-      time: '10:45 PM',
-      timeFa: '۲۲:۴۵',
-      titleEn: 'Music, Dance & Celebration',
-      titleFa: 'جشن، رقص و پایکوبی',
-      descEn: 'Dancing the night away with joy, laughter, and lifelong memories.',
-      descFa: 'ادامه‌ی جشن پرشور، پایکوبی و خاطره‌سازی تا پاسی از شب.',
-      icon: 'music',
+      time: '11:00 PM',
+      timeFa: '۲۳:۰۰',
+      titleEn: 'Grand Wedding Dinner',
+      titleFa: 'ضیافت باشکوه شام',
+      descEn: 'A sumptuous feast prepared with love to celebrate our joyful night.',
+      descFa: 'پذیرایی شام و ضیافت ویژه از مهمانان عالی‌قدر.',
+      icon: 'dinner',
     },
   ],
   rsvp: {
@@ -393,8 +401,8 @@ couple: {
     bride: {
       nameEn: 'Mohadese',
       nameFa: 'محدثه',
-      phone: '+989120000002',
-      displayPhone: '۰۹۱۲۰۰۰۰۰۰۲',
+      phone: '+989126334751',
+      displayPhone: '۰۹۱۲۶۳۳۴۷۵۱',
     },
   },
 };

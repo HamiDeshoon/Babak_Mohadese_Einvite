@@ -5,7 +5,6 @@ export type Language = 'en' | 'fa';
 
 interface LanguageContextType {
   language: Language;
-  // Locked per route: pages are fully separate, no runtime switching.
   setLanguage: (lang: Language) => void;
   isPersian: boolean;
   dir: 'ltr' | 'rtl';
@@ -55,7 +54,7 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
   // Venue & Map
   venue_eyebrow: { en: 'Find Your Way', fa: 'موقعیت و مسیر دسترسی' },
   venue_title: { en: 'Venue & Location', fa: 'محل برگزاری جشن' },
-  open_google_maps: { en: 'Google Maps', fa: 'مسیریابی گوگل' },
+  open_google_maps: { en: 'Google Maps', fa: 'مسیریابی در گوگل مپ' },
   open_apple_maps: { en: 'Apple Maps', fa: 'نقشه اپل' },
   open_neshan: { en: 'Neshan Map', fa: 'مسیریابی در نشان' },
   open_balad: { en: 'Balad Map', fa: 'مسیریابی در بلد' },
@@ -65,8 +64,6 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
   gallery_eyebrow: { en: 'Moments & Memories', fa: 'تصاویر و خاطره‌ها' },
   gallery_title: { en: 'Our Visual Journey', fa: 'گالری قاب‌های ماندگار' },
   gallery_desc: { en: 'Glimpses of love, laughter, and the gentle moments leading to this day.', fa: 'گلچینی از قاب‌های پر از لبخند، صمیمیت و امید به آینده.' },
-  video_invitation_title: { en: 'Digital Invitation Video', fa: 'ویدیوی اختصاصی دعوت به جشن' },
-  video_invitation_desc: { en: 'A motion story of our journey and welcoming invitation.', fa: 'پیام تصویری و احساسی ما برای همراهی شما عزیزان.' },
 
   // Luxury RSVP
   rsvp_eyebrow: { en: 'Kindly Respond', fa: 'ثبت حضور و تاییدیه' },
@@ -88,7 +85,6 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
   rsvp_success_accept: { en: 'We are thrilled and truly honored to celebrate this unforgettable milestone with you!', fa: 'بی‌نهایت از حضور گرم و پرانرژی شما خرسندیم و مشتاقانه چشم‌انتظار دیدار روی ماهتان هستیم!' },
   rsvp_success_decline: { en: 'You will be dearly missed on our special night. Thank you for your warm wishes!', fa: 'جای خالی شما در جشن ما بسیار احساس خواهد شد. از دعای خیر و پیام پرمهرتان سپاسگزاریم.' },
   rsvp_error: { en: 'There was a connection issue. Your RSVP was saved locally, or you can call us directly.', fa: 'خطایی در ارسال رخ داد. اطلاعات ذخیره شد یا می‌توانید با ما تماس بگیرید.' },
-  rsvp_download_pass: { en: 'Download Digital Event Pass', fa: 'دریافت کارت دیجیتال یادبود' },
 
   // Wishes Wall
   wishes_eyebrow: { en: 'Guest Book', fa: 'دفتر یادبود و شادباش' },
@@ -117,10 +113,11 @@ export function LanguageProvider({
   children: ReactNode;
   initial?: Language;
 }) {
-  // Language is now hard-coded per route. The route component is responsible
-  // for passing `initial="en"` or `initial="fa"` and there is no UI to switch
-  // languages — each page is fully its own experience.
   const [language, setLanguageState] = useState<Language>(initial);
+
+  useEffect(() => {
+    setLanguageState(initial);
+  }, [initial]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
@@ -130,11 +127,11 @@ export function LanguageProvider({
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr';
     if (language === 'fa') {
-      document.body.classList.add('font-persianSans');
+      document.body.classList.add('font-nastaliq');
       document.body.classList.remove('font-sans');
     } else {
       document.body.classList.add('font-sans');
-      document.body.classList.remove('font-persianSans');
+      document.body.classList.remove('font-nastaliq');
     }
   }, [language]);
 
