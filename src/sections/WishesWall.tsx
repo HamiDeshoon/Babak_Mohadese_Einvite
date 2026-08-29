@@ -73,7 +73,7 @@ export default function WishesWall() {
   };
 
   return (
-    <section id="wishes" className="relative py-20 sm:py-36 px-4 sm:px-6 z-10 bg-ivory">
+    <section id="wishes" className="relative py-16 sm:py-32 px-4 sm:px-6 z-10 bg-ivory">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-16">
@@ -85,11 +85,12 @@ export default function WishesWall() {
             <span className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className={`${isPersian ? 'font-fantasy text-3xl sm:text-5xl md:text-6xl' : 'font-fairytale text-2xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
+          {/* Nastaliq Title with Safe Vertical Padding */}
+          <h2 className={`${isPersian ? 'font-nastaliq text-4xl sm:text-6xl md:text-7xl py-3 my-2' : 'font-fairytale text-2xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
             {t('wishes_title')}
           </h2>
 
-          <p className="font-sans text-xs sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed px-2">
+          <p className={`${isPersian ? 'font-persian text-sm sm:text-base leading-loose' : 'font-sans text-xs sm:text-base'} text-warm-gray font-light max-w-lg mx-auto px-2`}>
             {t('wishes_subtitle')}
           </p>
         </div>
@@ -141,12 +142,12 @@ export default function WishesWall() {
               className="rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-b from-champagne-200/30 via-white/60 to-champagne-100/30 border border-rose-gold/20 shadow-luxury transition-all duration-300 hover:-translate-y-1"
             >
               <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(1.5rem-4px)] p-4 sm:p-6 bg-ivory/90 h-full flex flex-col justify-between">
-                <p className="font-serif italic text-xs sm:text-sm text-warm-gray leading-relaxed mb-3 sm:mb-4">
+                <p className={`${isPersian ? 'font-persian text-xs sm:text-sm leading-loose' : 'font-serif italic text-xs sm:text-sm leading-relaxed'} text-warm-gray mb-3 sm:mb-4`}>
                   “{item.message}”
                 </p>
 
                 <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-rose-gold/15">
-                  <span className="font-serif text-xs font-semibold text-mahogany">
+                  <span className={`${isPersian ? 'font-nastaliq text-base sm:text-lg pt-1' : 'font-serif text-xs font-semibold'} text-mahogany`}>
                     {item.name}
                   </span>
                   <span className="text-[10px] text-warm-stone font-light font-serif">

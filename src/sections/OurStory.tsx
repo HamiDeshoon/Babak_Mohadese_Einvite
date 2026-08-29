@@ -55,12 +55,12 @@ export default function OurStory() {
             <span className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className={`${isPersian ? 'font-nastaliq text-4xl sm:text-6xl md:text-7xl py-1' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
+          <h2 className={`${isPersian ? 'font-nastaliq text-3xl sm:text-5xl md:text-6xl py-2' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
             {t('story_title')}
           </h2>
 
           {/* Romantic Fairytale Quote */}
-          <blockquote className="max-w-2xl mx-auto p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-ivory/90 border border-gold/35 backdrop-blur-md text-center shadow-luxury relative overflow-hidden">
+          <blockquote className="max-w-2xl mx-auto p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-ivory/90 border border-gold/35 backdrop-blur-md text-center shadow-luxury relative overflow-hidden my-4">
             <div className="absolute top-0 right-0 w-20 sm:w-24 h-20 sm:h-24 bg-gradient-to-bl from-sage-200/40 to-transparent rounded-bl-full pointer-events-none" />
             <p className={`${isPersian ? 'font-nastaliq text-lg sm:text-2xl leading-[2.4] sm:leading-[2.6] text-mahogany' : 'font-garamond italic text-base sm:text-xl text-warm-gray leading-relaxed'}`}>
               {isPersian ? invitationConfig.story.quoteFa : invitationConfig.story.quoteEn}
@@ -81,10 +81,10 @@ export default function OurStory() {
                   <span>{isPersian ? chapter.yearFa : chapter.year}</span>
                   <span className="text-gold">✦</span>
                 </div>
-                <h3 className={`${isPersian ? 'font-nastaliq text-2xl sm:text-3xl pt-1' : 'font-fairytale text-xl sm:text-2xl'} font-normal text-mahogany mb-2 sm:mb-3`}>
+                <h3 className={`${isPersian ? 'font-nastaliq text-2xl sm:text-3xl py-1' : 'font-fairytale text-xl sm:text-2xl'} font-normal text-mahogany mb-2 sm:mb-3`}>
                   {isPersian ? chapter.titleFa : chapter.titleEn}
                 </h3>
-                <p className={`${isPersian ? 'font-nastaliq text-base sm:text-lg leading-[2.3]' : 'font-sans text-xs sm:text-base leading-relaxed'} text-warm-gray font-light max-w-2xl mx-auto`}>
+                <p className={`${isPersian ? 'font-persian text-sm sm:text-base leading-loose' : 'font-sans text-xs sm:text-base leading-relaxed'} text-warm-gray font-light max-w-2xl mx-auto`}>
                   {isPersian ? chapter.contentFa : chapter.contentEn}
                 </p>
               </div>

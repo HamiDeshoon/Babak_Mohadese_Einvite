@@ -127,11 +127,11 @@ export function LanguageProvider({
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr';
     if (language === 'fa') {
-      document.body.classList.add('font-nastaliq');
+      document.body.classList.add('font-persian');
       document.body.classList.remove('font-sans');
     } else {
       document.body.classList.add('font-sans');
-      document.body.classList.remove('font-nastaliq');
+      document.body.classList.remove('font-persian');
     }
   }, [language]);
 

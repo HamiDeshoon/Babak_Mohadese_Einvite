@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Jinero Curated Persian Wedding Fonts & Google Fonts Fallbacks */
+/* Bundled Authentic Iranian Nastaliq & Persian Wedding Webfonts */
 @font-face {
-  font-family: 'Hussaini Nastaleeq';
+  font-family: 'IranNastaliq';
+  src: url('./assets/fonts/IranNastaliq.woff2') format('woff2'),
+       url('./assets/fonts/IranNastaliq.woff') format('woff'),
+       url('./assets/fonts/IranNastaliq.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
-  font-weight: 400;
   font-display: swap;
-  src: url('https://jinero.online/storage/fonts/hussaini-nastaleeq/hussaininastaleeq.woff2') format('woff2');
 }
 
 @font-face {
@@ -25,14 +27,6 @@
   font-weight: 700;
   font-display: swap;
   src: url('https://jinero.online/storage/fonts/parastoo/parastoo-bold.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Mirza';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://jinero.online/storage/fonts/mirza/mirza-regular.woff2') format('woff2');
 }
 
 @layer base {
@@ -84,20 +78,25 @@
 }
 
 @layer components {
-  /* Persian Fantasy Wedding Typography */
+  /* True Original IranNastaliq */
   .font-nastaliq {
-    font-family: 'Noto Nastaliq Urdu', 'Hussaini Nastaleeq', 'Gulzar', 'Katibeh', serif;
-    line-height: 2.2;
+    font-family: 'IranNastaliq', 'Iran Nastaliq', 'Aref Ruqaa', 'Katibeh', serif;
+    line-height: 2.5;
+  }
+
+  .font-shekasteh {
+    font-family: 'IranNastaliq', 'Iran Nastaliq', 'Aref Ruqaa', 'Katibeh', serif;
+    line-height: 2.5;
   }
 
   .font-fantasy {
-    font-family: 'Gulzar', 'Aref Ruqaa', 'Katibeh', 'Noto Nastaliq Urdu', serif;
-    line-height: 1.8;
+    font-family: 'IranNastaliq', 'Iran Nastaliq', 'Aref Ruqaa', 'Katibeh', serif;
+    line-height: 2.2;
   }
 
   .font-gulzar {
-    font-family: 'Gulzar', 'Katibeh', serif;
-    line-height: 1.7;
+    font-family: 'Gulzar', 'IranNastaliq', 'Katibeh', serif;
+    line-height: 1.8;
   }
 
   .font-ruqaa {
@@ -105,7 +104,8 @@
   }
 
   .font-katibeh {
-    font-family: 'Katibeh', 'Gulzar', 'Amiri', serif;
+    font-family: 'Katibeh', 'Parastoo', 'Amiri', serif;
+    line-height: 1.8;
   }
 
   .font-parastoo {
@@ -123,6 +123,11 @@
 
   .font-lalezar {
     font-family: 'Lalezar', 'Katibeh', sans-serif;
+  }
+
+  .font-persian {
+    font-family: 'Katibeh', 'Parastoo', 'Vazirmatn', sans-serif;
+    line-height: 1.85;
   }
 
   .font-fairytale {
@@ -175,16 +180,6 @@
       0 10px 25px -5px rgba(44, 29, 26, 0.15),
       0 20px 45px -10px rgba(44, 29, 26, 0.2),
       0 0 1px 1px rgba(212, 175, 55, 0.15);
-  }
-
-  .stacked-deck-layer-1 {
-    transform: rotate(-4deg) translateY(6px) scale(0.96);
-    opacity: 0.75;
-  }
-
-  .stacked-deck-layer-2 {
-    transform: rotate(3deg) translateY(12px) scale(0.92);
-    opacity: 0.55;
   }
 
   /* Botanical Watercolor Border Frame */

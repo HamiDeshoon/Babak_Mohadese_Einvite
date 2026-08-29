@@ -88,7 +88,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-20 sm:pt-28 pb-12 sm:pb-16 px-3.5 sm:px-6 text-center overflow-hidden z-10"
+      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 text-center overflow-hidden z-10"
     >
       {/* Background Soft Mesh & Botanical Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[750px] h-[320px] sm:h-[750px] rounded-full bg-gradient-to-tr from-sage-200/35 via-gold-light/25 to-rose-blush/30 blur-3xl pointer-events-none -z-10" />
@@ -104,8 +104,8 @@ export default function Hero() {
 
       <div className="max-w-4xl mx-auto flex flex-col items-center relative z-10 w-full">
         {/* Charming Natural Wedding Luxury Crest Monogram */}
-        <div ref={crestRef} className="mb-3 sm:mb-6 relative group">
-          <div className="w-18 h-18 sm:w-26 sm:h-26 rounded-full p-[2px] bg-gradient-to-tr from-gold via-sage-400 to-rose-gold shadow-gold-glow flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+        <div ref={crestRef} className="mb-4 sm:mb-6 relative group">
+          <div className="w-18 h-18 sm:w-24 sm:h-24 rounded-full p-[2px] bg-gradient-to-tr from-gold via-sage-400 to-rose-gold shadow-gold-glow flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
             <div className="w-full h-full rounded-full bg-gradient-to-br from-ivory/95 via-white/90 to-ivory/95 backdrop-blur-md flex flex-col items-center justify-center border border-white/80 shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <img src={asset('/charming/Image-1.png')} alt="" className="w-full h-full object-cover" />
@@ -122,30 +122,30 @@ export default function Hero() {
         {/* Eyebrow */}
         <p
           ref={eyebrowRef}
-          className={`${isPersian ? 'font-katibeh text-base sm:text-2xl tracking-wide' : 'font-serif text-[11px] sm:text-sm uppercase tracking-[0.2em]'} text-rose-deep mb-1.5 sm:mb-3 px-2`}
+          className={`${isPersian ? 'font-katibeh text-base sm:text-xl tracking-wide' : 'font-serif text-[11px] sm:text-sm uppercase tracking-[0.2em]'} text-rose-deep mb-3 sm:mb-5 px-2`}
         >
           ❦ {isPersian ? invitationConfig.couple.groomFamilyFa : invitationConfig.couple.groomFamilyEn} ❦
         </p>
 
-        {/* Couple Names */}
-        <div className="my-1 sm:my-2 w-full px-2">
+        {/* Couple Names - With generous vertical clearance & padding */}
+        <div className="my-2 sm:my-4 pb-4 sm:pb-8 w-full px-2">
           {isPersian ? (
-            <h1 className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-6 py-1">
+            <h1 className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-6 py-2">
               <span
                 ref={name1Ref}
-                className="font-nastaliq text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-mahogany tracking-wide leading-[2.2] sm:leading-[2.4] drop-shadow-[0_0_20px_rgba(184,134,11,0.25)] text-gold-shimmer"
+                className="font-nastaliq text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-mahogany tracking-wide leading-[1.8] sm:leading-[2.0] drop-shadow-[0_0_20px_rgba(184,134,11,0.25)] text-gold-shimmer px-2 inline-block"
               >
                 {invitationConfig.couple.brideFa}
               </span>
               <span
                 ref={ampRef}
-                className="font-nastaliq text-3xl sm:text-6xl text-sage-500 my-0 sm:my-0 pb-1 sm:pb-2 drop-shadow-sm"
+                className="font-nastaliq text-2xl sm:text-4xl text-sage-500 my-0 sm:my-0 pb-1 sm:pb-2 drop-shadow-sm inline-block"
               >
                 و
               </span>
               <span
                 ref={name2Ref}
-                className="font-nastaliq text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-mahogany tracking-wide leading-[2.2] sm:leading-[2.4] drop-shadow-[0_0_20px_rgba(184,134,11,0.25)] text-gold-shimmer"
+                className="font-nastaliq text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-mahogany tracking-wide leading-[1.8] sm:leading-[2.0] drop-shadow-[0_0_20px_rgba(184,134,11,0.25)] text-gold-shimmer px-2 inline-block"
               >
                 {invitationConfig.couple.groomFa}
               </span>
@@ -154,19 +154,19 @@ export default function Hero() {
             <h1 className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-6">
               <span
                 ref={name1Ref}
-                className="font-fairytale text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-normal text-mahogany tracking-tight text-gold-shimmer"
+                className="font-fairytale text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-normal text-mahogany tracking-tight text-gold-shimmer"
               >
                 {invitationConfig.couple.brideEn}
               </span>
               <span
                 ref={ampRef}
-                className="font-display text-3xl sm:text-6xl md:text-7xl text-rose-gold -my-1 sm:my-0"
+                className="font-display text-3xl sm:text-5xl md:text-6xl text-rose-gold -my-1 sm:my-0"
               >
                 &
               </span>
               <span
                 ref={name2Ref}
-                className="font-fairytale text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-normal text-mahogany tracking-tight text-gold-shimmer"
+                className="font-fairytale text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-normal text-mahogany tracking-tight text-gold-shimmer"
               >
                 {invitationConfig.couple.groomEn}
               </span>
@@ -174,16 +174,16 @@ export default function Hero() {
           )}
         </div>
 
-        {/* Subtitle */}
+        {/* Subtitle - Fully decoupled with clear top margin */}
         <p
           ref={subtitleRef}
-          className={`${isPersian ? 'font-katibeh text-base sm:text-2xl' : 'font-sans text-xs sm:text-base'} mt-2 sm:mt-4 text-warm-gray font-light max-w-lg leading-relaxed px-4`}
+          className={`${isPersian ? 'font-katibeh text-base sm:text-xl leading-loose' : 'font-sans text-xs sm:text-base leading-relaxed'} mt-3 sm:mt-6 text-warm-gray font-light max-w-lg mx-auto px-4`}
         >
           {t('hero_request')}
         </p>
 
         {/* Date & Location Double-Bezel Badge */}
-        <div ref={badgeRef} className="mt-5 sm:mt-8 w-full max-w-md px-2">
+        <div ref={badgeRef} className="mt-6 sm:mt-8 w-full max-w-md px-2">
           <div className="rounded-full p-1 bg-gradient-to-r from-gold/30 via-sage-300/30 to-rose-gold/30 shadow-luxury">
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 sm:px-8 py-2 sm:py-3 rounded-full bg-ivory/95 backdrop-blur-xl border border-white/80">
               <span className="text-gold text-xs">✦</span>
@@ -200,10 +200,10 @@ export default function Hero() {
         </div>
 
         {/* Action Buttons */}
-        <div ref={ctaRef} className="mt-6 sm:mt-10 flex flex-col xs:flex-row items-center justify-center gap-2.5 sm:gap-4 w-full px-4 max-w-xs xs:max-w-none">
+        <div ref={ctaRef} className="mt-8 sm:mt-10 flex flex-col xs:flex-row items-center justify-center gap-3 sm:gap-4 w-full px-4 max-w-xs xs:max-w-none">
           <button
             onClick={() => scrollToSection('rsvp')}
-            className="w-full xs:w-auto px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest text-ivory font-serif text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-gold/30 flex items-center justify-center gap-2 group"
+            className="w-full xs:w-auto px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest text-ivory font-serif text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-gold/30 flex items-center justify-center gap-2 group"
           >
             <span>{t('nav_rsvp')}</span>
             <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 flex items-center justify-center text-xs group-hover:rotate-45 transition-transform duration-300">
@@ -212,7 +212,7 @@ export default function Hero() {
           </button>
           <button
             onClick={() => scrollToSection('the-wedding')}
-            className="w-full xs:w-auto px-6 py-3 sm:py-3.5 rounded-full bg-ivory/90 hover:bg-champagne text-mahogany font-serif text-xs sm:text-sm uppercase tracking-wider border border-gold/30 shadow-sm hover:scale-105 active:scale-95 transition-all duration-300"
+            className="w-full xs:w-auto px-7 py-3 sm:py-3.5 rounded-full bg-ivory/90 hover:bg-champagne text-mahogany font-serif text-xs sm:text-sm uppercase tracking-wider border border-gold/30 shadow-sm hover:scale-105 active:scale-95 transition-all duration-300"
           >
             {t('nav_wedding')}
           </button>
@@ -223,7 +223,7 @@ export default function Hero() {
       <div
         ref={scrollRef}
         onClick={() => scrollToSection('our-story')}
-        className="mt-8 sm:mt-14 cursor-pointer flex flex-col items-center gap-1 sm:gap-2 group"
+        className="mt-10 sm:mt-14 cursor-pointer flex flex-col items-center gap-1.5 sm:gap-2 group"
       >
         <span className="text-[10px] sm:text-[11px] font-serif uppercase tracking-[0.2em] text-warm-stone group-hover:text-rose-deep transition-colors">
           {t('hero_scroll')}
