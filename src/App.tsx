@@ -26,12 +26,15 @@ function MainContent() {
   const location = useLocation();
 
   useEffect(() => {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isTouch ? 0.8 : 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
+      syncTouch: false,
+      touchMultiplier: 1.2,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -48,7 +51,7 @@ function MainContent() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen relative selection:bg-sage-400 selection:text-ivory bg-ivory">
+    <div className="min-h-[100dvh] relative selection:bg-sage-400 selection:text-ivory bg-ivory overflow-x-hidden">
       {/* Charming Natural Wedding Botanical Wallpaper & Ambient Lighting */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 bg-cover bg-top bg-no-repeat opacity-40 mix-blend-multiply transition-opacity duration-1000"

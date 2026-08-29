@@ -12,7 +12,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -44,15 +44,15 @@ export default function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-8 ${
-          scrolled ? 'py-2.5' : 'py-5'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-2.5 sm:px-8 ${
+          scrolled ? 'py-2 sm:py-2.5' : 'py-3 sm:py-5'
         }`}
       >
         <div
-          className={`max-w-6xl mx-auto rounded-full transition-all duration-500 px-4 sm:px-6 py-2 flex items-center justify-between border ${
+          className={`max-w-6xl mx-auto rounded-full transition-all duration-500 px-3 sm:px-6 py-1.5 sm:py-2 flex items-center justify-between border ${
             scrolled
-              ? 'bg-ivory/90 backdrop-blur-2xl border-rose-gold/25 shadow-luxury'
-              : 'bg-ivory/60 backdrop-blur-md border-white/40 shadow-sm'
+              ? 'bg-ivory/95 backdrop-blur-2xl border-rose-gold/25 shadow-luxury'
+              : 'bg-ivory/70 backdrop-blur-md border-white/50 shadow-sm'
           }`}
         >
           {/* Couple Monogram / Logo */}
@@ -62,12 +62,12 @@ export default function Navigation() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-1.5 sm:gap-2 group min-w-0"
           >
-            <span className="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-gold to-gold flex items-center justify-center text-ivory text-xs font-serif shadow-sm transition-transform duration-300 group-hover:rotate-12 group-hover:scale-105">
+            <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-rose-gold to-gold flex items-center justify-center text-ivory text-xs font-serif shadow-sm shrink-0 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-105">
               ✦
             </span>
-            <span className="font-serif text-lg sm:text-xl font-medium tracking-tight text-mahogany">
+            <span className="font-serif text-sm sm:text-lg font-medium tracking-tight text-mahogany truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none">
               {isPersian ? `${invitationConfig.couple.brideFa} و ${invitationConfig.couple.groomFa}` : `${invitationConfig.couple.groomEn} & ${invitationConfig.couple.brideEn}`}
             </span>
           </a>
@@ -94,12 +94,13 @@ export default function Navigation() {
           </nav>
 
           {/* Right Action Controls: Language Toggle + Audio + Mobile Toggle */}
-          <div className="flex items-center gap-2.5">
-            {/* Language Switcher Capsule */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Compact Language Switcher Capsule */}
             <div className="flex items-center bg-champagne-100/70 p-0.5 rounded-full border border-rose-gold/25 shadow-inner">
               <button
                 onClick={() => toggleLanguage('fa')}
-                className={`px-2.5 py-1 rounded-full text-[11px] font-serif transition-all duration-300 ${
+                aria-label="Persian Language"
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-serif transition-all duration-300 ${
                   isPersian
                     ? 'bg-mahogany text-ivory font-medium shadow-sm'
                     : 'text-warm-gray hover:text-mahogany'
@@ -109,7 +110,8 @@ export default function Navigation() {
               </button>
               <button
                 onClick={() => toggleLanguage('en')}
-                className={`px-2.5 py-1 rounded-full text-[11px] font-serif transition-all duration-300 ${
+                aria-label="English Language"
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-serif transition-all duration-300 ${
                   !isPersian
                     ? 'bg-mahogany text-ivory font-medium shadow-sm'
                     : 'text-warm-gray hover:text-mahogany'
@@ -125,15 +127,15 @@ export default function Navigation() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
-              className="lg:hidden w-9 h-9 rounded-full bg-champagne-100/80 border border-rose-gold/20 flex flex-col items-center justify-center gap-1.5 transition-transform duration-300 active:scale-90"
+              className="lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-champagne-100/80 border border-rose-gold/20 flex flex-col items-center justify-center gap-1.5 transition-transform duration-300 active:scale-90"
             >
               <span
-                className={`w-4 h-[1.5px] bg-mahogany rounded-full transition-all duration-300 ${
+                className={`w-3.5 sm:w-4 h-[1.5px] bg-mahogany rounded-full transition-all duration-300 ${
                   mobileMenuOpen ? 'rotate-45 translate-y-[4.5px]' : ''
                 }`}
               />
               <span
-                className={`w-4 h-[1.5px] bg-mahogany rounded-full transition-all duration-300 ${
+                className={`w-3.5 sm:w-4 h-[1.5px] bg-mahogany rounded-full transition-all duration-300 ${
                   mobileMenuOpen ? '-rotate-45 -translate-y-[4.5px]' : ''
                 }`}
               />
@@ -144,15 +146,30 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-ivory/95 backdrop-blur-3xl flex flex-col justify-center items-center px-6 lg:hidden animate-in fade-in duration-300">
-          <div className="flex flex-col items-center gap-6 text-center">
-            <span className="text-3xl text-gold mb-2">💍</span>
-            <div className="font-serif text-2xl text-mahogany mb-2">
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className="fixed inset-0 z-50 bg-ivory/95 backdrop-blur-3xl flex flex-col justify-center items-center px-6 lg:hidden animate-in fade-in duration-300"
+        >
+          {/* Close button */}
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+            className="absolute top-5 right-5 rtl:right-auto rtl:left-5 w-10 h-10 rounded-full bg-champagne-100 border border-rose-gold/20 flex items-center justify-center text-mahogany text-lg"
+          >
+            ✕
+          </button>
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex flex-col items-center gap-5 text-center w-full max-w-xs"
+          >
+            <span className="text-3xl text-gold mb-1">💍</span>
+            <div className="font-serif text-2xl text-mahogany mb-1">
               {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
             </div>
 
             {/* Mobile Language Switcher */}
-            <div className="flex items-center gap-2 mb-4 bg-champagne-100/90 p-1 rounded-full border border-rose-gold/30">
+            <div className="flex items-center gap-2 mb-3 bg-champagne-100/90 p-1 rounded-full border border-rose-gold/30">
               <button
                 onClick={() => {
                   toggleLanguage('fa');
@@ -177,23 +194,25 @@ export default function Navigation() {
               </button>
             </div>
 
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
-                }}
-                className={`text-xl font-fantasy tracking-wider ${
-                  link.isCta
-                    ? 'px-8 py-3 rounded-full bg-rose-deep text-ivory shadow-lg'
-                    : 'text-mahogany hover:text-rose-gold'
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
+            <div className="flex flex-col w-full gap-3">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
+                  className={`text-lg py-2.5 px-6 rounded-2xl transition-all ${
+                    link.isCta
+                      ? 'bg-rose-deep text-ivory shadow-lg font-serif'
+                      : 'text-mahogany hover:bg-champagne-100/70 font-fantasy'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}

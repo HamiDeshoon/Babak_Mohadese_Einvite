@@ -73,32 +73,32 @@ export default function WishesWall() {
   };
 
   return (
-    <section id="wishes" className="relative py-28 sm:py-36 px-6 z-10 bg-ivory">
+    <section id="wishes" className="relative py-20 sm:py-36 px-4 sm:px-6 z-10 bg-ivory">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
+            <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-transparent to-sage-400" />
             <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
               ❦ {t('wishes_eyebrow')} ❦
             </span>
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
+            <span className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
-          <h2 className={`${isPersian ? 'font-fantasy text-4xl sm:text-5xl md:text-6xl' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-4 text-gold-shimmer`}>
+          <h2 className={`${isPersian ? 'font-fantasy text-3xl sm:text-5xl md:text-6xl' : 'font-fairytale text-2xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
             {t('wishes_title')}
           </h2>
 
-          <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed">
+          <p className="font-sans text-xs sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed px-2">
             {t('wishes_subtitle')}
           </p>
         </div>
 
         {/* Input Box */}
-        <div className="max-w-2xl mx-auto mb-14 rounded-3xl p-1 bg-gradient-to-b from-sage-200/50 via-gold/30 to-champagne-100/40 shadow-luxury border border-gold/25">
+        <div className="max-w-2xl mx-auto mb-10 sm:mb-14 rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-b from-sage-200/50 via-gold/30 to-champagne-100/40 shadow-luxury border border-gold/25">
           <form
             onSubmit={handlePostWish}
-            className="p-6 sm:p-8 rounded-[calc(1.5rem-4px)] bg-ivory/95 border border-white/80 space-y-4"
+            className="p-4 sm:p-8 rounded-[calc(1rem-2px)] sm:rounded-[calc(1.5rem-4px)] bg-ivory/95 border border-white/80 space-y-3 sm:space-y-4"
           >
             <div>
               <input
@@ -107,7 +107,7 @@ export default function WishesWall() {
                 placeholder={t('wishes_author')}
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                className="w-full px-5 py-3 rounded-xl bg-champagne-50/50 border border-sage-300 text-sm text-mahogany outline-none focus:border-gold transition-all"
+                className="w-full px-4 sm:px-5 py-3 rounded-xl bg-champagne-50/50 border border-sage-300 text-base text-mahogany outline-none focus:border-gold transition-all"
               />
             </div>
 
@@ -118,14 +118,14 @@ export default function WishesWall() {
                 placeholder={t('wishes_placeholder')}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full px-5 py-3 rounded-xl bg-champagne-50/50 border border-sage-300 text-sm text-mahogany outline-none focus:border-gold transition-all resize-none"
+                className="w-full px-4 sm:px-5 py-3 rounded-xl bg-champagne-50/50 border border-sage-300 text-base text-mahogany outline-none focus:border-gold transition-all resize-none"
               />
             </div>
 
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="px-7 py-2.5 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest hover:shadow-gold-glow text-ivory font-serif text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 border border-gold/30"
+                className="w-full xs:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest hover:shadow-gold-glow text-ivory font-serif text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 border border-gold/30"
               >
                 {t('wishes_post')}
               </button>
@@ -134,18 +134,18 @@ export default function WishesWall() {
         </div>
 
         {/* Wishes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           {wishes.map((item) => (
             <div
               key={item.id}
-              className="rounded-3xl p-1 bg-gradient-to-b from-champagne-200/30 via-white/60 to-champagne-100/30 border border-rose-gold/20 shadow-luxury transition-all duration-300 hover:-translate-y-1"
+              className="rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-b from-champagne-200/30 via-white/60 to-champagne-100/30 border border-rose-gold/20 shadow-luxury transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="rounded-[calc(1.5rem-4px)] p-6 bg-ivory/90 h-full flex flex-col justify-between">
-                <p className="font-serif italic text-sm text-warm-gray leading-relaxed mb-4">
+              <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(1.5rem-4px)] p-4 sm:p-6 bg-ivory/90 h-full flex flex-col justify-between">
+                <p className="font-serif italic text-xs sm:text-sm text-warm-gray leading-relaxed mb-3 sm:mb-4">
                   “{item.message}”
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-rose-gold/15">
+                <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-rose-gold/15">
                   <span className="font-serif text-xs font-semibold text-mahogany">
                     {item.name}
                   </span>

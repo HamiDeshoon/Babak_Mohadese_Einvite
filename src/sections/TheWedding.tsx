@@ -75,24 +75,24 @@ export default function TheWedding() {
       <section
         ref={sectionRef}
         id="the-wedding"
-        className="relative py-28 sm:py-36 px-6 z-10 bg-gradient-to-b from-champagne-50/70 via-silk/40 to-ivory"
+        className="relative py-20 sm:py-36 px-4 sm:px-6 z-10 bg-gradient-to-b from-champagne-50/70 via-silk/40 to-ivory"
       >
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 mb-3">
-              <span className="h-px w-8 bg-gradient-to-r from-transparent to-sage-400" />
+              <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-transparent to-sage-400" />
               <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
                 ❦ {t('wedding_eyebrow')} ❦
               </span>
-              <span className="h-px w-8 bg-gradient-to-l from-transparent to-sage-400" />
+              <span className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-sage-400" />
             </div>
 
-            <h2 className={`${isPersian ? 'font-fantasy text-4xl sm:text-5xl md:text-6xl' : 'font-fairytale text-3xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-4 text-gold-shimmer`}>
+            <h2 className={`${isPersian ? 'font-fantasy text-3xl sm:text-5xl md:text-6xl' : 'font-fairytale text-2xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
               {t('wedding_title')}
             </h2>
 
-            <p className="font-sans text-sm sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed">
+            <p className="font-sans text-xs sm:text-base text-warm-gray font-light max-w-lg mx-auto leading-relaxed px-2">
               {isPersian
                 ? 'با کمال مسرت و شادمانی، چشم‌انتظار قدوم پرمهر شما عزیزان در این شب رویایی هستیم.'
                 : 'With boundless joy, we look forward to celebrating this unforgettable night together with you.'}
@@ -100,23 +100,23 @@ export default function TheWedding() {
           </div>
 
           {/* 3 Feature Double-Bezel Cards (Date, Time, Location) */}
-          <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
+          <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16 max-w-4xl mx-auto">
             {detailCards.map((card) => (
               <div
                 key={card.titleEn}
-                className="detail-card rounded-[2rem] p-1.5 bg-gradient-to-b from-sage-200/50 via-white/80 to-champagne-100/40 shadow-luxury transition-all duration-500 hover:-translate-y-2 hover:shadow-luxury-hover border border-gold/25"
+                className="detail-card rounded-2xl sm:rounded-[2rem] p-1 sm:p-1.5 bg-gradient-to-b from-sage-200/50 via-white/80 to-champagne-100/40 shadow-luxury transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxury-hover border border-gold/25"
               >
-                <div className="rounded-[calc(2rem-6px)] p-7 bg-ivory/95 backdrop-blur-xl h-full flex flex-col items-center text-center justify-between border border-white/60">
-                  <div className="w-14 h-14 rounded-full bg-champagne-100/80 border border-gold/30 flex items-center justify-center text-3xl mb-4 shadow-sm">
+                <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(2rem-6px)] p-5 sm:p-7 bg-ivory/95 backdrop-blur-xl h-full flex flex-col items-center text-center justify-between border border-white/60">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-champagne-100/80 border border-gold/30 flex items-center justify-center text-2xl sm:text-3xl mb-3 sm:mb-4 shadow-sm">
                     {card.icon}
                   </div>
-                  <h3 className={`${isPersian ? 'font-katibeh text-2xl font-bold' : 'font-serif text-lg font-semibold'} text-mahogany mb-2`}>
+                  <h3 className={`${isPersian ? 'font-katibeh text-xl sm:text-2xl font-bold' : 'font-serif text-base sm:text-lg font-semibold'} text-mahogany mb-1.5 sm:mb-2`}>
                     {isPersian ? card.titleFa : card.titleEn}
                   </h3>
-                  <p className="font-sans text-xs sm:text-sm text-warm-gray leading-relaxed font-light mb-4">
+                  <p className="font-sans text-xs sm:text-sm text-warm-gray leading-relaxed font-light mb-3 sm:mb-4">
                     {isPersian ? card.descFa : card.descEn}
                   </p>
-                  <span className="inline-block px-3 py-1 rounded-full bg-forest/5 text-forest text-[11px] font-serif tracking-wider border border-forest/15">
+                  <span className="inline-block px-3 py-1 rounded-full bg-forest/5 text-forest text-[10px] sm:text-[11px] font-serif tracking-wider border border-forest/15">
                     {isPersian ? card.highlightFa : card.highlightEn}
                   </span>
                 </div>
@@ -125,32 +125,32 @@ export default function TheWedding() {
           </div>
 
           {/* Interactive Event Timeline */}
-          <div className="rounded-[2.5rem] p-2 bg-gradient-to-b from-sage-200/40 via-champagne-200/40 to-white/60 shadow-luxury max-w-3xl mx-auto border border-gold/25 mb-16">
-            <div className="rounded-[calc(2.5rem-8px)] p-6 sm:p-10 bg-ivory/95 backdrop-blur-2xl border border-white/80">
-              <div className="flex items-center justify-between pb-6 border-b border-rose-gold/20 mb-8">
-                <h3 className={`${isPersian ? 'font-fantasy text-2xl sm:text-3xl' : 'font-fairytale text-xl sm:text-2xl'} text-mahogany font-normal`}>
+          <div className="rounded-2xl sm:rounded-[2.5rem] p-1 sm:p-2 bg-gradient-to-b from-sage-200/40 via-champagne-200/40 to-white/60 shadow-luxury max-w-3xl mx-auto border border-gold/25 mb-12 sm:mb-16">
+            <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(2.5rem-8px)] p-5 sm:p-10 bg-ivory/95 backdrop-blur-2xl border border-white/80">
+              <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-rose-gold/20 mb-6 sm:mb-8">
+                <h3 className={`${isPersian ? 'font-fantasy text-xl sm:text-3xl' : 'font-fairytale text-lg sm:text-2xl'} text-mahogany font-normal`}>
                   {isPersian ? 'جدول زمان‌بندی و برنامه‌های مراسم' : 'Celebration Schedule & Timeline'}
                 </h3>
                 <button
                   onClick={() => setShowSchedule(!showSchedule)}
-                  className="text-xs font-serif text-rose-deep hover:text-gold uppercase tracking-wider transition-colors"
+                  className="text-[11px] sm:text-xs font-serif text-rose-deep hover:text-gold uppercase tracking-wider transition-colors shrink-0"
                 >
                   {showSchedule ? t('hide_full_schedule') : t('view_full_schedule')}
                 </button>
               </div>
 
               {showSchedule && (
-                <div className="relative border-l-2 rtl:border-l-0 rtl:border-r-2 border-sage-300 pl-6 rtl:pl-0 rtl:pr-6 space-y-8">
+                <div className="relative border-l-2 rtl:border-l-0 rtl:border-r-2 border-sage-300 pl-4 sm:pl-6 rtl:pl-0 rtl:pr-4 rtl:sm:pr-6 space-y-6 sm:space-y-8">
                   {invitationConfig.schedule.map((item, idx) => (
                     <div key={idx} className="relative group">
                       {/* Glowing Bullet */}
-                      <span className="absolute -left-[31px] rtl:left-auto rtl:-right-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-forest border-2 border-ivory shadow-sm transition-transform duration-300 group-hover:scale-125 group-hover:bg-gold" />
+                      <span className="absolute -left-[23px] sm:-left-[31px] rtl:left-auto rtl:-right-[23px] rtl:sm:-right-[31px] top-1.5 w-3 sm:w-3.5 h-3 sm:h-3.5 rounded-full bg-forest border-2 border-ivory shadow-sm transition-transform duration-300 group-hover:scale-125 group-hover:bg-gold" />
 
-                      <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-1">
-                        <span className="font-serif text-sm font-semibold text-rose-deep min-w-[75px]">
+                      <div className="flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-4 mb-1">
+                        <span className="font-serif text-xs sm:text-sm font-semibold text-rose-deep min-w-[70px]">
                           {isPersian ? item.timeFa : item.time}
                         </span>
-                        <h4 className={`${isPersian ? 'font-katibeh text-xl sm:text-2xl' : 'font-serif text-base sm:text-lg'} font-medium text-mahogany`}>
+                        <h4 className={`${isPersian ? 'font-katibeh text-lg sm:text-2xl' : 'font-serif text-sm sm:text-lg'} font-medium text-mahogany`}>
                           {isPersian ? item.titleFa : item.titleEn}
                         </h4>
                       </div>
@@ -166,10 +166,10 @@ export default function TheWedding() {
           </div>
 
           {/* Quick Action Hub (Gift Registry) */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 px-2">
             <button
               onClick={() => setIsGiftModalOpen(true)}
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-gold via-champagne-300 to-rose-gold text-mahogany font-serif text-xs uppercase tracking-widest shadow-luxury hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-white/60 flex items-center gap-2"
+              className="w-full xs:w-auto px-6 py-3.5 rounded-full bg-gradient-to-r from-gold via-champagne-300 to-rose-gold text-mahogany font-serif text-xs uppercase tracking-widest shadow-luxury hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-white/60 flex items-center justify-center gap-2"
             >
               <span>🎁</span>
               <span>{isPersian ? 'شماره حساب و یادبود عروس و داماد' : 'Gift Registry & Shaba Info'}</span>

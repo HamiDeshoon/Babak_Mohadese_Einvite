@@ -4,20 +4,16 @@
  * ==========================================================================
  * 
  * Instructions:
- * 1. Open Google Sheets (https://sheets.google.com) and create a new Spreadsheet.
+ * 1. Open Google Sheets (https://sheets.google.com) and create a new Spreadsheet
+ *    or open: https://docs.google.com/spreadsheets/d/1e5EDayKjb8vTPIgaaTa1lB-r1NNP575UZAZWk6qhlmM/edit
  * 2. Click Extensions > Apps Script.
- * 3. Delete any code in the editor and paste this entire script.
- * 4. Update NOTIFICATION_EMAILS below with Babak and Mohadese's email addresses.
- * 5. Click Deploy > New deployment.
- *    - Select type: "Web app"
- *    - Description: "Wedding RSVP Webhook"
- *    - Execute as: "Me"
- *    - Who has access: "Anyone"
- * 6. Click Deploy, authorize access, and copy the Web App URL.
- * 7. Set the copied URL as VITE_GOOGLE_SHEET_URL in .env or invitation.config.ts.
+ * 3. Delete any existing code and paste this ENTIRE script.
+ * 4. Click Deploy > Manage deployments > Edit > New version > Deploy.
+ * 5. Choose "Web app", Execute as "Me", Who has access "Anyone".
+ * 6. Run `testDoPost()` inside Apps Script to verify Sheet insertion & email delivery.
  */
 
-// Configure notification recipients for Babak & Mohadese
+// Configuration
 const CONFIG = {
   // Comma-separated emails to receive instant RSVP alerts
   NOTIFICATION_EMAILS: ['ebrahimib941941@gmail.com', 'mohiestaji@gmail.com', 'tmha456@gmail.com'],
@@ -38,7 +34,7 @@ function getSpreadsheet() {
       return SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID.trim());
     }
   } catch (err) {
-    Logger.log('Could not open by ID, falling back to active spreadsheet: ' + err.toString());
+    Logger.log('Could not open by ID: ' + err.toString());
   }
   return SpreadsheetApp.getActiveSpreadsheet();
 }
@@ -50,7 +46,12 @@ function doPost(e) {
   try {
     let data = {};
     if (e && e.postData && e.postData.contents) {
-      data = JSON.parse(e.postData.contents);
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (parseErr) {
+        // Fallback for form-encoded or raw string data
+        data = e.parameter || {};
+      }
     } else if (e && e.parameter && Object.keys(e.parameter).length > 0) {
       data = e.parameter;
     } else {
@@ -75,11 +76,23 @@ function doPost(e) {
     }
 
     const ss = getSpreadsheet();
+    if (!ss) {
+      throw new Error('Spreadsheet could not be accessed. Please check permissions and SPREADSHEET_ID.');
+    }
+
     let sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
-    // If sheet doesn't exist, create it with styled headers
+    // If sheet doesn't exist by name, check if active sheet can be used or create it
     if (!sheet) {
-      sheet = ss.insertSheet(CONFIG.SHEET_NAME);
+      const firstSheet = ss.getSheets()[0];
+      if (firstSheet && firstSheet.getLastRow() === 0) {
+        // If the first sheet is completely empty, rename it
+        sheet = firstSheet;
+        sheet.setName(CONFIG.SHEET_NAME);
+      } else {
+        sheet = ss.insertSheet(CONFIG.SHEET_NAME);
+      }
+
       const headers = [
         'Timestamp',
         'Status',
@@ -99,21 +112,20 @@ function doPost(e) {
       headerRange.setFontWeight('bold');
       headerRange.setHorizontalAlignment('center');
       sheet.setFrozenRows(1);
-      sheet.autoResizeColumns(1, headers.length);
     }
 
     const timestamp = new Date();
     const formattedDate = Utilities.formatDate(
       timestamp,
-      Session.getScriptTimeZone(),
+      Session.getScriptTimeZone() || 'GMT+3:30',
       'yyyy-MM-dd HH:mm:ss'
     );
 
     const name = data.name || 'Anonymous Guest';
     const phone = data.phone || '-';
     const email = data.email || '-';
-    const attending = data.attending === 'accept' ? 'ACCEPTED (شرکت می‌کند)' : 'DECLINED (امکان حضور ندارد)';
     const isAccepted = data.attending === 'accept';
+    const attending = isAccepted ? 'ACCEPTED (شرکت می‌کند)' : 'DECLINED (امکان حضور ندارد)';
     const guestCount = isAccepted ? Number(data.guestCount || 1) : 0;
     const message = data.message || '-';
     const language = (data.language || 'fa').toUpperCase();
@@ -157,20 +169,24 @@ function doPost(e) {
       }
     }
 
-    // Send email notification to Babak and Mohadese
-    sendNotificationEmail({
-      name,
-      phone,
-      email,
-      isAccepted,
-      guestCount,
-      message,
-      language,
-      formattedDate,
-      totalConfirmedGuests,
-      totalAcceptedResponses,
-      totalDeclinedResponses,
-    });
+    // Send email notification to Babak, Mohadese & Hamid
+    try {
+      sendNotificationEmail({
+        name,
+        phone,
+        email,
+        isAccepted,
+        guestCount,
+        message,
+        language,
+        formattedDate,
+        totalConfirmedGuests,
+        totalAcceptedResponses,
+        totalDeclinedResponses,
+      });
+    } catch (emailErr) {
+      Logger.log('Notification email error (Sheet saved successfully): ' + emailErr.toString());
+    }
 
     return ContentService.createTextOutput(
       JSON.stringify({
@@ -195,7 +211,8 @@ function doGet(e) {
     JSON.stringify({
       status: 'active',
       service: 'Babak & Mohadese Wedding RSVP Service',
-      version: '2.0',
+      version: '3.0',
+      spreadsheetId: CONFIG.SPREADSHEET_ID,
       time: new Date().toISOString(),
     })
   ).setMimeType(ContentService.MimeType.JSON);
@@ -206,12 +223,12 @@ function doGet(e) {
  */
 function sendNotificationEmail(info) {
   const recipients = CONFIG.NOTIFICATION_EMAILS.join(',');
-  if (!recipients || recipients.indexOf('example.com') !== -1) {
-    Logger.log('Skipping email send: Please set valid NOTIFICATION_EMAILS in CONFIG.');
+  if (!recipients) {
+    Logger.log('Skipping email send: No recipients configured.');
     return;
   }
 
-  const subjectStatus = info.isAccepted ? '✅ ATTENDING' : '❌ DECLINED';
+  const subjectStatus = info.isAccepted ? '✅ ATTENDING (شرکت می‌کند)' : '❌ DECLINED (عدم حضور)';
   const subject = `${subjectStatus}: ${info.name} — Wedding RSVP (${CONFIG.COUPLE_NAMES})`;
 
   const statusBg = info.isAccepted ? '#2E7D32' : '#C62828';
@@ -221,42 +238,36 @@ function sendNotificationEmail(info) {
 
   const htmlBody = `
     <!DOCTYPE html>
-    <html>
+    <html dir="ltr">
       <head>
         <meta charset="utf-8">
         <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #FAF8F2; margin: 0; padding: 20px; color: #3E2723; }
-          .container { max-width: 600px; margin: 0 auto; background: #FFFFFF; border-radius: 24px; overflow: hidden; border: 1px solid #ECE0C6; box-shadow: 0 10px 30px rgba(62,39,35,0.06); }
-          .header { background: linear-gradient(135deg, #3E2723, #2C3E2D); padding: 32px 24px; text-align: center; color: #FAF8F2; }
-          .header h1 { margin: 0 0 8px 0; font-size: 24px; font-weight: 600; color: #D4AF37; }
-          .header p { margin: 0; font-size: 14px; opacity: 0.9; }
-          .badge-container { text-align: center; margin: -20px 0 20px 0; }
-          .status-badge { display: inline-block; background: ${statusBg}; color: #FFFFFF; font-weight: bold; font-size: 14px; padding: 8px 24px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-          .content { padding: 24px 32px; }
-          .info-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
-          .info-table td { padding: 12px 8px; border-bottom: 1px solid #F5EFE1; font-size: 15px; }
-          .info-label { font-weight: 600; color: #6D5B53; width: 35%; }
-          .info-value { color: #3E2723; font-weight: 500; }
-          .message-box { background: #FAF8F2; border-left: 4px solid #D4AF37; padding: 16px 20px; border-radius: 8px; margin-top: 16px; font-style: italic; color: #533833; font-size: 14px; line-height: 1.6; }
-          .stats-grid { display: flex; background: #F8F4E9; border-radius: 16px; padding: 16px; margin-top: 24px; text-align: center; justify-content: space-around; }
-          .stat-item { flex: 1; }
-          .stat-number { font-size: 22px; font-weight: bold; color: #3E2723; }
-          .stat-label { font-size: 11px; text-transform: uppercase; color: #6D5B53; margin-top: 4px; letter-spacing: 0.5px; }
-          .footer { background: #FAF8F2; text-align: center; padding: 20px; font-size: 12px; color: #8C7A72; border-top: 1px solid #ECE0C6; }
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #FAF8F2; margin: 0; padding: 20px; color: #3E2723; }
+          .container { max-width: 600px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; border: 1px solid #ECE0C6; overflow: hidden; box-shadow: 0 10px 30px rgba(62,39,35,0.08); }
+          .header { background: linear-gradient(135deg, #3E2723 0%, #2C3E2D 100%); color: #FAF8F2; padding: 32px 24px; text-align: center; }
+          .header h1 { margin: 0; font-size: 24px; font-weight: normal; letter-spacing: 1px; color: #F5E3B3; }
+          .header p { margin: 8px 0 0; font-size: 13px; opacity: 0.85; }
+          .content { padding: 28px 24px; }
+          .badge { display: inline-block; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 20px; background: ${badgeColor}; color: ${badgeTextColor}; border: 1px solid ${statusBg}; }
+          .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+          .info-table td { padding: 12px 8px; border-bottom: 1px solid #F0EAE1; font-size: 14px; }
+          .info-label { color: #8C7A72; width: 35%; font-weight: 500; }
+          .info-value { color: #3E2723; font-weight: 600; }
+          .message-box { background: #FAF8F2; border-right: 4px solid #D4AF37; border-left: 4px solid #D4AF37; padding: 14px 18px; border-radius: 8px; margin-top: 10px; font-style: italic; color: #533833; }
+          .footer { background: #FAF8F2; padding: 16px; text-align: center; font-size: 11px; color: #8C7A72; border-top: 1px solid #ECE0C6; }
         </style>
       </head>
       <body>
         <div class="container">
           <div class="header">
             <h1>💍 ${CONFIG.COUPLE_NAMES}</h1>
-            <p>Wedding Celebration RSVP Alert</p>
+            <p>New Wedding RSVP Response Received</p>
           </div>
-
-          <div class="badge-container">
-            <span class="status-badge">${statusText}</span>
-          </div>
-
           <div class="content">
+            <div style="text-align: center;">
+              <span class="badge">${statusText}</span>
+            </div>
+
             <table class="info-table">
               <tr>
                 <td class="info-label">Guest Name:</td>
@@ -264,7 +275,7 @@ function sendNotificationEmail(info) {
               </tr>
               <tr>
                 <td class="info-label">Phone:</td>
-                <td class="info-value"><a href="tel:${info.phone}" style="color: #2E7D32; text-decoration: none;">${info.phone}</a></td>
+                <td class="info-value"><a href="tel:${info.phone}" style="color: #3E2723; text-decoration: none;">${info.phone}</a></td>
               </tr>
               <tr>
                 <td class="info-label">Email:</td>
@@ -323,11 +334,16 @@ function sendNotificationEmail(info) {
     </html>
   `;
 
-  MailApp.sendEmail({
-    to: recipients,
-    subject: subject,
-    htmlBody: htmlBody,
-  });
+  try {
+    MailApp.sendEmail({
+      to: recipients,
+      subject: subject,
+      htmlBody: htmlBody,
+    });
+  } catch (err1) {
+    Logger.log('MailApp failed, trying GmailApp: ' + err1.toString());
+    GmailApp.sendEmail(recipients, subject, '', { htmlBody: htmlBody });
+  }
 }
 
 /**
@@ -352,4 +368,3 @@ function testDoPost() {
   const result = doPost(mockEvent);
   Logger.log('Test Result: ' + result.getContent());
 }
-
