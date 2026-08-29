@@ -1,15 +1,59 @@
+/**
+ * ==========================================================================
+ * Babak & Mohadese Wedding Invitation — Production Configuration
+ * ==========================================================================
+ *
+ * Single Source of Truth for Wedding Date, Venue, Contacts, Gallery,
+ * Google Sheets RSVP Webhook, and Multi-language Strings.
+ */
+
+export interface ScheduleItem {
+  time: string;
+  timeFa: string;
+  titleEn: string;
+  titleFa: string;
+  descEn: string;
+  descFa: string;
+}
+
+export interface GalleryItem {
+  id: string;
+  src: string;
+  titleEn: string;
+  titleFa: string;
+  captionEn: string;
+  captionFa: string;
+}
+
+export interface StoryChapter {
+  year: string;
+  yearFa: string;
+  titleEn: string;
+  titleFa: string;
+  contentEn: string;
+  contentFa: string;
+}
+
+export interface ContactPerson {
+  name: string;
+  roleEn: string;
+  roleFa: string;
+  phone: string;
+  displayPhone: string;
+}
+
 export interface InvitationConfig {
   couple: {
     groomEn: string;
-    groomFa: string;
     brideEn: string;
+    groomFa: string;
     brideFa: string;
+    groomFamilyEn: string;
+    brideFamilyEn: string;
+    groomFamilyFa: string;
+    brideFamilyFa: string;
     monogramEn: string;
     monogramFa: string;
-    groomFamilyEn: string;
-    groomFamilyFa: string;
-    brideFamilyEn: string;
-    brideFamilyFa: string;
   };
   event: {
     targetIsoDate: string;
@@ -31,7 +75,6 @@ export interface InvitationConfig {
     appleMapsDirectUrl: string;
     neshanDirectUrl: string;
     baladDirectUrl: string;
-    wazeDirectUrl: string;
   };
   media: {
     heroPoster: string;
@@ -42,75 +85,49 @@ export interface InvitationConfig {
       en: string;
       fa: string;
     };
-    gallery: Array<{
-      id: string;
-      src: string;
-      titleEn: string;
-      titleFa: string;
-      captionEn: string;
-      captionFa: string;
-    }>;
+    gallery: GalleryItem[];
   };
   story: {
     quoteEn: string;
     quoteFa: string;
-    chapters: Array<{
-      year: string;
-      yearFa: string;
-      titleEn: string;
-      titleFa: string;
-      contentEn: string;
-      contentFa: string;
-      image?: string;
-    }>;
+    chapters: StoryChapter[];
   };
-  schedule: Array<{
-    time: string;
-    timeFa: string;
-    titleEn: string;
-    titleFa: string;
-    descEn: string;
-    descFa: string;
-    icon: string;
-  }>;
+  schedule: ScheduleItem[];
   rsvp: {
     deadlineEn: string;
     deadlineFa: string;
     sheetEndpoint: string;
-    dietaryOptions: string[];
+    maxGuestsPerSubmission: number;
+    dietaryOptions: { value: string; labelEn: string; labelFa: string }[];
   };
   contacts: {
-    groom: {
-      nameEn: string;
-      nameFa: string;
-      phone: string;
-      displayPhone: string;
-    };
-    bride: {
-      nameEn: string;
-      nameFa: string;
-      phone: string;
-      displayPhone: string;
-    };
+    groom: ContactPerson;
+    bride: ContactPerson;
+  };
+  giftInfo: {
+    shabaNumber: string;
+    cardNumber: string;
+    bankName: string;
+    accountHolder: string;
   };
 }
 
 export const invitationConfig: InvitationConfig = {
   couple: {
     groomEn: 'Babak',
-    groomFa: 'بابک',
     brideEn: 'Mohadese',
+    groomFa: 'بابک',
     brideFa: 'محدثه',
+    groomFamilyEn: 'Together with their families',
+    brideFamilyEn: 'Together with their families',
+    groomFamilyFa: 'با همراهی و شادمانی خانواده‌های محترم',
+    brideFamilyFa: 'با همراهی و شادمانی خانواده‌های محترم',
     monogramEn: 'B & M',
     monogramFa: 'ب & م',
-    groomFamilyEn: 'The Ebrahimi & Estaji Families',
-    groomFamilyFa: 'خانواده‌های محترم ابراهیمی و استاجی',
-    brideFamilyEn: 'The Estaji Family',
-    brideFamilyFa: 'خانواده محترم استاجی',
   },
   event: {
-    targetIsoDate: '2026-10-09T18:00:00',
-    endIsoDate: '2026-10-10T02:00:00',
+    targetIsoDate: '2026-10-09T18:00:00+03:30',
+    endIsoDate: '2026-10-09T23:59:00+03:30',
     dateEn: 'Friday, October 9, 2026',
     dateFa: 'جمعه ۱۷ مهر ۱۴۰۵',
     timeEn: 'Reception & Doors Open at 6:00 PM',
@@ -124,15 +141,12 @@ export const invitationConfig: InvitationConfig = {
   },
   navigation: {
     googleMapsEmbedUrl:
-      'https://maps.google.com/maps?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA+%D9%85%D8%AC%D9%84%D9%84+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&hl=fa&z=15&output=embed',
-    googleMapsDirectUrl: 'https://maps.app.goo.gl/VaX7pFHPccWEKgx47?g_st=atm',
+      'https://maps.google.com/maps?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA+%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1+%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&hl=fa&z=15&output=embed',
+    googleMapsDirectUrl: 'https://maps.app.goo.gl/butSyJwEj83FzB7y6',
     appleMapsDirectUrl:
-      'https://maps.apple.com/?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D9%85%D8%AC%D9%84%D9%84%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
-    neshanDirectUrl: 'https://nshn.ir/83rbvoC1VxCvuE',
-    baladDirectUrl:
-      'https://balad.ir/search?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
-    wazeDirectUrl:
-      'https://waze.com/ul?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87&navigate=yes',
+      'https://maps.apple.com/?q=%D8%B9%D9%85%D8%A7%D8%B1%D8%AA%20%D8%B1%D8%B2%D8%A7%D9%85%DB%8C%D8%B1%20%DA%AF%D8%B1%D9%85%D8%AF%D8%B1%D9%87',
+    neshanDirectUrl: 'https://nshn.ir/b8rbvoCRWxCvxG',
+    baladDirectUrl: 'https://balad.ir/p/71KInvWnRI5FQE',
   },
   media: {
     heroPoster: '/us in the north.jpg',
@@ -255,34 +269,34 @@ export const invitationConfig: InvitationConfig = {
           'تقویم یک تاریخ را ثبت کرد، اما دل‌های ما خیلی پیش‌تر از آن تصمیمشان را گرفته بودند.',
       },
       {
-        id: 'g9',
-        src: '/mohadese.jpg',
-        titleEn: 'Mohadese',
-        titleFa: 'محدثه، ستاره‌ی شب‌های من',
+        id: 'g_grad',
+        src: '/us and graduation.jpg',
+        titleEn: 'Celebration of Milestones',
+        titleFa: 'جشن همراهی و پیروزی',
         captionEn:
-          'Your eyes hold every reason I will ever need to be happy. Thank you for choosing this life with me.',
+          'Celebrating every triumph and every dream together, side by side.',
         captionFa:
-          'در چشمانت تمام دلایلی که برای شاد زیستن نیاز دارم را می‌بینم؛ ممنونم که این مسیر را با من انتخاب کردی.',
+          'شادمانی در کنار هم برای تک‌تک پیروزی‌ها و رویاهایی که با هم ساختیم.',
       },
       {
-        id: 'g10',
-        src: '/babak and mohadese.jpg',
-        titleEn: 'Our Safe Harbor',
-        titleFa: 'ساحل آرامش ما',
+        id: 'g_bday',
+        src: '/his birthday in dental clinic.jpg',
+        titleEn: 'Sweet Surprises',
+        titleFa: 'سورپرایزهای صمیمانه',
         captionEn:
-          'No storm can touch what was built on this much quiet certainty. Here is to a lifetime of safe harbors.',
+          'Turning ordinary work days into unforgettable memories filled with love and laughter.',
         captionFa:
-          'هیچ طوفانی به آنچه با این اندازه از یقین ساخته شده، آسیبی نخواهد زد؛ به امید عمری پر از آرامش.',
+          'تبدیل روزهای ساده به خاطره‌هایی شیرین و فراموش‌نشدنی سرشار از عشق و لبخند.',
       },
       {
-        id: 'g11',
-        src: '/babak and mohadese 2.jpg',
-        titleEn: 'To Forever, Hand in Hand',
-        titleFa: 'به سوی ابدیت، دست در دست',
+        id: 'g_33',
+        src: '/33 years old.jpg',
+        titleEn: 'Chapter of Youth & Love',
+        titleFa: 'فصل زیبای جوانی',
         captionEn:
-          'This is not the end of a love story — it is the very first sentence of our forever.',
+          'Growing more in love with every passing year and every shared smile.',
         captionFa:
-          'این پایان یک داستان عاشقانه نیست؛ این نخستین جمله‌ی ابدیت مشترک ماست.',
+          'با هر سالی که می‌گذرد، عمیق‌تر و زیباتر دل به عاشقی می‌سپاریم.',
       },
     ],
   },
@@ -300,109 +314,112 @@ export const invitationConfig: InvitationConfig = {
         contentEn:
           'Long before our paths crossed in life, the universe was already aligning the gentle steps of two souls destined to meet.',
         contentFa:
-          'سال‌ها پیش از آنکه راه‌هایمان یکی شود، در دنیای پاک کودکی رشد کردیم؛ غافل از آنکه سرنوشت زیباترین پیوند را برایمان در آستین دارد.',
+          'پیش از آنکه راهمان در مسیر زندگی به هم برسد، جهان در حال چیدن مقدمات پیوند دو قلبی بود که برای هم آفریده شده بودند.',
       },
       {
         year: 'Chapter II',
         yearFa: 'فصل دوم',
-        titleEn: 'Growing Side by Side',
-        titleFa: 'همگام در مسیر رویاها',
+        titleEn: 'The Proposal & The Promise',
+        titleFa: 'پیمان و بله ابدی',
         contentEn:
-          'From northern forests to graduation halls, every step we took side by side taught us that home is not a place — it is each other.',
+          'A quiet moment in the mountains, two simple rings, and a question that changed the meaning of every tomorrow.',
         contentFa:
-          'از جنگل‌های شمال تا روزهای فارغ‌التحصیلی، هر قدمی که کنار هم برداشتیم یادآور ما شد که خانه یک مکان نیست، بلکه بودن کنار یکدیگر است.',
+          'لحظه‌ای آرام و به‌یادماندنی در آغوش کوهستان، دو حلقه درخشان، و پاسخی که معنای تمام روزهای فردایمان را دگرگون ساخت.',
       },
       {
         year: 'Chapter III',
         yearFa: 'فصل سوم',
-        titleEn: 'The Yes to Forever',
-        titleFa: 'پاسخ بله به آینده',
+        titleEn: 'To the Beginning of Always',
+        titleFa: 'در آستانه آغازی ماندگار',
         contentEn:
-          'On bended knee, with a trembling hand and a steady heart, we said the only word that mattered — yes, to forever, to each other.',
+          'Surrounded by the warmth of family and dearest friends, we step together into a lifetime of endless laughter and devotion.',
         contentFa:
-          'روزی که زانو زد، با دستی لرزان و قلبی استوار، تنها کلمه‌ای را گفت که اهمیت داشت: «آری»؛ آری به ابدیت، آری به یکدیگر.',
+          'اکنون در کنار گرمای وجود خانواده‌های پرمهر و دوستان عزیزمان، قدم به آغاز زیباترین فصل زندگی مشترکمان می‌گذاریم.',
       },
     ],
   },
   schedule: [
     {
-      time: '6:00 PM',
-      timeFa: '۱۸:۰۰',
-      titleEn: 'Doors Open & Guest Reception',
+      time: '18:00',
+      timeFa: '۱۸:۰۰ (۶ عصر)',
+      titleEn: 'Guest Welcome & Reception',
       titleFa: 'باز شدن درب‌ها و پذیرش مهمانان',
-      descEn:
-        'Welcome to Rosamir Palace. Guests are invited to arrive, find their seats, and enjoy welcome refreshments.',
-      descFa:
-        'خوش‌آمدگویی به عمارت مجلل رزامیر. ورود و استقرار مهمانان ارجمند همراه با پذیرایی آغازین.',
-      icon: 'cocktail',
+      descEn: 'Arrival of beloved guests, ambient live music, welcome beverages, and hors d’oeuvres.',
+      descFa: 'خوش‌آمدگویی به مهمانان گرامی، پذیرایی با نوشیدنی و عصرانه به همراه نوای دلنشین موسیقی.',
     },
     {
-      time: '7:30 PM',
+      time: '19:30',
       timeFa: '۱۹:۳۰',
-      titleEn: 'Persian Aryan Marriage Ceremony',
-      titleFa: 'مراسم عقد آریایی',
-      descEn: 'The auspicious moment of sealing our vows in front of family and friends.',
-      descFa: 'قرائت سوگندنامه و پیمان مهر عقد آریایی در محضر خانواده‌های گرانقدر.',
-      icon: 'ring',
+      titleEn: 'Ancient Aryan Ceremony & Vows',
+      titleFa: 'مراسم باشکوه عقد آریایی',
+      descEn: 'Traditional solemn vows, poetic blessing readings, and exchange of forever promises.',
+      descFa: 'قرائت سوگندنامه‌ی کهن آریایی، پیمان وفاداری و آرزوی خیر و برکت.',
     },
     {
-      time: '8:00 PM',
+      time: '20:00',
       timeFa: '۲۰:۰۰',
-      titleEn: 'Dance & Celebration Begins',
-      titleFa: 'شروع رقص و پایکوبی',
-      descEn: 'Commencing the joy and celebratory dance with our dearest guests.',
-      descFa: 'آغاز بزم و شادی و رقص مهمانان عزیز در تالار اصلی.',
-      icon: 'music',
+      titleEn: 'Celebration & Dance Commences',
+      titleFa: 'شروع جشن، رقص و پایکوبی',
+      descEn: 'Opening dance of the bride and groom, followed by joyful festivities with all guests.',
+      descFa: 'ورود پرشور عروس و داماد به پیست رقص و آغاز بزم شادمانی در کنار عزیزان.',
     },
     {
-      time: '9:00 PM',
+      time: '21:00',
       timeFa: '۲۱:۰۰',
-      titleEn: 'Cake Cutting Ceremony',
-      titleFa: 'مراسم برش کیک',
-      descEn: 'Sweetening the night with celebration cake and toast to new beginnings.',
-      descFa: 'مراسم برش کیک شادباش پیوند بابک و محدثه.',
-      icon: 'cake',
+      titleEn: 'Wedding Cake Cutting Ceremony',
+      titleFa: 'مراسم برش کیک عروسی',
+      descEn: 'Celebration of sweetness and joy with sparkling fountains and sweet toasts.',
+      descFa: 'برش کیک پیوند با آتش‌بازی و شادباش مهمانان گرامی.',
     },
     {
-      time: '9:45 PM',
+      time: '21:45',
       timeFa: '۲۱:۴۵',
-      titleEn: 'Celebration & Dance Continues',
-      titleFa: 'ادامه رقص و پایکوبی',
-      descEn: 'Continuing the energetic dance, laughter, and lifelong memories.',
-      descFa: 'ادامه‌ی جشن پرشور و رقص خاطره‌انگیز.',
-      icon: 'sparkles',
+      titleEn: 'Joyful Dance & Music Continues',
+      titleFa: 'ادامه بزم و شادمانی',
+      descEn: 'Uninterrupted music, group dances, and unforgettable party moments.',
+      descFa: 'ادامه رقص، موسیقی پرانرژی و ثبت لحظه‌های شاد و خاطره‌انگیز.',
     },
     {
-      time: '11:00 PM',
-      timeFa: '۲۳:۰۰',
-      titleEn: 'Grand Wedding Dinner',
-      titleFa: 'ضیافت باشکوه شام',
-      descEn: 'A sumptuous feast prepared with love to celebrate our joyful night.',
-      descFa: 'پذیرایی شام و ضیافت ویژه از مهمانان عالی‌قدر.',
-      icon: 'dinner',
+      time: '23:00',
+      timeFa: '۲۳:۰۰ (۱۱ شب)',
+      titleEn: 'Grand Dinner Banquet',
+      titleFa: 'ضیافت مجلل شام',
+      descEn: 'A sumptuous multi-course Persian dinner prepared specially for our honored guests.',
+      descFa: 'پذیرایی با منوی فاخر ایرانی در تالار پذیرایی عمارت رزامیر.',
     },
   ],
   rsvp: {
-    deadlineEn: 'September 25, 2026',
-    deadlineFa: '۳ مهر ۱۴۰۵',
+    deadlineEn: 'September 20, 2026',
+    deadlineFa: '۳۰ شهریور ۱۴۰۵',
     sheetEndpoint:
-      typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_SHEET_URL
-        ? import.meta.env.VITE_GOOGLE_SHEET_URL
-        : 'https://script.google.com/macros/s/AKfycbydMVxXh8J5GYI2tj7whQ6VFlABbTwU3J3AG8nY-jfIlJDhstbsWCYiLqzbxDP1fcKq2A/exec',
-    dietaryOptions: [],
+      'https://script.google.com/macros/s/AKfycbydMVxXh8J5GYI2tj7whQ6VFlABbTwU3J3AG8nY-jfIlJDhstbsWCYiLqzbxDP1fcKq2A/exec',
+    maxGuestsPerSubmission: 8,
+    dietaryOptions: [
+      { value: 'standard', labelEn: 'Standard Persian Royal Menu', labelFa: 'منوی تشریفاتی مجلل' },
+      { value: 'vegetarian', labelEn: 'Vegetarian / Herbivore', labelFa: 'منوی گیاه‌خواری' },
+      { value: 'halal_special', labelEn: 'Chef Special Selection', labelFa: 'انتخاب ویژه سرآشپز' },
+    ],
   },
   contacts: {
     groom: {
-      nameEn: 'Babak',
-      nameFa: 'بابک',
+      name: 'Babak',
+      roleEn: 'Groom',
+      roleFa: 'داماد: بابک',
       phone: '+989120000001',
       displayPhone: '۰۹۱۲۰۰۰۰۰۰۱',
     },
     bride: {
-      nameEn: 'Mohadese',
-      nameFa: 'محدثه',
+      name: 'Mohadese',
+      roleEn: 'Bride',
+      roleFa: 'عروس: محدثه',
       phone: '+989126334751',
       displayPhone: '۰۹۱۲۶۳۳۴۷۵۱',
     },
+  },
+  giftInfo: {
+    shabaNumber: 'IR000000000000000000000000',
+    cardNumber: '۶۰۳۷-۹۹۷۰-۰۰۰۰-۰۰۰۰',
+    bankName: 'بانک ملی ایران',
+    accountHolder: 'بابک و محدثه',
   },
 };

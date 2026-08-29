@@ -8,7 +8,6 @@ import type { Language } from './context/LanguageContext';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
 import CountdownTimer from './components/CountdownTimer';
-import OurStory from './sections/OurStory';
 import TheWedding from './sections/TheWedding';
 import LocationSection from './components/LocationSection';
 import Gallery from './sections/Gallery';
@@ -52,14 +51,14 @@ function MainContent() {
     <div className="min-h-[100dvh] relative selection:bg-sage-400 selection:text-ivory bg-ivory overflow-x-hidden">
       {/* Charming Natural Wedding Botanical Wallpaper & Ambient Lighting */}
       <div 
-        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-top bg-no-repeat opacity-40 mix-blend-multiply transition-opacity duration-1000"
+        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-top bg-no-repeat opacity-45 mix-blend-multiply transition-opacity duration-1000"
         style={{ backgroundImage: `url('${asset('/botanical_wedding_wallpaper.jpg')}')` }}
       />
       <div 
-        className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_20%_20%,rgba(138,158,137,0.12)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.08)_0%,transparent_50%)]"
+        className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_20%_20%,rgba(138,158,137,0.15)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.1)_0%,transparent_50%)]"
       />
       <div 
-        className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-transparent via-ivory/30 to-ivory/60"
+        className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-transparent via-ivory/25 to-ivory/60"
       />
 
       {/* Three.js Ethereal Stardust & Petal Background */}
@@ -68,11 +67,10 @@ function MainContent() {
       {/* Floating Glass Capsule Navigation */}
       <Navigation />
 
-      {/* Main Experience Flow - Gallery moved to the end as requested */}
+      {/* Main Experience Flow */}
       <main className="relative z-10">
         <Hero />
         <CountdownTimer />
-        <OurStory />
         <TheWedding />
         <LocationSection />
         <WishesWall />

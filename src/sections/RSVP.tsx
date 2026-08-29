@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import confetti from 'canvas-confetti';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
+import { InterlockingRings } from '../components/InterlockingRings';
 
 export default function RSVP() {
   const { isPersian, formatNumber, t, language } = useLanguage();
@@ -135,8 +136,8 @@ export default function RSVP() {
             {/* Wax Seal Header */}
             <div className="flex justify-center mb-5 sm:mb-8">
               <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-rose-deep via-rose-gold to-gold p-[2px] shadow-gold-glow flex items-center justify-center">
-                <div className={`w-full h-full rounded-full bg-mahogany flex items-center justify-center text-gold ${isPersian ? 'font-nastaliq text-base sm:text-xl pt-0.5' : 'font-serif text-sm sm:text-lg font-bold'} border border-gold/40`}>
-                  {isPersian ? 'ب&م' : 'B&M'}
+                <div className="w-full h-full rounded-full bg-mahogany flex items-center justify-center p-2.5 border border-gold/40">
+                  <InterlockingRings className="w-full h-full" glow={true} />
                 </div>
               </div>
             </div>

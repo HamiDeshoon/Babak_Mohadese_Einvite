@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
 import { asset } from '../lib/assets';
+import { InterlockingRings } from '../components/InterlockingRings';
 
 export default function Hero() {
   const { isPersian, t } = useLanguage();
@@ -105,16 +106,9 @@ export default function Hero() {
       <div className="max-w-4xl mx-auto flex flex-col items-center relative z-10 w-full">
         {/* Charming Natural Wedding Luxury Crest Monogram */}
         <div ref={crestRef} className="mb-4 sm:mb-6 relative group">
-          <div className="w-18 h-18 sm:w-24 sm:h-24 rounded-full p-[2px] bg-gradient-to-tr from-gold via-sage-400 to-rose-gold shadow-gold-glow flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-ivory/95 via-white/90 to-ivory/95 backdrop-blur-md flex flex-col items-center justify-center border border-white/80 shadow-xl relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10 pointer-events-none">
-                <img src={asset('/charming/Image-1.png')} alt="" className="w-full h-full object-cover" />
-              </div>
-              <span className="text-[10px] sm:text-xs text-gold">✦</span>
-              <span className={`${isPersian ? 'font-nastaliq text-xl sm:text-2xl pt-1' : 'font-fairytale text-lg sm:text-xl'} text-mahogany font-medium tracking-widest relative z-10`}>
-                {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
-              </span>
-              <span className="text-[9px] sm:text-[10px] text-sage-500">✦</span>
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-[2px] bg-gradient-to-tr from-gold via-sage-400 to-rose-gold shadow-gold-glow flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-ivory/95 via-white/90 to-ivory/95 backdrop-blur-md flex items-center justify-center border border-white/80 shadow-xl relative overflow-hidden p-2">
+              <InterlockingRings className="w-full h-full" glow={true} />
             </div>
           </div>
         </div>

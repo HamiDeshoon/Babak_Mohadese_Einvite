@@ -39,7 +39,7 @@ export default function LocationSection() {
             <span className="block text-[11px] sm:text-xs uppercase tracking-widest font-serif text-rose-deep font-semibold mb-1">
               {isPersian ? 'نشانی دقیق محل برگزاری مراسم' : 'Exact Venue Address'}
             </span>
-            <p className={`${isPersian ? 'font-nastaliq text-lg sm:text-2xl leading-[2.2]' : 'font-serif text-sm sm:text-base'} text-mahogany font-medium my-2 px-2`}>
+            <p className={`${isPersian ? 'font-persian text-base sm:text-xl leading-loose' : 'font-serif text-sm sm:text-base'} text-mahogany font-medium my-2 px-2`}>
               {isPersian ? invitationConfig.event.venueAddressFa : invitationConfig.event.venueAddressEn}
             </p>
             <button
@@ -55,7 +55,7 @@ export default function LocationSection() {
           {/* Autumn Weather Pill */}
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-ivory/90 backdrop-blur-md border border-gold/30 shadow-sm text-[11px] sm:text-xs font-serif text-mahogany max-w-sm mx-auto">
             <span className="text-sm">🍂</span>
-            <span className={isPersian ? 'font-nastaliq text-sm pt-0.5' : 'font-sans'}>
+            <span className={isPersian ? 'font-persian text-xs sm:text-sm pt-0.5' : 'font-sans'}>
               {isPersian ? 'پیش‌بینی هوای شب مراسم: ۲۱° سانتی‌گراد، آسمان صاف و پاییزی' : 'Wedding Evening Weather: 21°C, Crisp Clear Autumn Sky'}
             </span>
           </div>
@@ -77,8 +77,8 @@ export default function LocationSection() {
           </div>
         </div>
 
-        {/* Navigation Action Buttons Grid with User's Exact Direct Links */}
-        <div className="grid grid-cols-2 xs:grid-cols-3 sm:flex sm:flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-3xl mx-auto px-2">
+        {/* Navigation Action Buttons Grid without Waze */}
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-2xl mx-auto px-2">
           {/* Google Maps Direct */}
           <a
             href={invitationConfig.navigation.googleMapsDirectUrl}
@@ -109,17 +109,6 @@ export default function LocationSection() {
             className="group flex items-center justify-center gap-1.5 px-4 sm:px-5 py-3 rounded-full bg-ivory/95 hover:bg-champagne text-mahogany border border-rose-gold/30 hover:border-gold shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 text-xs font-serif tracking-wider"
           >
             <span>🧭 {t('open_balad')}</span>
-            <span className="text-gold transition-transform duration-300 group-hover:translate-x-0.5">↗</span>
-          </a>
-
-          {/* Waze Direct */}
-          <a
-            href={invitationConfig.navigation.wazeDirectUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-1.5 px-4 sm:px-5 py-3 rounded-full bg-ivory/95 hover:bg-champagne text-mahogany border border-rose-gold/30 hover:border-gold shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 text-xs font-serif tracking-wider"
-          >
-            <span>🛣️ {t('open_waze')}</span>
             <span className="text-gold transition-transform duration-300 group-hover:translate-x-0.5">↗</span>
           </a>
 

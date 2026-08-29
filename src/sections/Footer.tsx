@@ -1,5 +1,6 @@
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
+import { InterlockingRings } from '../components/InterlockingRings';
 
 export default function Footer() {
   const { isPersian, t } = useLanguage();
@@ -11,10 +12,10 @@ export default function Footer() {
   return (
     <footer className="relative py-14 sm:py-20 px-4 sm:px-6 z-10 bg-ivory border-t border-rose-gold/20 text-center">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
-        {/* Monogram Badge */}
+        {/* Interlocking Rings Badge */}
         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full p-[1.5px] bg-gradient-to-tr from-rose-gold to-gold mb-4 sm:mb-6 shadow-sm flex items-center justify-center">
-          <div className="w-full h-full rounded-full bg-ivory flex items-center justify-center font-serif text-xs sm:text-sm font-bold text-mahogany">
-            {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
+          <div className="w-full h-full rounded-full bg-ivory flex items-center justify-center p-2">
+            <InterlockingRings className="w-full h-full" glow={true} />
           </div>
         </div>
 

@@ -2,13 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Bundled Authentic Iranian Nastaliq & Persian Wedding Webfonts */
+/* Bundled Authentic User Shekasteh V2 & Persian Webfonts */
 @font-face {
-  font-family: 'IranNastaliq';
-  src: url('./assets/fonts/IranNastaliq.woff2') format('woff2'),
-       url('./assets/fonts/IranNastaliq.woff') format('woff'),
-       url('./assets/fonts/IranNastaliq.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Shekasteh';
+  src: url('./assets/fonts/Shekasteh_V2.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Shekasteh V2';
+  src: url('./assets/fonts/Shekasteh_V2.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Shekasteh_Beta';
+  src: url('./assets/fonts/Shekasteh_V2.ttf') format('truetype');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -78,24 +92,24 @@
 }
 
 @layer components {
-  /* True Original IranNastaliq */
+  /* Authentic Shekasteh V2 Typography */
   .font-nastaliq {
-    font-family: 'IranNastaliq', 'Iran Nastaliq', 'Aref Ruqaa', 'Katibeh', serif;
+    font-family: 'Shekasteh', 'Shekasteh V2', 'Shekasteh_Beta', 'Aref Ruqaa', 'Katibeh', serif !important;
     line-height: 2.5;
   }
 
   .font-shekasteh {
-    font-family: 'IranNastaliq', 'Iran Nastaliq', 'Aref Ruqaa', 'Katibeh', serif;
+    font-family: 'Shekasteh', 'Shekasteh V2', 'Shekasteh_Beta', 'Aref Ruqaa', 'Katibeh', serif !important;
     line-height: 2.5;
   }
 
   .font-fantasy {
-    font-family: 'IranNastaliq', 'Iran Nastaliq', 'Aref Ruqaa', 'Katibeh', serif;
+    font-family: 'Shekasteh', 'Aref Ruqaa', 'Katibeh', serif;
     line-height: 2.2;
   }
 
   .font-gulzar {
-    font-family: 'Gulzar', 'IranNastaliq', 'Katibeh', serif;
+    font-family: 'Gulzar', 'Shekasteh', 'Katibeh', serif;
     line-height: 1.8;
   }
 
@@ -126,7 +140,7 @@
   }
 
   .font-persian {
-    font-family: 'Katibeh', 'Parastoo', 'Vazirmatn', sans-serif;
+    font-family: 'B Nazanin', 'BNazanin', 'Vazirmatn', 'Katibeh', sans-serif;
     line-height: 1.85;
   }
 

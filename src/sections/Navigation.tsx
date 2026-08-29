@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
 import AudioPlayer from '../components/AudioPlayer';
+import { InterlockingRings } from '../components/InterlockingRings';
 
 export default function Navigation() {
   const { isPersian, t, language } = useLanguage();
@@ -56,7 +57,7 @@ export default function Navigation() {
               : 'bg-ivory/70 backdrop-blur-md border-white/50 shadow-sm'
           }`}
         >
-          {/* Couple Monogram / Logo */}
+          {/* Couple Monogram / Rings Logo */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -65,9 +66,9 @@ export default function Navigation() {
             }}
             className="flex items-center gap-1.5 sm:gap-2 group min-w-0"
           >
-            <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-rose-gold to-gold flex items-center justify-center text-ivory text-xs font-serif shadow-sm shrink-0 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-105">
-              ✦
-            </span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-champagne-100/90 border border-gold/40 flex items-center justify-center shadow-sm shrink-0 transition-transform duration-300 group-hover:scale-110 p-1">
+              <InterlockingRings className="w-full h-full" glow={false} />
+            </div>
             <span className={`${isPersian ? 'font-nastaliq text-base sm:text-xl pt-1' : 'font-serif text-sm sm:text-lg'} font-medium tracking-tight text-mahogany truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none`}>
               {isPersian ? `${invitationConfig.couple.brideFa} و ${invitationConfig.couple.groomFa}` : `${invitationConfig.couple.groomEn} & ${invitationConfig.couple.brideEn}`}
             </span>
@@ -166,9 +167,8 @@ export default function Navigation() {
             onClick={(e) => e.stopPropagation()}
             className="flex flex-col items-center gap-5 text-center w-full max-w-xs"
           >
-            <span className="text-3xl text-gold mb-1">💍</span>
-            <div className="font-nastaliq text-3xl text-mahogany mb-1">
-              {isPersian ? invitationConfig.couple.monogramFa : invitationConfig.couple.monogramEn}
+            <div className="w-16 h-16 rounded-full bg-champagne-100 p-2 border border-gold/40 shadow-gold-glow flex items-center justify-center mb-1">
+              <InterlockingRings className="w-full h-full" glow={true} />
             </div>
 
             {/* Mobile Language Switcher */}
