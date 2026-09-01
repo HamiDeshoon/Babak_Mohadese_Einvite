@@ -168,10 +168,10 @@ export default function Hero() {
           )}
         </div>
 
-        {/* Subtitle - Fully decoupled with clear top margin */}
+        {/* Subtitle - Poetic Invitation Text */}
         <p
           ref={subtitleRef}
-          className={`${isPersian ? 'font-katibeh text-base sm:text-xl leading-loose' : 'font-sans text-xs sm:text-base leading-relaxed'} mt-3 sm:mt-6 text-warm-gray font-light max-w-lg mx-auto px-4`}
+          className={`${isPersian ? 'font-nastaliq text-base sm:text-xl md:text-2xl leading-[2.2] sm:leading-[2.4] text-mahogany/90' : 'font-sans text-xs sm:text-base leading-relaxed text-warm-gray'} mt-4 sm:mt-6 font-light max-w-xl mx-auto px-4 whitespace-pre-line`}
         >
           {t('hero_request')}
         </p>

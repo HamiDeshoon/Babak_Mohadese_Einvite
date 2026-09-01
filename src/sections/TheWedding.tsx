@@ -3,14 +3,12 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
-import GiftRegistryModal from '../components/GiftRegistryModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function TheWedding() {
   const { isPersian, t } = useLanguage();
   const [showSchedule, setShowSchedule] = useState(true);
-  const [isGiftModalOpen, setIsGiftModalOpen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -92,10 +90,10 @@ export default function TheWedding() {
               {t('wedding_title')}
             </h2>
 
-            <p className={`${isPersian ? 'font-persian text-sm sm:text-base leading-loose' : 'font-sans text-xs sm:text-base leading-relaxed'} text-warm-gray font-light max-w-lg mx-auto px-2`}>
+            <p className={`${isPersian ? 'font-persian text-base sm:text-lg leading-loose' : 'font-sans text-xs sm:text-base leading-relaxed'} text-warm-gray font-light max-w-lg mx-auto px-2`}>
               {isPersian
-                ? 'با کمال مسرت و شادمانی، چشم‌انتظار قدوم پرمهر شما عزیزان در این شب رویایی هستیم.'
-                : 'With boundless joy, we look forward to celebrating this unforgettable night together with you.'}
+                ? 'حضورتان یادگار است و خاطره ای ماندگار'
+                : 'Your presence is our cherished blessing and an eternal memory.'}
             </p>
           </div>
 
@@ -125,7 +123,7 @@ export default function TheWedding() {
           </div>
 
           {/* Interactive Event Timeline */}
-          <div className="rounded-2xl sm:rounded-[2.5rem] p-1 sm:p-2 bg-gradient-to-b from-sage-200/40 via-champagne-200/40 to-white/60 shadow-luxury max-w-3xl mx-auto border border-gold/25 mb-10 sm:mb-16">
+          <div className="rounded-2xl sm:rounded-[2.5rem] p-1 sm:p-2 bg-gradient-to-b from-sage-200/40 via-champagne-200/40 to-white/60 shadow-luxury max-w-3xl mx-auto border border-gold/25">
             <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(2.5rem-8px)] p-5 sm:p-10 bg-ivory/95 backdrop-blur-2xl border border-white/80">
               <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-rose-gold/20 mb-6 sm:mb-8">
                 <h3 className={`${isPersian ? 'font-nastaliq text-2xl sm:text-3xl pt-1' : 'font-fairytale text-lg sm:text-2xl'} text-mahogany font-normal`}>
@@ -164,23 +162,8 @@ export default function TheWedding() {
               )}
             </div>
           </div>
-
-          {/* Quick Action Hub (Gift Registry) */}
-          <div className="flex flex-wrap items-center justify-center gap-4 px-2">
-            <button
-              onClick={() => setIsGiftModalOpen(true)}
-              className="w-full xs:w-auto px-6 py-3.5 rounded-full bg-gradient-to-r from-gold via-champagne-300 to-rose-gold text-mahogany font-serif text-xs uppercase tracking-widest shadow-luxury hover:shadow-gold-glow hover:scale-105 active:scale-95 transition-all duration-300 border border-white/60 flex items-center justify-center gap-2"
-            >
-              <span>🎁</span>
-              <span>{isPersian ? 'شماره حساب و یادبود عروس و داماد' : 'Gift Registry & Shaba Info'}</span>
-              <span>✦</span>
-            </button>
-          </div>
         </div>
       </section>
-
-      {/* Gift Registry Modal */}
-      <GiftRegistryModal isOpen={isGiftModalOpen} onClose={() => setIsGiftModalOpen(false)} />
     </>
   );
 }

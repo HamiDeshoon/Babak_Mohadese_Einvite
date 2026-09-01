@@ -24,7 +24,10 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
 
   // Hero
   hero_eyebrow: { en: 'Together with their families', fa: 'با همراهی و شادمانی خانواده‌های محترم' },
-  hero_request: { en: 'request the honour of your presence at their wedding celebration', fa: 'با کمال افتخار و شادمانی شما را به جشن پیوند آسمانی‌مان دعوت می‌نماییم' },
+  hero_request: {
+    en: 'On a night when love joins hands with destiny, we gather in joy to celebrate the birth of a new chapter. Your presence will be the most cherished gift of this evening.',
+    fa: 'در شبی که مهر، دست در دست سرنوشت می‌گذارد\nما به شادی گرد هم می‌آییم تا تولد فصلی نو را جشن بگیریم.\nحضور شما زیباترین هدیه این شب خواهد بود.',
+  },
   hero_scroll: { en: 'Scroll to explore', fa: 'ورود به جشن' },
   hero_save_date: { en: 'Save the Date', fa: 'یادآوری در تقویم' },
 

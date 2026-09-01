@@ -278,26 +278,6 @@ export const invitationConfig: InvitationConfig = {
         captionFa:
           'شادمانی در کنار هم برای تک‌تک پیروزی‌ها و رویاهایی که با هم ساختیم.',
       },
-      {
-        id: 'g_bday',
-        src: '/his birthday in dental clinic.jpg',
-        titleEn: 'Sweet Surprises',
-        titleFa: 'سورپرایزهای صمیمانه',
-        captionEn:
-          'Turning ordinary work days into unforgettable memories filled with love and laughter.',
-        captionFa:
-          'تبدیل روزهای ساده به خاطره‌هایی شیرین و فراموش‌نشدنی سرشار از عشق و لبخند.',
-      },
-      {
-        id: 'g_33',
-        src: '/33 years old.jpg',
-        titleEn: 'Chapter of Youth & Love',
-        titleFa: 'فصل زیبای جوانی',
-        captionEn:
-          'Growing more in love with every passing year and every shared smile.',
-        captionFa:
-          'با هر سالی که می‌گذرد، عمیق‌تر و زیباتر دل به عاشقی می‌سپاریم.',
-      },
     ],
   },
   story: {
@@ -405,8 +385,8 @@ export const invitationConfig: InvitationConfig = {
       name: 'Babak',
       roleEn: 'Groom',
       roleFa: 'داماد: بابک',
-      phone: '+989120000001',
-      displayPhone: '۰۹۱۲۰۰۰۰۰۰۱',
+      phone: '+989128434565',
+      displayPhone: '۰۹۱۲۸۴۳۴۵۶۵',
     },
     bride: {
       name: 'Mohadese',
