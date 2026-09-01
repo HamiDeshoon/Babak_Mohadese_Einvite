@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { invitationConfig } from '../config/invitation.config';
 import { asset } from '../lib/assets';
-import { InterlockingRings } from '../components/InterlockingRings';
 
 export default function Gallery() {
   const { isPersian } = useLanguage();
@@ -50,51 +49,14 @@ export default function Gallery() {
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-transparent to-sage-400" />
             <span className="text-xs uppercase tracking-[0.25em] font-serif text-rose-deep">
-              ❦ {isPersian ? 'روایت یک پیوند عاشقانه و گالری خاطرات' : 'Our Love Story & Visual Journey'} ❦
+              ❦ {isPersian ? 'گالری قاب‌های ماندگار' : 'Photo Gallery & Memories'} ❦
             </span>
             <span className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-sage-400" />
           </div>
 
           <h2 className={`${isPersian ? 'font-nastaliq text-4xl sm:text-6xl md:text-7xl py-2' : 'font-fairytale text-2xl sm:text-4xl md:text-5xl'} font-normal text-mahogany mb-3 sm:mb-4 text-gold-shimmer`}>
-            {isPersian ? 'داستان پیوند و قاب‌های ماندگار ما' : 'Moments & Love Story Memories'}
+            {isPersian ? 'آلبوم خاطرات شیرین ما' : 'Our Cherished Moments'}
           </h2>
-
-          {/* Romantic Fairytale Quote Card */}
-          <blockquote className="max-w-2xl mx-auto p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-ivory/95 border border-gold/35 backdrop-blur-md text-center shadow-luxury relative overflow-hidden my-4 sm:my-6">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-sage-200/40 to-transparent rounded-bl-full pointer-events-none" />
-            <div className="flex justify-center mb-3">
-              <InterlockingRings className="w-8 h-8" glow={true} />
-            </div>
-            <p className={`${isPersian ? 'font-nastaliq text-lg sm:text-2xl leading-[2.4] sm:leading-[2.6] text-mahogany' : 'font-garamond italic text-base sm:text-xl text-warm-gray leading-relaxed'}`}>
-              {isPersian ? invitationConfig.story.quoteFa : invitationConfig.story.quoteEn}
-            </p>
-          </blockquote>
-        </div>
-
-        {/* Story Milestones Chapters (Combined Narrative Flow) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
-          {invitationConfig.story.chapters.map((chapter) => (
-            <div
-              key={chapter.year}
-              className="rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-b from-sage-100/50 via-white/80 to-champagne-100/40 border border-gold/25 shadow-luxury transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(1.5rem-4px)] p-5 sm:p-6 bg-ivory/95 backdrop-blur-md h-full flex flex-col justify-between text-center">
-                <div>
-                  <div className="text-[11px] uppercase tracking-widest font-serif text-rose-deep mb-1 flex items-center justify-center gap-1.5">
-                    <span className="text-gold">✦</span>
-                    <span>{isPersian ? chapter.yearFa : chapter.year}</span>
-                    <span className="text-gold">✦</span>
-                  </div>
-                  <h3 className={`${isPersian ? 'font-nastaliq text-xl sm:text-2xl pt-1 pb-1' : 'font-fairytale text-lg'} text-mahogany font-medium`}>
-                    {isPersian ? chapter.titleFa : chapter.titleEn}
-                  </h3>
-                </div>
-                <p className={`${isPersian ? 'font-persian text-xs sm:text-sm leading-relaxed' : 'font-sans text-xs leading-relaxed'} text-warm-gray font-light mt-2`}>
-                  {isPersian ? chapter.contentFa : chapter.contentEn}
-                </p>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Scattered Messy Polaroids Deck (پولارویدهای روی هم و نامرتب) */}
