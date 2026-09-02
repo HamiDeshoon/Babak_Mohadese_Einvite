@@ -96,6 +96,10 @@ const UI_TRANSLATIONS: Record<string, { en: string; fa: string }> = {
   wishes_author: { en: 'Your Name', fa: 'نام شما' },
   wishes_placeholder: { en: 'Write your warmest blessing or funny memory...', fa: 'متن تبریک، آرزوی زیبا یا خاطره‌ای شیرین بنویسید...' },
   wishes_post: { en: 'Send Blessing ✦', fa: 'ثبت شادباش ✦' },
+  wishes_syncing: { en: 'Syncing wishes...', fa: 'در حال دریافت یادداشت‌ها...' },
+  wishes_refresh: { en: 'Refresh Wishes', fa: 'بروزرسانی پیام‌ها' },
+  wishes_success: { en: 'Your wish has been posted and is now visible to everyone! ✨', fa: 'پیام پرمهر شما با موفقیت ثبت شد و برای همه مهمانان نمایش داده می‌شود ✨' },
+  wishes_empty: { en: 'Be the first to leave a warm blessing for Babak & Mohadese! ✨', fa: 'اولین نفری باشید که برای بابک و محدثه تبریک و آرزوی زیبا می‌نویسد ✨' },
 
   // Footer
   footer_gratitude: { en: 'With boundless love, joy and eternal gratitude', fa: 'با تمام وجود و صمیمانه‌ترین سپاس‌ها' },

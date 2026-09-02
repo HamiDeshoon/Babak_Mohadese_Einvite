@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { RotateCw, Send, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { invitationConfig } from '../config/invitation.config';
 
 interface Wish {
   id: string;
@@ -15,14 +17,20 @@ export default function WishesWall() {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [author, setAuthor] = useState('');
   const [message, setMessage] = useState('');
+  const [isPosting, setIsPosting] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [, setNow] = useState(Date.now());
 
-  // Load from local storage on mount
+  // 1. Initial load from localStorage cache so UI renders instantly
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        setWishes(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setWishes(parsed);
+        }
       }
     } catch {
       // Ignore parse error
@@ -36,17 +44,65 @@ export default function WishesWall() {
     return () => clearInterval(interval);
   }, []);
 
-  const handlePostWish = (e: React.FormEvent) => {
+  // 2. Fetch live wishes from backend Google Sheets Web App
+  const fetchLiveWishes = useCallback(async (isManualRefresh = false) => {
+    const endpoint = invitationConfig.rsvp.sheetEndpoint;
+    if (!endpoint) return;
+
+    if (isManualRefresh) setIsSyncing(true);
+
+    try {
+      const res = await fetch(`${endpoint}?action=get_wishes`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.status === 'success' && Array.isArray(data.wishes)) {
+          setWishes((prevLocal) => {
+            // Merge server wishes with recent local submissions (last 5 minutes)
+            const serverMap = new Map<string, Wish>();
+            data.wishes.forEach((w: Wish) => serverMap.set(w.id, w));
+
+            const cutoff = Date.now() - 5 * 60 * 1000;
+            const recentLocal = prevLocal.filter(
+              (w) => w.createdAt > cutoff && !serverMap.has(w.id)
+            );
+
+            const merged = [...recentLocal, ...data.wishes];
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+            } catch {
+              // Ignore storage error
+            }
+            return merged;
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('Could not sync wishes from server, using cached wishes:', err);
+    } finally {
+      if (isManualRefresh) {
+        setTimeout(() => setIsSyncing(false), 500);
+      }
+    }
+  }, []);
+
+  // Fetch from server on component mount
+  useEffect(() => {
+    fetchLiveWishes(false);
+  }, [fetchLiveWishes]);
+
+  // 3. Post a new wish to Google Sheets
+  const handlePostWish = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!author.trim() || !message.trim()) return;
+    if (!author.trim() || !message.trim() || isPosting) return;
 
     const newWish: Wish = {
-      id: `${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       name: author.trim(),
       message: message.trim(),
       createdAt: Date.now(),
     };
 
+    // Optimistically update UI immediately
     const updated = [newWish, ...wishes];
     setWishes(updated);
     try {
@@ -57,6 +113,36 @@ export default function WishesWall() {
 
     setAuthor('');
     setMessage('');
+    setIsPosting(true);
+    setShowSuccess(true);
+
+    // Send payload to Google Apps Script endpoint
+    try {
+      const endpoint = invitationConfig.rsvp.sheetEndpoint;
+      if (endpoint) {
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'add_wish',
+            id: newWish.id,
+            name: newWish.name,
+            message: newWish.message,
+            createdAt: newWish.createdAt,
+            website: '', // Honeypot
+          }),
+        });
+      }
+    } catch (err) {
+      console.error('Error posting wish to server:', err);
+    } finally {
+      setIsPosting(false);
+      // Auto-hide success notification after 6 seconds
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 6000);
+    }
   };
 
   const getRelativeTime = (timestamp: number) => {
@@ -135,18 +221,65 @@ export default function WishesWall() {
               />
             </div>
 
-            <div className="flex justify-end">
+            {/* Success Notification */}
+            {showSuccess && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs sm:text-sm animate-fade-in">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                <span>{t('wishes_success')}</span>
+              </div>
+            )}
+
+            <div className="flex items-center justify-between pt-1">
+              {/* Refresh / Live Sync Button */}
+              <button
+                type="button"
+                onClick={() => fetchLiveWishes(true)}
+                disabled={isSyncing}
+                title={t('wishes_refresh')}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-warm-stone hover:text-mahogany hover:bg-champagne-100/50 border border-transparent hover:border-gold/20 transition-all"
+              >
+                <RotateCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-gold' : ''}`} />
+                <span className="hidden xs:inline">
+                  {isSyncing ? t('wishes_syncing') : t('wishes_refresh')}
+                </span>
+              </button>
+
+              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full xs:w-auto px-7 py-3 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest hover:shadow-gold-glow text-ivory font-serif text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 border border-gold/30"
+                disabled={isPosting}
+                className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-forest via-sage-500 to-forest hover:shadow-gold-glow text-ivory font-serif text-xs uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 border border-gold/30 disabled:opacity-60 disabled:pointer-events-none"
               >
-                {t('wishes_post')}
+                <span>{isPosting ? '...' : t('wishes_post')}</span>
+                <Send className="w-3.5 h-3.5" />
               </button>
             </div>
           </form>
         </div>
 
-        {/* Wishes Display / Feed */}
+        {/* Wishes Display / Feed Header */}
+        <div className="flex items-center justify-between mb-4 sm:mb-6 px-1">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-warm-stone font-serif">
+            <span>💌</span>
+            <span>
+              {isPersian
+                ? `${formatNumber(wishes.length)} یادداشت و تبریک ثبت‌شده`
+                : `${wishes.length} Warm Wishes Shared`}
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => fetchLiveWishes(true)}
+            disabled={isSyncing}
+            className="inline-flex items-center gap-1.5 text-xs text-rose-deep hover:text-mahogany transition-colors"
+          >
+            <RotateCw className={`w-3 h-3 ${isSyncing ? 'animate-spin' : ''}`} />
+            <span>{isSyncing ? t('wishes_syncing') : t('wishes_refresh')}</span>
+          </button>
+        </div>
+
+        {/* Wishes Grid */}
         {wishes.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {wishes.map((item) => (
@@ -155,7 +288,7 @@ export default function WishesWall() {
                 className="rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-b from-champagne-200/30 via-white/60 to-champagne-100/30 border border-rose-gold/20 shadow-luxury transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="rounded-[calc(1rem-2px)] sm:rounded-[calc(1.5rem-4px)] p-4 sm:p-6 bg-ivory/90 h-full flex flex-col justify-between">
-                  <p className={`${isPersian ? 'font-persian text-sm sm:text-base leading-loose' : 'font-serif italic text-xs sm:text-sm leading-relaxed'} text-warm-gray mb-4`}>
+                  <p className={`${isPersian ? 'font-persian text-sm sm:text-base leading-loose' : 'font-serif italic text-xs sm:text-sm leading-relaxed'} text-warm-gray mb-4 break-words`}>
                     “{item.message}”
                   </p>
 
@@ -176,9 +309,7 @@ export default function WishesWall() {
           <div className="max-w-md mx-auto p-6 sm:p-8 rounded-3xl bg-ivory/80 border border-gold/20 text-center shadow-sm">
             <span className="text-3xl sm:text-4xl block mb-2">💌</span>
             <p className={`${isPersian ? 'font-persian text-base' : 'font-serif text-sm'} text-warm-gray`}>
-              {isPersian
-                ? 'اولین نفری باشید که برای بابک و محدثه تبریک و آرزوی زیبا می‌نویسد ✨'
-                : 'Be the first to leave a warm blessing for Babak & Mohadese! ✨'}
+              {t('wishes_empty')}
             </p>
           </div>
         )}

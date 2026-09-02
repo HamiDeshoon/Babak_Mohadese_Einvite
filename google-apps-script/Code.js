@@ -20,6 +20,7 @@ const CONFIG = {
   // Target Google Sheet ID
   SPREADSHEET_ID: '1e5EDayKjb8vTPIgaaTa1lB-r1NNP575UZAZWk6qhlmM',
   SHEET_NAME: 'RSVP Responses',
+  WISHES_SHEET_NAME: 'Guest Wishes',
   COUPLE_NAMES: 'Babak & Mohadese (بابک و محدثه)',
   WEDDING_DATE: 'Friday, October 9, 2026 (جمعه ۱۷ مهر ۱۴۰۵)',
   VENUE: 'Rosamir Reception Hall (تالار رزامیر)',
@@ -78,6 +79,63 @@ function doPost(e) {
     const ss = getSpreadsheet();
     if (!ss) {
       throw new Error('Spreadsheet could not be accessed. Please check permissions and SPREADSHEET_ID.');
+    }
+
+    // ------------------------------------------------------------------------
+    // Handle Guest Wish / Note submission from WishesWall
+    // ------------------------------------------------------------------------
+    if (data.action === 'add_wish' || data.type === 'wish') {
+      const wishesSheetName = CONFIG.WISHES_SHEET_NAME || 'Guest Wishes';
+      let wishesSheet = ss.getSheetByName(wishesSheetName);
+
+      if (!wishesSheet) {
+        wishesSheet = ss.insertSheet(wishesSheetName);
+        const headers = [
+          'Wish ID',
+          'Date & Time',
+          'Guest Name',
+          'Message / Blessing',
+          'Timestamp (ms)'
+        ];
+        wishesSheet.appendRow(headers);
+
+        const headerRange = wishesSheet.getRange(1, 1, 1, headers.length);
+        headerRange.setBackground('#3E2723');
+        headerRange.setFontColor('#FAF8F2');
+        headerRange.setFontWeight('bold');
+        headerRange.setHorizontalAlignment('center');
+        wishesSheet.setFrozenRows(1);
+      }
+
+      const timestamp = new Date();
+      const formattedDate = Utilities.formatDate(
+        timestamp,
+        Session.getScriptTimeZone() || 'GMT+3:30',
+        'yyyy-MM-dd HH:mm:ss'
+      );
+
+      const id = String(data.id || `${Date.now()}-${Math.random().toString(36).substr(2, 5)}`);
+      const name = String(data.name || 'Anonymous Guest').trim();
+      const message = String(data.message || '').trim();
+      const createdAt = Number(data.createdAt) || Date.now();
+
+      if (name && message) {
+        wishesSheet.appendRow([
+          id,
+          formattedDate,
+          name,
+          message,
+          createdAt
+        ]);
+      }
+
+      return ContentService.createTextOutput(
+        JSON.stringify({
+          status: 'success',
+          action: 'add_wish',
+          wish: { id, name, message, createdAt }
+        })
+      ).setMimeType(ContentService.MimeType.JSON);
     }
 
     let sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
@@ -204,18 +262,85 @@ function doPost(e) {
 }
 
 /**
- * Handle GET requests (Health Check & verification)
+ * Handle GET requests (Health Check & Fetch Wishes)
  */
 function doGet(e) {
-  return ContentService.createTextOutput(
-    JSON.stringify({
-      status: 'active',
-      service: 'Babak & Mohadese Wedding RSVP Service',
-      version: '3.0',
-      spreadsheetId: CONFIG.SPREADSHEET_ID,
-      time: new Date().toISOString(),
-    })
-  ).setMimeType(ContentService.MimeType.JSON);
+  try {
+    const params = (e && e.parameter) || {};
+    const action = params.action || '';
+
+    // Return all guest wishes for WishesWall
+    if (action === 'get_wishes') {
+      const ss = getSpreadsheet();
+      if (!ss) {
+        throw new Error('Spreadsheet could not be accessed.');
+      }
+
+      const wishesSheetName = CONFIG.WISHES_SHEET_NAME || 'Guest Wishes';
+      const wishesSheet = ss.getSheetByName(wishesSheetName);
+
+      if (!wishesSheet) {
+        return ContentService.createTextOutput(
+          JSON.stringify({ status: 'success', count: 0, wishes: [] })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      const lastRow = wishesSheet.getLastRow();
+      if (lastRow <= 1) {
+        return ContentService.createTextOutput(
+          JSON.stringify({ status: 'success', count: 0, wishes: [] })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      // Read columns: 1: ID, 2: Date, 3: Guest Name, 4: Message, 5: Timestamp (ms)
+      const data = wishesSheet.getRange(2, 1, lastRow - 1, 5).getValues();
+      const wishes = [];
+
+      for (let i = data.length - 1; i >= 0; i--) {
+        const row = data[i];
+        const id = String(row[0] || '');
+        const name = String(row[2] || '').trim();
+        const message = String(row[3] || '').trim();
+        let createdAt = Number(row[4]);
+        if (!createdAt || isNaN(createdAt)) {
+          const parsed = new Date(row[1]).getTime();
+          createdAt = !isNaN(parsed) ? parsed : Date.now();
+        }
+
+        if (name && message) {
+          wishes.push({
+            id: id || `wish-${i}-${createdAt}`,
+            name,
+            message,
+            createdAt,
+          });
+        }
+      }
+
+      return ContentService.createTextOutput(
+        JSON.stringify({
+          status: 'success',
+          count: wishes.length,
+          wishes,
+        })
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Default health check
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: 'active',
+        service: 'Babak & Mohadese Wedding RSVP & Wishes Service',
+        version: '3.2',
+        spreadsheetId: CONFIG.SPREADSHEET_ID,
+        time: new Date().toISOString(),
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: 'error', message: err.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 /**
@@ -367,4 +492,27 @@ function testDoPost() {
   };
   const result = doPost(mockEvent);
   Logger.log('Test Result: ' + result.getContent());
+}
+
+/**
+ * Test posting a wish and retrieving all wishes
+ */
+function testWishes() {
+  const mockWishEvent = {
+    postData: {
+      contents: JSON.stringify({
+        action: 'add_wish',
+        id: 'test-wish-' + Date.now(),
+        name: 'مهمان تستی',
+        message: 'با آرزوی خوشبختی و سلامتی برای بابک و محدثه عزیز 🌸',
+        createdAt: Date.now(),
+        website: '',
+      }),
+    },
+  };
+  const postRes = doPost(mockWishEvent);
+  Logger.log('Test Add Wish: ' + postRes.getContent());
+
+  const getRes = doGet({ parameter: { action: 'get_wishes' } });
+  Logger.log('Test Get Wishes: ' + getRes.getContent());
 }
