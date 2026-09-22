@@ -278,6 +278,16 @@ export const invitationConfig: InvitationConfig = {
         captionFa:
           'شادمانی در کنار هم برای تک‌تک پیروزی‌ها و رویاهایی که با هم ساختیم.',
       },
+      {
+        id: 'dental-clinic-birthday',
+        src: '/his birthday in dental clinic.jpg',
+        titleEn: 'Birthday at the Clinic',
+        titleFa: 'جشن تولد در کلینیک',
+        captionEn:
+          'A sweet birthday celebration together, sharing smiles and joy amidst our daily work.',
+        captionFa:
+          'ثبت لحظه‌ای شیرین و خاطره‌انگیز از جشن تولد در کنار یکدیگر در محیط کلینیک.',
+      },
     ],
   },
   story: {
@@ -369,8 +379,8 @@ export const invitationConfig: InvitationConfig = {
     },
   ],
   rsvp: {
-    deadlineEn: 'September 20, 2026',
-    deadlineFa: '۳۰ شهریور ۱۴۰۵',
+    deadlineEn: 'October 2, 2026',
+    deadlineFa: '۱۰ مهر ۱۴۰۵',
     sheetEndpoint:
       'https://script.google.com/macros/s/AKfycbydMVxXh8J5GYI2tj7whQ6VFlABbTwU3J3AG8nY-jfIlJDhstbsWCYiLqzbxDP1fcKq2A/exec',
     maxGuestsPerSubmission: 8,
