@@ -379,8 +379,8 @@ export const invitationConfig: InvitationConfig = {
     },
   ],
   rsvp: {
-    deadlineEn: 'October 2, 2026',
-    deadlineFa: '۱۰ مهر ۱۴۰۵',
+    deadlineEn: 'September 25, 2026',
+    deadlineFa: '۳ مهر ۱۴۰۵',
     sheetEndpoint:
       'https://script.google.com/macros/s/AKfycbydMVxXh8J5GYI2tj7whQ6VFlABbTwU3J3AG8nY-jfIlJDhstbsWCYiLqzbxDP1fcKq2A/exec',
     maxGuestsPerSubmission: 8,
